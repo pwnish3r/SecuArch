@@ -33,28 +33,30 @@ echo "Formatting the partitions..."
 
 # Format the 512M EFI partition
 lsblk
+echo "Please enter the EFI partition: "
 read partition1
-mkfs.fat -F 32 ${partition1}
+mkfs.fat -F 32 /dev/${partition1}
 
 # Format the main partition
+echo "Please enter the main partition: "
 read partition2
-mkfs.btrfs ${partition2}
+mkfs.btrfs /dev/${partition2}
 
 # 5. Mount the partitions
 echo "Mounting the partitions..."
-mount ${partition2} /mnt
+mount /dev/${partition2} /mnt
 btrfs subvolume create /mnt/@
 btrfs subvolume create /mnt/@home
 umount /mnt
-mount -o compress=zstd,subvol=@ ${partition2} /mnt
+mount -o compress=zstd,subvol=@ /dev/${partition2} /mnt
 mkdir -p /mnt/home
-mount -o compress=zstd,subvol=@home ${partition2} /mnt/home
+mount -o compress=zstd,subvol=@home /dev/${partition2} /mnt/home
 mkdir -p /mnt/efi
-mount ${partition1} /mnt/efi
+mount /dev/${partition1} /mnt/efi
 
 # 6. Install the base system and essential packages
 echo "Installing the base system..."
-pacstrap -K /mnt base base-devel linux linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift vim networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh zsh-completions zsh-autosuggestions openssh man sudo
+pacstrap -K /mnt base base-devel linux-lts linux-lts-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift intel-ucode nano networkmanager networkmanager-iwd pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo
 
 # 7. Generate the fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
