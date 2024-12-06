@@ -15,12 +15,14 @@ echo "Partitioning $disk..."
 fdisk $disk <<EOF
 g
 n
+1
+
 
 +512M
 t
-
 1
 n
+2
 
 
 p
