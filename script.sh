@@ -10,27 +10,28 @@ fdisk -l
 echo "Enter the disk you want to partition (e.g., /dev/sda):"
 read disk
 
+echo "Pressing enter will format the disk and erase all data. Press enter to continue or CTRL+C to exit"
+read answer
+dd if=/dev/zero of=$disk bs=4096 status=progress
+
 # 3. Partition the selected disk using fdisk (automated)
 echo "Partitioning $disk..."
 fdisk $disk <<EOF
 g
-
 n
-
 
 
 +1G
-
 t
-
 
 1
 n
-2
+
 
 
 p
 w
+
 EOF
 
 
@@ -60,6 +61,12 @@ mount -o compress=zstd,subvol=@home /dev/${partition2} /mnt/home
 mkdir -p /mnt/efi
 mount /dev/${partition1} /mnt/efi
 
+echo "Part 1 done"
+read answer
+
+
+
+: '
 # 6. Install the base system and essential packages
 echo "Installing the base system..."
 pacstrap -K /mnt base base-devel linux-lts linux-lts-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift intel-ucode nano networkmanager networkmanager-iwd pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo
@@ -109,5 +116,4 @@ EOF
 # 9. Unmount the partitions and reboot
 echo "Unmounting the system and rebooting..."
 umount -R /mnt
-reboot
-
+'
