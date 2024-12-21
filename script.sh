@@ -77,7 +77,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 cat /mnt/etc/fstab
 
 # 8. Chroot into the new system
-arch-chroot /mnt <<EOF
+arch-chroot /mnt
 ln -sf /usr/share/zoneinfo/Europe/Bucharest /etc/localtime
 hwclock --systohc
 vim /etc/locale.gen  # Pause so user can modify locale.gen
@@ -96,7 +96,8 @@ sed -i '/# %wheel ALL=(ALL) ALL/s/^# //' /etc/sudoers
 grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB  
 grub-mkconfig -o /boot/grub/grub.cfg
 systemctl enable NetworkManager
-EOF
+
 # 9. Unmount the partitions and reboot
 echo "Unmounting the system and rebooting..."
 umount -R /mnt
+read answer
