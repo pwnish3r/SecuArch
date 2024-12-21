@@ -12,7 +12,7 @@ read disk
 
 echo "Pressing enter will format the disk and erase all data. Press enter to continue or CTRL+C to exit"
 read answer
-dd if=/dev/zero of=$disk bs=4096 status=progress
+dd if=/dev/urandom of=$disk bs=1M status=progress
 
 # 3. Partition the selected disk using fdisk (automated)
 echo "Partitioning $disk..."
