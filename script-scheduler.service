@@ -1,0 +1,12 @@
+# /etc/systemd/system/script-scheduler.service
+[Unit]
+Description=Run scheduled scripts on boot
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=$HOME/auxiliary_scripts/scriptScheduler.sh
+
+[Install]
+WantedBy=multi-user.target
+

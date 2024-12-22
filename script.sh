@@ -4,49 +4,67 @@
 loadkeys en
 timedatectl set-ntp true
 
+
+set -e
+trap 'echo "An error occurred on line $LINENO. Exiting..."; exit 1' ERR
+trap 'echo "An error occurred. Cleaning up..."; umount -R /mnt || true; exit 1' ERR
 # 2. List available disks and prompt for selection
 echo "Listing available disks:"
 fdisk -l
-echo "Enter the disk you want to partition (e.g., /dev/sda):"
-read disk
 
-echo "Pressing enter will format the disk and erase all data. Press enter to continue or CTRL+C to exit"
-read answer
+while true; do
+    echo "Enter the disk you want to partition (e.g., /dev/sda):"
+    read disk
+    if lsblk | grep -q "^$(basename $disk)"; then
+        break
+    else
+        echo "Invalid disk. Please enter a valid disk (e.g., /dev/sda)."
+    fi
+done
+
+echo "You are about to overwrite $disk. All data will be lost."
+echo "Do you want to continue? Type YES to proceed:"
+read confirm
+if [ "$confirm" != "YES" ]; then
+    echo "Aborting the operation."
+    exit 1
+fi
+
 dd if=/dev/urandom of=$disk bs=1M status=progress
 
 # 3. Partition the selected disk using fdisk (automated)
 echo "Partitioning $disk..."
-fdisk $disk <<EOF
-g
-n
-
-
-+1G
-t
-
-1
-n
-
-
-
-p
-w
-
-EOF
+sgdisk -o $disk
+sgdisk -n 1:0:+1G -t 1:ef00 $disk  # EFI partition
+sgdisk -n 2:0:0 -t 2:8300 $disk   # Root partition
 
 
 # 4. Format the partitions
 echo "Formatting the partitions..."
 
-# Format the 512M EFI partition
+# Format the 1G EFI partition
 lsblk
-echo "Please enter the EFI partition: "
-read partition1
+while true; do
+    echo "Please enter the EFI partition (e.g., sda1):"
+    read partition1
+    if lsblk | grep -q "^${partition1}"; then
+        break
+    else
+        echo "Invalid partition. Please enter a valid partition (e.g., sda1)."
+    fi
+done
 mkfs.fat -F 32 /dev/${partition1}
 
 # Format the main partition
-echo "Please enter the main partition: "
-read partition2
+while true; do
+    echo "Please enter the ROOT partition (e.g., sda2):"
+    read partition2
+    if lsblk | grep -q "^${partition2}"; then
+        break
+    else
+        echo "Invalid partition. Please enter a valid partition (e.g., sda2)."
+    fi
+done
 mkfs.btrfs /dev/${partition2}
 
 # 5. Mount the partitions
@@ -61,43 +79,17 @@ mount -o compress=zstd,subvol=@home /dev/${partition2} /mnt/home
 mkdir -p /mnt/efi
 mount /dev/${partition1} /mnt/efi
 
-echo "Part 1 done"
-read answer
-
 # 6. Install the base system and essential packages
 echo "Installing the base system..."
-pacstrap -K /mnt base base-devel linux-lts linux-lts-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift intel-ucode nano networkmanager networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo
-
-echo "Done"
-read answer
-
+pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift intel-ucode nano networkmanager networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo dosfstools ntfs-3g wget curl tmux vim zram metasploit nmap wireshark-cli wireshark-qt aircrack-ng john hydra burpsuite tcpdump openbsd-netcat responder open-vm-tools ufw autopsy sleuthkit apparmor audit logwatch ossec docker sliver exploitdb hashcat seclists aws-cli azure-cli google-cloud-sdk
 
 # 7. Generate the fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
 cat /mnt/etc/fstab
 
 # 8. Chroot into the new system
-arch-chroot /mnt
-ln -sf /usr/share/zoneinfo/Europe/Bucharest /etc/localtime
-hwclock --systohc
-vim /etc/locale.gen  # Pause so user can modify locale.gen
-locale-gen
-echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
-echo "KEYMAP=en" >> /etc/vconsole.conf
-echo "ArchLinux" >> /etc/hostname
-echo "127.0.0.1 localhost\n::1 localhost\n127.0.1.1 Arch" >> /etc/hosts
-passwd
-echo "Enter a username for the new user:"
-read username
-useradd -mG wheel $username
-passwd $username
-echo "Uncommenting the wheel group in sudoers..."
-sed -i '/# %wheel ALL=(ALL) ALL/s/^# //' /etc/sudoers
-grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB  
-grub-mkconfig -o /boot/grub/grub.cfg
-systemctl enable NetworkManager
+cp chroot_script.sh /mnt/root/
+cp after_install_1.sh /mnt/root/
+cp after_install_2.sh /mnt/root/
+arch-chroot /mnt /bin/bash /root/chroot-setup.sh
 
-# 9. Unmount the partitions and reboot
-echo "Unmounting the system and rebooting..."
-umount -R /mnt
-read answer
