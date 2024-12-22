@@ -1,3 +1,3 @@
-# auto-arch-btrfs
+# SecuArch : Arch Linux for Penetration Testing and Blue Team Operations
 ### State: Unfinished
-Automated Arch Linux install using BTRFS filesystem
+Automated install of Arch Linux with BTRFS filesystem, snapshots with timeshift, and a focus on CyberSecurity
