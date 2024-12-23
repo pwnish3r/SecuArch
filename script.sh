@@ -30,7 +30,7 @@ if [ "$confirm" != "YES" ]; then
     exit 1
 fi
 
-dd if=/dev/urandom of=$disk bs=1M status=progress
+dd if=/dev/urandom of=$disk bs=1M status=progress || true
 
 # 3. Partition the selected disk using fdisk (automated)
 echo "Partitioning $disk..."
