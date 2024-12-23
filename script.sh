@@ -1,8 +1,8 @@
 #!/bin/bash
-if [-n "${PROGRESS}"]; then
-	progress=$PROGRESS
-else
+if [-z "${PROGRESS}"]; then
 	export PROGRESS=0
+else
+	progress=$PROGRESS
 fi
 
 
@@ -13,7 +13,7 @@ timedatectl set-ntp true
 set -e
 trap 'echo "An error occurred on line $LINENO. Exiting..."; exit 1' ERR
 trap 'echo "An error occurred. Cleaning up..."; umount -R /mnt || true; exit 1' ERR
-if ["$progress"=0]; then
+if [ $progress -eq 0 ]; then
 	# 2. List available disks and prompt for selection
 	echo "Listing available disks:"
 	fdisk -l
@@ -102,4 +102,5 @@ if ["$progress"=2]; then
 	# 8. Chroot into the new system
 	cp chroot_script.sh /mnt/root/
 	arch-chroot /mnt /bin/bash /root/chroot-setup.sh
+	progress = 3
 fi
