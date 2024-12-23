@@ -81,7 +81,7 @@ mount /dev/${partition1} /mnt/efi
 
 # 6. Install the base system and essential packages
 echo "Installing the base system..."
-pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift intel-ucode nano networkmanager networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo dosfstools ntfs-3g wget curl tmux vim zram metasploit nmap wireshark-cli wireshark-qt aircrack-ng john hydra burpsuite tcpdump openbsd-netcat responder open-vm-tools ufw autopsy sleuthkit apparmor audit logwatch ossec docker sliver exploitdb hashcat seclists aws-cli azure-cli google-cloud-sdk
+pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift intel-ucode nano networkmanager networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo
 
 # 7. Generate the fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
