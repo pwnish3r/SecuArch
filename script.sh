@@ -47,7 +47,7 @@ lsblk
 while true; do
     echo "Please enter the EFI partition (e.g., sda1):"
     read partition1
-    if lsblk | grep -q "^${partition1}"; then
+    if lsblk | grep -q "^/dev/${partition1}"; then
         break
     else
         echo "Invalid partition. Please enter a valid partition (e.g., sda1)."
@@ -59,7 +59,7 @@ mkfs.fat -F 32 /dev/${partition1}
 while true; do
     echo "Please enter the ROOT partition (e.g., sda2):"
     read partition2
-    if lsblk | grep -q "^${partition2}"; then
+    if lsblk | grep -q "^/dev/${partition2}"; then
         break
     else
         echo "Invalid partition. Please enter a valid partition (e.g., sda2)."
