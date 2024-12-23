@@ -89,6 +89,4 @@ cat /mnt/etc/fstab
 
 # 8. Chroot into the new system
 cp chroot_script.sh /mnt/root/
-cp after_install_1.sh /mnt/root/
-cp after_install_2.sh /mnt/root/
 arch-chroot /mnt /bin/bash /root/chroot-setup.sh
