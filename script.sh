@@ -88,11 +88,11 @@ mount /dev/${partition2} /mnt
 btrfs subvolume create /mnt/@ || true
 btrfs subvolume create /mnt/@home || true
 umount /mnt || true
-mount -o compress=zstd,subvol=@ /dev/${partition2} /mnt
+mount -o compress=zstd,subvol=@ /dev/${partition2} /mnt || true
 mkdir -p /mnt/home || true
-mount -o compress=zstd,subvol=@home /dev/${partition2} /mnt/home
+mount -o compress=zstd,subvol=@home /dev/${partition2} /mnt/home || true
 mkdir -p /mnt/efi || true
-mount /dev/${partition1} /mnt/efi
+mount /dev/${partition1} /mnt/efi || true
 
 if (( progress == 1 )); then
 	# 6. Install the base system and essential packages
