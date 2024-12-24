@@ -24,10 +24,17 @@ sed -i '/# %wheel ALL=(ALL) ALL/s/^# //' /etc/sudoers
 grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 systemctl enable NetworkManager
+su $username
+cd $HOME
+mkdir auxiliary_scripts
+cd auxiliary_scripts
+git clone https:/github.com/pwnish3r/SecuArch.git
+chmod +x SecuArch/postInstall/after_install_*.sh
+sudo systemctl enable SecuArch/script-scheduler.service
 echo "Base System install complete. Do you want to reboot now? (yes/no)"
 read reboot_now
 if [ "$reboot_now" == "yes" ]; then
-    umount -R /mnt
+    umount -R /mnt || true
     reboot
 else
     echo "You can reboot later with the 'reboot' command."

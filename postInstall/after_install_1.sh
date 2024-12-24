@@ -1,13 +1,7 @@
 #!/bin/bash
 set -e
 trap 'echo "An error occurred on line $LINENO. Exiting..."; exit 1' ERR
-cd $HOME
-mkdir auxiliary_scripts
-cd auxiliary_scripts
-git clone https:/github.com/pwnish3r/SecuArch.git
-chmod +x SecuArch/postInstall/after_install_*.sh
-sudo systemctl enable SecuArch/script-scheduler.service
-sudo cp -r grubTheme/CyberEXS /boot/grub/themes
+sudo cp -r $HOME/SecuArch/grubTheme/CyberEXS /boot/grub/themes
 sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt|' /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 curl -O https://blackarch.org/strap.sh
