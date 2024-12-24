@@ -20,21 +20,27 @@ read username
 useradd -mG wheel $username || true
 echo "Enter a password for $username:"
 passwd $username
-sed -i '/# %wheel ALL=(ALL) ALL/s/^# //' /etc/sudoers
+sed -i '/^# %wheel ALL=(ALL) ALL/s/^# //' /etc/sudoers
 grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 systemctl enable NetworkManager
-cd /home/$username
-mkdir auxiliary_scripts
+su - "$username" <<EOF
+cd ~
+mkdir -p auxiliary_scripts
 cd auxiliary_scripts
 git clone https://github.com/pwnish3r/SecuArch.git
 chmod +x SecuArch/postInstall/after_install_*.sh
 sudo systemctl enable SecuArch/script-scheduler.service
+EOF
+
 echo "Base System install complete. Do you want to reboot now? (yes/no)"
 read reboot_now
 if [ "$reboot_now" == "yes" ]; then
     umount -R /mnt || true
+    <<EOF
+    exit
     reboot
+    EOF
 else
     echo "You can reboot later with the 'reboot' command."
 fi
