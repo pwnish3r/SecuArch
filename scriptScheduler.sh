@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Directory where scripts are stored
-SCRIPT_DIR="$HOME/auxiliary_scripts/postInstall"
+SCRIPT_DIR="$HOME/auxiliary_scripts/SecuArch/postInstall"
 
 # File that tracks the current script to execute
 CURRENT_SCRIPT_FILE="$SCRIPT_DIR/current_script"
@@ -9,7 +9,7 @@ CURRENT_SCRIPT_FILE="$SCRIPT_DIR/current_script"
 # Initialize the tracking file if it doesn't exist
 if [ ! -f "$CURRENT_SCRIPT_FILE" ]; then
     echo "No current script to run. Initializing with the first script..."
-    NEXT_SCRIPT=$(ls "$SCRIPT_DIR" | grep -E '^after_install_[0-9]+\\.sh$' | sort | head -n 1)
+    NEXT_SCRIPT=$(ls "$SCRIPT_DIR" | grep -E '^after_install_[0-9]+\.sh$' | sort | head -n 1)
     if [ -z "$NEXT_SCRIPT" ]; then
         echo "No scripts found to run. Exiting..."
         exit 0
@@ -32,7 +32,7 @@ else
 fi
 
 # Determine the next script to run
-NEXT_SCRIPT=$(ls "$SCRIPT_DIR" | grep -E '^after_install_[0-9]+\\.sh$' | sort | head -n 1)
+NEXT_SCRIPT=$(ls "$SCRIPT_DIR" | grep -E '^after_install_[0-9]+\.sh$' | sort | head -n 1)
 
 if [ -z "$NEXT_SCRIPT" ]; then
     echo "No more scripts to run. Cleaning up..."

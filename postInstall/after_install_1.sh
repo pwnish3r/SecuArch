@@ -1,9 +1,10 @@
 #!/bin/bash
 set -e
 trap 'echo "An error occurred on line $LINENO. Exiting..."; exit 1' ERR
-sudo cp -r $HOME/SecuArch/grubTheme/CyberEXS /boot/grub/themes
+sudo cp -r $HOME/auxiliary_scripts/SecuArch/grubTheme/CyberEXS /boot/grub/themes
 sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt|' /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
+cd $HOME/auxiliary_scripts
 curl -O https://blackarch.org/strap.sh
 chmod +x strap.sh
 sudo ./strap.sh

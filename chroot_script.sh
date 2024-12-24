@@ -33,6 +33,7 @@ cd auxiliary_scripts
 git clone https://github.com/pwnish3r/SecuArch.git
 echo "Making post install scripts executable..."
 chmod +x SecuArch/postInstall/after_install_*.sh
+chmod +x SecuArch/*.sh
 echo "Activating post install scripts autorun..."
 sudo systemctl enable SecuArch/script-scheduler.service
 EOF
