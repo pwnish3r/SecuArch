@@ -24,8 +24,7 @@ sed -i '/# %wheel ALL=(ALL) ALL/s/^# //' /etc/sudoers
 grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 systemctl enable NetworkManager
-su $username
-cd $HOME
+cd /home/$username
 mkdir auxiliary_scripts
 cd auxiliary_scripts
 git clone https:/github.com/pwnish3r/SecuArch.git
