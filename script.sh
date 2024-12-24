@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ -z "${PROGRESS}"]; then
+if [ -z "${PROGRESS}" ]; then
 	export PROGRESS=0
 else
 	progress=$PROGRESS
