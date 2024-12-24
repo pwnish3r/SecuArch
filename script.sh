@@ -1,5 +1,5 @@
 #!/bin/bash
-if [-z "${PROGRESS}"]; then
+if [ -z "${PROGRESS}"]; then
 	export PROGRESS=0
 else
 	progress=$PROGRESS
@@ -13,7 +13,7 @@ timedatectl set-ntp true
 set -e
 trap 'echo "An error occurred on line $LINENO. Exiting..."; exit 1' ERR
 trap 'echo "An error occurred. Cleaning up..."; umount -R /mnt || true; exit 1' ERR
-if [ $progress -eq 0 ]; then
+if [ $progress -eq $0 ]; then
 	# 2. List available disks and prompt for selection
 	echo "Listing available disks:"
 	fdisk -l
@@ -87,7 +87,7 @@ mount -o compress=zstd,subvol=@home /dev/${partition2} /mnt/home
 mkdir -p /mnt/efi
 mount /dev/${partition1} /mnt/efi
 
-if ["$progress"=1]; then
+if [ $progress  -eq $1 ]; then
 	# 6. Install the base system and essential packages
 	echo "Installing the base system..."
 	pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift intel-ucode nano networkmanager networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo
@@ -98,7 +98,7 @@ if ["$progress"=1]; then
 	progress = 2
 fi
 
-if ["$progress"=2]; then
+if [ $progress -eq $2 ]; then
 	# 8. Chroot into the new system
 	cp chroot_script.sh /mnt/root/
 	arch-chroot /mnt /bin/bash /root/chroot-setup.sh
