@@ -35,7 +35,10 @@ echo "Making post install scripts executable..."
 chmod +x SecuArch/postInstall/after_install_*.sh
 chmod +x SecuArch/*.sh
 echo "Activating post install scripts autorun..."
-sudo systemctl enable SecuArch/script-scheduler.service
+sudo mv SecuArch/script-scheduler.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable script-scheduler.service
+sudo systemctl start script-scheduler.service
 EOF
 
 echo "Base System install complete. Do you want to reboot now? (yes/no)"
