@@ -17,7 +17,7 @@ echo "Enter a password for root:"
 passwd
 echo "Enter a username for the new user:"
 read username
-useradd -mG wheel $username
+useradd -mG wheel $username || true
 echo "Enter a password for $username:"
 passwd $username
 sed -i '/# %wheel ALL=(ALL) ALL/s/^# //' /etc/sudoers
