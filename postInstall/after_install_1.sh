@@ -32,7 +32,6 @@ Current=sddm-astronaut-theme" | sudo tee /etc/sddm.conf
 echo "Install script 1/2 complete. Do you want to reboot now? (yes/no)"
 read reboot_now
 if [ "$reboot_now" == "yes" ]; then
-    umount -R /mnt
     reboot
 else
     echo "You can reboot later with the 'reboot' command."

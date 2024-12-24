@@ -29,7 +29,6 @@ else if ["$choice" == "bspwm" ]; then
 	echo "Install script 2/2 complete. Do you want to reboot now? (yes/no)"
 	read reboot_now
 	if [ "$reboot_now" == "yes" ]; then
-    		umount -R /mnt
     		reboot
 	else
     		echo "You can reboot later with the 'reboot' command."

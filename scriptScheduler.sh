@@ -4,12 +4,17 @@
 SCRIPT_DIR="$HOME/auxiliary_scripts/postInstall"
 
 # File that tracks the current script to execute
-CURRENT_SCRIPT_FILE="$SCRIPT_DIR/after_install_1.sh"
+CURRENT_SCRIPT_FILE="$SCRIPT_DIR/current_script"
 
-# Check if the tracking file exists
+# Initialize the tracking file if it doesn't exist
 if [ ! -f "$CURRENT_SCRIPT_FILE" ]; then
-    echo "No current script to run. Exiting..."
-    exit 0
+    echo "No current script to run. Initializing with the first script..."
+    NEXT_SCRIPT=$(ls "$SCRIPT_DIR" | grep -E '^after_install_[0-9]+\\.sh$' | sort | head -n 1)
+    if [ -z "$NEXT_SCRIPT" ]; then
+        echo "No scripts found to run. Exiting..."
+        exit 0
+    fi
+    echo "$NEXT_SCRIPT" > "$CURRENT_SCRIPT_FILE"
 fi
 
 # Read the current script name
@@ -32,7 +37,7 @@ NEXT_SCRIPT=$(ls "$SCRIPT_DIR" | grep -E '^after_install_[0-9]+\\.sh$' | sort | 
 if [ -z "$NEXT_SCRIPT" ]; then
     echo "No more scripts to run. Cleaning up..."
     rm -f "$CURRENT_SCRIPT_FILE"
-    systemctl disable script-scheduler.service
+    systemctl disable script-scheduler.service || true
     exit 0
 fi
 
