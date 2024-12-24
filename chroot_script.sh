@@ -39,8 +39,7 @@ echo "Base System install complete. Do you want to reboot now? (yes/no)"
 read reboot_now
 if [ "$reboot_now" == "yes" ]; then
     umount -R /mnt || true
-    <<EOF
-    exit
+    exit <<EOF
     reboot
     EOF
 else
