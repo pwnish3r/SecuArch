@@ -21,9 +21,7 @@ useradd -mG wheel $username || true
 echo "Enter a password for $username:"
 passwd $username
 
-visudo -cf /etc/sudoers.tmp
-echo "$(sed '/^# %wheel ALL=(ALL) ALL/s/^# //' /etc/sudoers)" | tee /etc/sudoers.tmp
-visudo -c -f /etc/sudoers.tmp && mv /etc/sudoers.tmp /etc/sudoers
+EDITOR=vim visudo
 
 grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
