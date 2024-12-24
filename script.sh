@@ -62,10 +62,12 @@ if (( progress == 0 )); then
 	read method
 	
 	if [ "$method" == "1" ]; then
+		wipefs --all $disk
 		blkdiscard $disk
 	fi
 	
 	if [ "$method" == "2" ]; then
+		 wipefs --all $disk
 		 sgdisk --zap-all $disk
 	fi
 	
