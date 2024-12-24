@@ -103,7 +103,7 @@ fi
 if (( progress == 2 )); then
 	# 8. Chroot into the new system
 	cp chroot_script.sh /mnt/root/
-	arch-chroot /mnt /bin/bash /root/chroot-setup.sh
+	arch-chroot /mnt /bin/bash /root/chroot_script.sh
 	(( progress+=1 ))
 	export PROGRESS=3
 fi
