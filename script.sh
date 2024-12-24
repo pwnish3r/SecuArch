@@ -5,7 +5,27 @@ else
 	progress=$PROGRESS
 fi
 
-
+fetch_partitions(){
+	lsblk
+	while true; do
+	    echo "Please enter the EFI partition (e.g., sda1):"
+	    read partition1
+	    if lsblk | grep -q "${partition1}"; then
+		break
+	    else
+		echo "Invalid partition. Please enter a valid partition (e.g., sda1)."
+	    fi
+	done
+	while true; do
+	    echo "Please enter the ROOT partition (e.g., sda2):"
+	    read partition2
+	    if lsblk | grep -q "${partition2}"; then
+		break
+	    else
+		echo "Invalid partition. Please enter a valid partition (e.g., sda2)."
+	    fi
+	done
+}
 # 1. Set keymap and time settings
 loadkeys en
 timedatectl set-ntp true
@@ -51,34 +71,18 @@ if (( progress == 0 )); then
 	echo "Formatting the partitions..."
 
 	# Format the 1G EFI partition
-	lsblk
-	while true; do
-	    echo "Please enter the EFI partition (e.g., sda1):"
-	    read partition1
-	    if lsblk | grep -q "${partition1}"; then
-		break
-	    else
-		echo "Invalid partition. Please enter a valid partition (e.g., sda1)."
-	    fi
-	done
+	fetch_partitions
 	mkfs.fat -F 32 /dev/${partition1}
-
-	# Format the main partition
-	while true; do
-	    echo "Please enter the ROOT partition (e.g., sda2):"
-	    read partition2
-	    if lsblk | grep -q "${partition2}"; then
-		break
-	    else
-		echo "Invalid partition. Please enter a valid partition (e.g., sda2)."
-	    fi
-	done
 	mkfs.btrfs /dev/${partition2}
 	(( progress+=1 ))
 	export PROGRESS=1
 fi
 
 # 5. Mount the partitions
+if [ -z "${partition1}" ]; then
+	fetch_partitions
+fi
+
 echo "Mounting the partitions..."
 mount /dev/${partition2} /mnt
 btrfs subvolume create /mnt/@
