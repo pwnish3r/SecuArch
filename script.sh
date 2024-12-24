@@ -72,7 +72,8 @@ if (( progress == 0 )); then
 	    fi
 	done
 	mkfs.btrfs /dev/${partition2}
-	progress = 1
+	(( progress+=1 ))
+	export PROGRESS=1
 fi
 
 # 5. Mount the partitions
@@ -95,12 +96,14 @@ if (( progress == 1 )); then
 	# 7. Generate the fstab file
 	genfstab -U /mnt >> /mnt/etc/fstab
 	cat /mnt/etc/fstab
-	progress = 2
+	(( progress+=1 ))
+	export PROGRESS=2
 fi
 
 if (( progress == 2 )); then
 	# 8. Chroot into the new system
 	cp chroot_script.sh /mnt/root/
 	arch-chroot /mnt /bin/bash /root/chroot-setup.sh
-	progress = 3
+	(( progress+=1 ))
+	export PROGRESS=3
 fi
