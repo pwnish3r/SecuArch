@@ -20,7 +20,11 @@ read username
 useradd -mG wheel $username || true
 echo "Enter a password for $username:"
 passwd $username
-sed -i '/^# %wheel ALL=(ALL) ALL/s/^# //' /etc/sudoers
+
+visudo -cf /etc/sudoers.tmp
+echo "$(sed '/^# %wheel ALL=(ALL) ALL/s/^# //' /etc/sudoers)" | tee /etc/sudoers.tmp
+visudo -c -f /etc/sudoers.tmp && mv /etc/sudoers.tmp /etc/sudoers
+
 grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 systemctl enable NetworkManager
