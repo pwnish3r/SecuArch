@@ -61,15 +61,15 @@ if (( progress == 0 )); then
 	echo "Choose method of disk wiping: 1.blkdiscard (For SSD's)   2.sgdisk (For HDD's)   3.dd (Very slow but secure)"
 	read method
 	
-	if[ "$method" == "1" ]; then
+	if [ "$method" == "1" ]; then
 		blkdiscard $disk
 	fi
 	
-	if[ "$method" == "2" ]; then
+	if [ "$method" == "2" ]; then
 		 sgdisk --zap-all $disk
 	fi
 	
-	if[ "$method" == "3" ]; then
+	if [ "$method" == "3" ]; then
 		dd if=/dev/urandom of=$disk bs=1M status=progress || true
 	fi
 	
