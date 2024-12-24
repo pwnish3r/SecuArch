@@ -13,6 +13,8 @@ timedatectl set-ntp true
 set -e
 trap 'echo "An error occurred on line $LINENO. Exiting..."; exit 1' ERR
 trap 'echo "An error occurred. Cleaning up..."; umount -R /mnt || true; exit 1' ERR
+chmod +x *.sh
+chmod +x postInstall/*.sh
 if (( progress == 0 )); then
 	# 2. List available disks and prompt for selection
 	echo "Listing available disks:"
