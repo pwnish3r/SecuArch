@@ -85,13 +85,13 @@ fi
 
 echo "Mounting the partitions..."
 mount /dev/${partition2} /mnt
-btrfs subvolume create /mnt/@
-btrfs subvolume create /mnt/@home
-umount /mnt
+btrfs subvolume create /mnt/@ || true
+btrfs subvolume create /mnt/@home || true
+umount /mnt || true
 mount -o compress=zstd,subvol=@ /dev/${partition2} /mnt
-mkdir -p /mnt/home
+mkdir -p /mnt/home || true
 mount -o compress=zstd,subvol=@home /dev/${partition2} /mnt/home
-mkdir -p /mnt/efi
+mkdir -p /mnt/efi || true
 mount /dev/${partition1} /mnt/efi
 
 if (( progress == 1 )); then
