@@ -27,7 +27,7 @@ systemctl enable NetworkManager
 cd /home/$username
 mkdir auxiliary_scripts
 cd auxiliary_scripts
-git clone https:/github.com/pwnish3r/SecuArch.git
+git clone https://github.com/pwnish3r/SecuArch.git
 chmod +x SecuArch/postInstall/after_install_*.sh
 sudo systemctl enable SecuArch/script-scheduler.service
 echo "Base System install complete. Do you want to reboot now? (yes/no)"
