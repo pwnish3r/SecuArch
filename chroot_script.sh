@@ -35,7 +35,7 @@ echo "Making post install scripts executable..."
 chmod +x SecuArch/postInstall/after_install_*.sh
 chmod +x SecuArch/*.sh
 echo "Activating post install scripts autorun..."
-echo "$HOME/auxiliary_scripts/SecuArch/scriptScheduler.sh" >> ~/.bashrc
+echo "\$HOME/auxiliary_scripts/SecuArch/scriptScheduler.sh" >> ~/.bashrc
 # sed -i "s|/home/user|/home/$username|g" SecuArch/script-scheduler.service
 # sed -i "s|user|$username|g" SecuArch/script-scheduler.service 
 # sed -i "s|^SCRIPT_DIR.*postInstall\"$|SCRIPT_DIR=\"/home/$username/auxiliary_scripts/SecuArch/postInstall\"|g" SecuArch/scriptScheduler.sh
@@ -48,8 +48,9 @@ EOF
 echo "Base System install complete. Do you want to reboot now? (yes/no)"
 read reboot_now
 if [ "$reboot_now" == "yes" ]; then
-    umount -R /mnt || true
-    exec /usr/bin/systemctl reboot
+    touch /root/reboot.flag
+    exit
 else
     echo "You can reboot later with the 'reboot' command."
+    exit
 fi

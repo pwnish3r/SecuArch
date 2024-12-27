@@ -1,11 +1,16 @@
 #!/bin/bash
+pacman -Sy
+pacman -S util-linux
+set -e
+trap 'echo "An error occurred on line $LINENO. Exiting..."; exit 1' ERR
+trap 'echo "An error occurred. Cleaning up..."; umount -R /mnt || true; exit 1' ERR
+###################################################################
 if [ -z "${PROGRESS}" ]; then
 	export PROGRESS=0
 else
 	progress=$PROGRESS
 fi
-pacman -Sy
-pacman -S util-linux
+###################################################################
 fetch_partitions(){
 	lsblk
 	while true; do
@@ -27,15 +32,14 @@ fetch_partitions(){
 	    fi
 	done
 }
+###################################################################
+
 # 1. Set keymap and time settings
 loadkeys en
 timedatectl set-ntp true
-
-set -e
-trap 'echo "An error occurred on line $LINENO. Exiting..."; exit 1' ERR
-trap 'echo "An error occurred. Cleaning up..."; umount -R /mnt || true; exit 1' ERR
 chmod +x *.sh
 chmod +x postInstall/*.sh
+###################################################################
 if (( progress == 0 )); then
 	# 2. List available disks and prompt for selection
 	echo "Listing available disks:"
@@ -58,7 +62,7 @@ if (( progress == 0 )); then
 	    echo "Aborting the operation."
 	    exit 1
 	fi
-	echo "Choose method of disk wiping: 1.blkdiscard (For SSD's)   2.sgdisk (For HDD's)   3.dd (Very slow but secure)"
+	echo "Choose method of disk wiping: " && echo "1.blkdiscard (Perfect for SSD)" && echo "2.sgdisk (All purpose)" && echo "3.dd (Completeley zeroes the disk. The most secure but very slow!)"
 	read method
 	
 	if [ "$method" == "1" ]; then
@@ -86,13 +90,20 @@ if (( progress == 0 )); then
 	echo "Formatting the partitions..."
 
 	# Format the 1G EFI partition
-	fetch_partitions
+	if [[ "${DISK}" =~ nvme ]]; then
+  		partition1="${DISK}p1"
+ 		partition2="${DISK}p2"
+	else
+ 		 partition1="${DISK}1"
+		 partition2="${DISK}2"
+	fi
 	mkfs.fat -F 32 /dev/${partition1}
 	mkfs.btrfs /dev/${partition2}
 	(( progress+=1 ))
 	export PROGRESS=1
 fi
 
+###################################################################
 # 5. Mount the partitions
 if [ -z "${partition1}" ]; then
 	fetch_partitions
@@ -108,6 +119,7 @@ mkdir -p /mnt/home || true
 mount -o compress=zstd,subvol=@home /dev/${partition2} /mnt/home || true
 mkdir -p /mnt/efi || true
 mount /dev/${partition1} /mnt/efi || true
+###################################################################
 
 if (( progress == 1 )); then
 	# 6. Install the base system and essential packages
@@ -120,6 +132,7 @@ if (( progress == 1 )); then
 	(( progress+=1 ))
 	export PROGRESS=2
 fi
+###################################################################
 
 if (( progress == 2 )); then
 	# 8. Chroot into the new system
@@ -127,4 +140,11 @@ if (( progress == 2 )); then
 	arch-chroot /mnt /bin/bash /root/chroot_script.sh
 	(( progress+=1 ))
 	export PROGRESS=3
+	if [ -f /mnt/root/reboot.flag ]; then
+    		echo "Inside-chroot script requested a reboot. Rebooting now..."
+	    	rm /mnt/root/reboot.flag
+    		reboot
+	else
+    		echo "No reboot flag found. Doing nothing."
+	fi
 fi
