@@ -40,7 +40,7 @@ sed -i "s|user|$username|g" SecuArch/script-scheduler.service
 # sed -i "s|^SCRIPT_DIR.*postInstall\"$|SCRIPT_DIR=\"/home/$username/auxiliary_scripts/SecuArch/postInstall\"|g" SecuArch/scriptScheduler.sh
 sudo mv SecuArch/script-scheduler.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable script-scheduler.service
+systemctl --user enable script-scheduler.service
 sudo systemctl start script-scheduler.service
 EOF
 
