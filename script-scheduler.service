@@ -9,8 +9,10 @@ User=user
 ExecStart=/home/user/auxiliary_scripts/SecuArch/scriptScheduler.sh
 WorkingDirectory=/home/user/auxiliary_scripts/SecuArch
 Environment="HOME=/home/user"
-StandardOutput=journal+console
-StandardError=journal+console
+StandardInput=tty
+StandardOutput=tty
+TTYPath=/dev/tty1
+TTYInteractive=yes
 
 [Install]
 WantedBy=multi-user.target
