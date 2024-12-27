@@ -36,7 +36,8 @@ chmod +x SecuArch/postInstall/after_install_*.sh
 chmod +x SecuArch/*.sh
 echo "Activating post install scripts autorun..."
 sed -i "s|/home/user/|/home/$username/|g" SecuArch/script-scheduler.service
-sed -i "s|^SCRIPT_DIR.*postInstall\"$|SCRIPT_DIR=\"/home/$username/auxiliary_scripts/SecuArch/postInstall\"|g" SecuArch/scriptScheduler.sh
+sed -i "s|^User=user$|User=$username|g"
+# sed -i "s|^SCRIPT_DIR.*postInstall\"$|SCRIPT_DIR=\"/home/$username/auxiliary_scripts/SecuArch/postInstall\"|g" SecuArch/scriptScheduler.sh
 sudo mv SecuArch/script-scheduler.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable script-scheduler.service

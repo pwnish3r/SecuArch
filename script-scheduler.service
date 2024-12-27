@@ -5,7 +5,11 @@ After=network.target
 
 [Service]
 Type=oneshot
+User=user
 ExecStart=/home/user/auxiliary_scripts/SecuArch/scriptScheduler.sh
+WorkingDirectory=/home/user/auxiliary_scripts/SecuArch
+Environment="HOME=/home/user"
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
