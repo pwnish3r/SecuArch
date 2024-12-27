@@ -90,13 +90,7 @@ if (( progress == 0 )); then
 	echo "Formatting the partitions..."
 
 	# Format the 1G EFI partition
-	if [[ "${DISK}" =~ nvme ]]; then
-  		partition1="${DISK}p1"
- 		partition2="${DISK}p2"
-	else
- 		 partition1="${DISK}1"
-		 partition2="${DISK}2"
-	fi
+	fetch_partitions
 	mkfs.fat -F 32 /dev/${partition1}
 	mkfs.btrfs /dev/${partition2}
 	(( progress+=1 ))
