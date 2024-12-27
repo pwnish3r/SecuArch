@@ -9,7 +9,8 @@ User=user
 ExecStart=/home/user/auxiliary_scripts/SecuArch/scriptScheduler.sh
 WorkingDirectory=/home/user/auxiliary_scripts/SecuArch
 Environment="HOME=/home/user"
-Restart=always
+StandardOutput=journal+console
+StandardError=journal+console
 
 [Install]
 WantedBy=multi-user.target
