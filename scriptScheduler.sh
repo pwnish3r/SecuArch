@@ -37,7 +37,8 @@ NEXT_SCRIPT=$(ls "$SCRIPT_DIR" | grep -E '^after_install_[0-9]+\.sh$' | sort | h
 if [ -z "$NEXT_SCRIPT" ]; then
     echo "No more scripts to run. Cleaning up..."
     rm -f "$CURRENT_SCRIPT_FILE"
-    systemctl disable script-scheduler.service || true
+#    systemctl disable script-scheduler.service || true
+    sed -i "s|^\"\$.*\"||g" ~/.bashrc
     exit 0
 fi
 
