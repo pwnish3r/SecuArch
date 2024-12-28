@@ -35,3 +35,7 @@ azure-cli
 google-cloud-sdk
 sddm
 qt6-svg
+openvpn
+tor
+wireguard-tools
+firejail
