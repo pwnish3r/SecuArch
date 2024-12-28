@@ -1,6 +1,19 @@
 #!/bin/bash
-set -e
-trap 'echo "An error occurred on line $LINENO. Exiting..."; exit 1' ERR
+installPackages(){
+	package_file="$HOME/auxiliary_scripts/SecuArch/postInstall/packages.txt"
+	mapfile -t packages < "$package_file"
+	for pkg in "${packages[@]}"; do
+		echo "Installing $pkg..."
+		if ! yay -S --noconfirm "$pkg"; then
+        		echo "Failed to install $pkg. Logging error..."
+        		echo "$pkg" >> failed_packages.log
+    		fi
+	done
+	echo "Installation process complete."
+}
+
+
+
 sudo cp -r $HOME/auxiliary_scripts/SecuArch/grubTheme/CyberEXS /boot/grub/themes
 sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt|' /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
@@ -11,8 +24,7 @@ sudo ./strap.sh
 sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/grub-btrfsd --syslog --timeshift-auto|' /usr/lib/systemd/system/grub-btrfsd.service
 sudo systemctl enable grub-btrfsd
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
-yay -S timeshift-autosnap dosfstools ntfs-3g wget curl tmux vim zram metasploit nmap wireshark-cli wireshark-qt aircrack-ng john hydra burpsuite tcpdump openbsd-netcat responder open-vm-tools ufw autopsy sleuthkit apparmor audit logwatch ossec docker sliver exploitdb hashcat seclists aws-cli azure-cli google-cloud-sdk
-sudo pacman -S sddm
+
 sudo systemctl enable sddm
 systemctl enable vmtoolsd.service
 systemctl start vmtoolsd.service
@@ -23,9 +35,8 @@ ufw default allow outgoing
 ufw enable
 systemctl enable apparmor
 systemctl enable auditd
-systemctl start docker
 systemctl enable docker
-yay -S qt6-svg
+systemctl start docker
 sudo git clone https://github.com/keyitdev/sddm-astronaut-theme.git /usr/share/sddm/themes/sddm-astronaut-theme
 sudo cp /usr/share/sddm/themes/sddm-astronaut-theme/Fonts/* /usr/share/fonts/
 echo "[Theme]
