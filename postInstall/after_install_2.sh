@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Now you can choose to install either i3 or bspwm. For any other WM or DE, check the arch wiki for details"
+echo -e "Now you can choose to install either \e[32mi3\e[0m or \e[32mbspwm\e[0m. For any other WM or DE, check the arch wiki for details"
 echo "Your choice: "
 read choice
 if [ "$choice" == "i3" ]; then

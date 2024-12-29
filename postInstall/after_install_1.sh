@@ -4,13 +4,13 @@ installPackages(){
 	package_file="$HOME/auxiliary_scripts/SecuArch/postInstall/packages.txt"
 	mapfile -t packages < "$package_file"
 	for pkg in "${packages[@]}"; do
-		echo "Installing $pkg..."
+		echo -e "Installing \e[32m$pkg\e[0m..."
 		if ! yay -S --noconfirm "$pkg"; then
-        		echo "Failed to install $pkg. Logging error..."
-        		echo "$pkg" >> failed_packages.log
+        		echo -e "Failed to install \e[31m$pkg\e[0m. Logging error..."
+        		echo -e "$pkg" >> failed_packages.log
     		fi
 	done
-	echo "Installation process complete."
+	echo -e "\n\e[32mInstallation process complete.\e[0m"
 }
 ######################################################################################
 
@@ -40,7 +40,7 @@ sudo git clone https://github.com/keyitdev/sddm-astronaut-theme.git /usr/share/s
 sudo cp /usr/share/sddm/themes/sddm-astronaut-theme/Fonts/* /usr/share/fonts/
 echo "[Theme]
 Current=sddm-astronaut-theme" | sudo tee /etc/sddm.conf
-echo "Install script 1/2 complete. Do you want to reboot now? (yes/no)"
+echo -e "\e[32mInstall script 1/2 complete\e[0m. Do you want to reboot now? (yes/no)"
 read reboot_now
 if [ "$reboot_now" == "yes" ]; then
     reboot

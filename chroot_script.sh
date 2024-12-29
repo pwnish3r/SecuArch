@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-trap 'echo "An error occurred on line $LINENO. Exiting..."; exit 1' ERR
+trap 'echo -e "\e[31mAn error occurred on line $LINENO. Exiting...\e[0m"; exit 1' ERR
 
 ln -sf /usr/share/zoneinfo/Europe/Bucharest /etc/localtime
 hwclock --systohc
@@ -13,14 +13,16 @@ cat <<EOF > /etc/hosts
 ::1       localhost
 127.0.1.1 SecuArch
 EOF
-echo "Enter a password for root:"
+echo -e "\n\nEnter a password for \e[32mroot\e[0m:"
 passwd
-echo "Enter a username for the new user:"
+echo -e "\nEnter a username for the \e[32mnew user\e[0m:"
 read username
 useradd -mG wheel $username || true
-echo "Enter a password for $username:"
+echo -e "\nEnter a password for\e[32m $username\e[0m:"
 passwd $username
-
+bash -c 'echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/99_wheel'
+chmod 440 /etc/sudoers.d/99_wheel
+visudo -cf /etc/sudoers.d/99_wheel
 EDITOR=vim visudo
 
 grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
@@ -45,12 +47,12 @@ echo "\$HOME/auxiliary_scripts/SecuArch/scriptScheduler.sh" >> ~/.bashrc
 # sudo systemctl start script-scheduler.service
 EOF
 
-echo "Base System install complete. Do you want to reboot now? (yes/no)"
+echo -e "\e[32mBase System install complete. Do you want to reboot now?\e[0m (\e[32myes\e[0m/\e[31mno\e[0m)"
 read reboot_now
 if [ "$reboot_now" == "yes" ]; then
     touch /root/reboot.flag
     exit
 else
-    echo "You can reboot later with the 'reboot' command."
+    echo -e "\n\e[31mYou can reboot later with the 'reboot' command.\e[0m"
     exit
 fi
