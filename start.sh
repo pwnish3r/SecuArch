@@ -2,6 +2,7 @@
 pacman -Sy
 pacman -S --noconfirm util-linux
 pacman -S --noconfirm figlet
+pacman-key --init || true
 set -e
 trap 'echo -e "\e[31mAn error occurred on line $LINENO. Exiting...\e[0m"; exit 1' ERR
 trap 'echo -e "\e[31mAn error occurred. Cleaning up...\e[0m"; umount -R /mnt || true; exit 1' ERR
