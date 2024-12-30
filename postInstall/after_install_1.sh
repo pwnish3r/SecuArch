@@ -18,16 +18,16 @@ sudo cp -r $HOME/auxiliary_scripts/SecuArch/grubTheme/catppuccin-mocha-grub-them
 sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/boot/grub/themes/catppuccin-mocha-grub-theme/theme.txt|' /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 cd $HOME/auxiliary_scripts
+'''
 curl -O https://blackarch.org/strap.sh
 chmod +x strap.sh
 sudo ./strap.sh
+'''
 sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/grub-btrfsd --syslog --timeshift-auto|' /usr/lib/systemd/system/grub-btrfsd.service
 sudo systemctl enable grub-btrfsd
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 yay
 installPackages
-sudo systemctl enable sddm
-sudo systemctl start sddm
 '''
 sudo systemctl enable libvirtd.service
 sudo systemctl start libvirtd.service

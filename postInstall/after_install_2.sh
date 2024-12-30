@@ -23,4 +23,4 @@ elif [ "$choice" == "bspwm" ]; then
     echo -e "\e[32mInstall script 2/2 complete.The system will reboot now!\e[0m."
     sleep 2
 fi
-
+sudo systemctl enable sddm
