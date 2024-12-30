@@ -27,14 +27,13 @@ if [ -f "$SCRIPT_DIR/$CURRENT_SCRIPT" ]; then
     echo -e "\e[32mFinished executing $CURRENT_SCRIPT.\e[0m"
     sleep 3
     rm -f "$SCRIPT_DIR/$CURRENT_SCRIPT"
+    NEXT_SCRIPT=$(ls "$SCRIPT_DIR" | grep -E '^after_install_[0-9]+\.sh$' | sort | head -n 1)
+    echo "$NEXT_SCRIPT" > "$CURRENT_SCRIPT_FILE"
     reboot
 else
     echo "Script $CURRENT_SCRIPT not found. Exiting..."
     exit 1
 fi
-
-# Determine the next script to run
-NEXT_SCRIPT=$(ls "$SCRIPT_DIR" | grep -E '^after_install_[0-9]+\.sh$' | sort | head -n 1)
 
 if [ -z "$NEXT_SCRIPT" ]; then
     echo "No more scripts to run. Cleaning up..."

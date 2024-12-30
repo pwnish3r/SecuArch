@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 trap 'echo -e "\e[31mAn error occurred on line $LINENO. Exiting...\e[0m"; exit 1' ERR
-
+clear
 ln -sf /usr/share/zoneinfo/Europe/Bucharest /etc/localtime
 hwclock --systohc
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
@@ -46,8 +46,8 @@ echo "\$HOME/auxiliary_scripts/SecuArch/scriptScheduler.sh" >> ~/.bashrc
 # systemctl --user enable script-scheduler.service
 # sudo systemctl start script-scheduler.service
 EOF
-
-echo -e "\e[32mBase System install complete. Do you want to reboot now?\e[0m (\e[32myes\e[0m/\e[31mno\e[0m)"
+clear
+echo -e "Base System install complete. Do you want to reboot now? (\e[32myes\e[0m/\e[31mno\e[0m)"
 read reboot_now
 if [ "$reboot_now" == "yes" ]; then
     touch /root/reboot.flag
