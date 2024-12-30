@@ -14,8 +14,8 @@ installPackages(){
 }
 ######################################################################################
 
-sudo cp -r $HOME/auxiliary_scripts/SecuArch/grubTheme/dedsec /boot/grub/themes
-sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/boot/grub/themes/dedsec/theme.txt|' /etc/default/grub
+sudo cp -r $HOME/auxiliary_scripts/SecuArch/grubTheme/catppuccin-mocha-grub-theme /boot/grub/themes
+sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/boot/grub/themes/catppuccin-mocha-grub-theme/theme.txt|' /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 cd $HOME/auxiliary_scripts
 curl -O https://blackarch.org/strap.sh
@@ -28,8 +28,8 @@ yay
 installPackages
 sudo systemctl enable libvirtd.service
 sudo systemctl start libvirtd.service
-sudo sed -i "s|unix_sock_group.*$|unix_sock_group= \"libvirt\"|g" /etc/libvirt/libvirtd.conf
-sudo sed -i "s|unix_sock_rw_perms.*$|unix_sock_rw_perms= \"0770\"|g" /etc/libvirt/libvirtd.conf
+sudo sed -i "s|^#unix_sock_group.*$|unix_sock_group= \"libvirt\"|g" /etc/libvirt/libvirtd.conf
+sudo sed -i "s|^#unix_sock_rw_perms.*$|unix_sock_rw_perms= \"0770\"|g" /etc/libvirt/libvirtd.conf
 sudo usermod -a -G libvirt $(whoami)
 newgrp libvirt
 sudo systemctl restart libvirtd.service

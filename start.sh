@@ -36,7 +36,7 @@ fetch_partitions(){
 }
 ###################################################################
 
-
+clear
 figlet -f slant "Welcome to SecuArch Install"
 echo -e "\e[32mThis script will guide you through the SecuArch installation process."
 echo -e "Follow the steps carefully and ensure you have an internet connection.\e[0m"
