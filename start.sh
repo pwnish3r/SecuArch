@@ -21,16 +21,16 @@ fetch_partitions(){
 	    if lsblk | grep -q "${partition1}"; then
 		break
 	    else
-		echo "Invalid partition. Please enter a valid partition (e.g., sda1)."
+		echo -e "\e[31mInvalid partition. Please enter a valid partition (e.g., sda1).\e[0m"
 	    fi
 	done
 	while true; do
-	    echo "Please enter the ROOT partition (e.g., sda2):"
+	    echo -e "\e[32mPlease enter the ROOT partition (e.g., sda2):\e[0m"
 	    read partition2
 	    if lsblk | grep -q "${partition2}"; then
 		break
 	    else
-		echo "Invalid partition. Please enter a valid partition (e.g., sda2)."
+		echo -e "\e[31mInvalid partition. Please enter a valid partition (e.g., sda2).\e[0m"
 	    fi
 	done
 }
@@ -40,7 +40,7 @@ clear
 figlet -f slant "Welcome to SecuArch Install"
 echo -e "\e[32mThis script will guide you through the SecuArch installation process."
 echo -e "Follow the steps carefully and ensure you have an internet connection.\e[0m"
-sleep 4
+sleep 3
 # 1. Set keymap and time settings
 loadkeys en
 timedatectl set-ntp true
@@ -49,10 +49,10 @@ chmod +x postInstall/*.sh
 ###################################################################
 if (( progress == 0 )); then
 	# 2. List available disks and prompt for selection
+	clear
 	echo -e "\e[32mListing available disks:\e[0m\n\n"
 	sleep 1
 	fdisk -l
-
 	while true; do
 	    echo -e "\n\n\e[32mEnter the disk you want to partition (e.g., /dev/sda):\e[0m"
 	    read disk
@@ -88,15 +88,14 @@ if (( progress == 0 )); then
 	fi
 	
 	# 3. Partition the selected disk using fdisk (automated)
+	clear
 	echo -e "\n\nPartitioning $disk..."
 	sgdisk -o $disk
 	sgdisk -n 1:0:+1G -t 1:ef00 $disk  # EFI partition
 	sgdisk -n 2:0:0 -t 2:8300 $disk   # Root partition
 
-
 	# 4. Format the partitions
 	echo -e "\e[32mFormatting the partitions...\e[0m"
-
 	# Format the 1G EFI partition
 	fetch_partitions
 	mkfs.fat -F 32 /dev/${partition1}
@@ -110,7 +109,7 @@ fi
 if [ -z "${partition1}" ]; then
 	fetch_partitions
 fi
-
+clear
 echo -e "\e[32mMounting the partitions...\e[0m"
 mount /dev/${partition2} /mnt
 btrfs subvolume create /mnt/@ || true
@@ -125,6 +124,7 @@ mount /dev/${partition1} /mnt/efi || true
 
 if (( progress == 1 )); then
 	# 6. Install the base system and essential packages
+	clear
 	echo -e "\n\n\e[32mInstalling the base system...\e[0m"
 	pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift intel-ucode nano networkmanager networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim
 
