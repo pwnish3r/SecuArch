@@ -50,6 +50,8 @@ sudo git clone https://github.com/keyitdev/sddm-astronaut-theme.git /usr/share/s
 sudo cp /usr/share/sddm/themes/sddm-astronaut-theme/Fonts/* /usr/share/fonts/
 echo "[Theme]
 Current=sddm-astronaut-theme" | sudo tee /etc/sddm.conf
+sudo sed -i "s|^FullBlur.*$|FullBlur=\"true\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/theme1.conf
+sudo cp ~/auxiliary_scripts/SecuArch/postInstall/1.png /usr/share/sddm/themes/sddm-astronaut-theme/1.png
 echo -e "\e[32mInstall script 1/2 complete.The system will reboot now!\e[0m."
 sleep 2
 
