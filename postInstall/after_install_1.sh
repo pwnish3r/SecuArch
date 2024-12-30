@@ -26,6 +26,9 @@ sudo systemctl enable grub-btrfsd
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 yay
 installPackages
+sudo systemctl enable sddm
+sudo systemctl start sddm
+'''
 sudo systemctl enable libvirtd.service
 sudo systemctl start libvirtd.service
 sudo sed -i "s|^#unix_sock_group.*$|unix_sock_group= \"libvirt\"|g" /etc/libvirt/libvirtd.conf
@@ -44,8 +47,7 @@ sudo systemctl enable apparmor
 sudo systemctl enable auditd
 sudo systemctl enable docker
 sudo systemctl start docker
-sudo systemctl enable sddm
-sudo systemctl start sddm
+'''
 sudo git clone https://github.com/keyitdev/sddm-astronaut-theme.git /usr/share/sddm/themes/sddm-astronaut-theme
 sudo cp /usr/share/sddm/themes/sddm-astronaut-theme/Fonts/* /usr/share/fonts/
 echo "[Theme]
@@ -54,4 +56,3 @@ sudo sed -i "s|^FullBlur.*$|FullBlur=\"true\"|g" /usr/share/sddm/themes/sddm-ast
 sudo cp ~/auxiliary_scripts/SecuArch/postInstall/1.png /usr/share/sddm/themes/sddm-astronaut-theme/1.png
 echo -e "\e[32mInstall script 1/2 complete.The system will reboot now!\e[0m."
 sleep 4
-
