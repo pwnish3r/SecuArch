@@ -1,7 +1,7 @@
 #!/bin/bash
 ######################################################################################
 installPackages(){
-	package_file="$HOME/auxiliary_scripts/SecuArch/postInstall/packages.txt"
+	package_file="$HOME/auxiliary_scripts/SecuArch/postInstall/testing.txt"
 	mapfile -t packages < "$package_file"
 	for pkg in "${packages[@]}"; do
 		echo -e "Installing \e[32m$pkg\e[0m..."
