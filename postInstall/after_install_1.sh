@@ -24,26 +24,32 @@ sudo ./strap.sh
 sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/grub-btrfsd --syslog --timeshift-auto|' /usr/lib/systemd/system/grub-btrfsd.service
 sudo systemctl enable grub-btrfsd
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
+yay
 installPackages
-systemctl enable vmtoolsd.service
-systemctl start vmtoolsd.service
-systemctl enable ufw
-systemctl start ufw
+sudo systemctl enable libvirtd.service
+sudo systemctl start libvirtd.service
+sudo sed -i "s|unix_sock_group.*$|unix_sock_group= \"libvirt\"|g" /etc/libvirt/libvirtd.conf
+sudo sed -i "s|unix_sock_rw_perms.*$|unix_sock_rw_perms= \"0770\"|g" /etc/libvirt/libvirtd.conf
+sudo usermod -a -G libvirt $(whoami)
+newgrp libvirt
+sudo systemctl restart libvirtd.service
+sudo systemctl enable vmtoolsd.service
+sudo systemctl start vmtoolsd.service
+sudo systemctl enable ufw
+sudo systemctl start ufw
 ufw default deny incoming
 ufw default allow outgoing
 ufw enable
-systemctl enable apparmor
-systemctl enable auditd
-systemctl enable docker
-systemctl start docker
+sudo systemctl enable apparmor
+sudo systemctl enable auditd
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo systemctl enable sddm
+sudo systemctl start sddm
 sudo git clone https://github.com/keyitdev/sddm-astronaut-theme.git /usr/share/sddm/themes/sddm-astronaut-theme
 sudo cp /usr/share/sddm/themes/sddm-astronaut-theme/Fonts/* /usr/share/fonts/
 echo "[Theme]
 Current=sddm-astronaut-theme" | sudo tee /etc/sddm.conf
-echo -e "\e[32mInstall script 1/2 complete\e[0m. Do you want to reboot now? (yes/no)"
-read reboot_now
-if [ "$reboot_now" == "yes" ]; then
-    reboot
-else
-    echo "You can reboot later with the 'reboot' command."
-fi
+echo -e "\e[32mInstall script 1/2 complete.The system will reboot now!\e[0m."
+sleep 2
+

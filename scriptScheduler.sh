@@ -26,6 +26,7 @@ if [ -f "$SCRIPT_DIR/$CURRENT_SCRIPT" ]; then
     bash "$SCRIPT_DIR/$CURRENT_SCRIPT"
     echo "Finished executing $CURRENT_SCRIPT."
     rm -f "$SCRIPT_DIR/$CURRENT_SCRIPT"
+    reboot
 else
     echo "Script $CURRENT_SCRIPT not found. Exiting..."
     exit 1

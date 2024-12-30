@@ -20,7 +20,7 @@ read username
 useradd -mG wheel $username || true
 echo -e "\nEnter a password for\e[32m $username\e[0m:"
 passwd $username
-bash -c 'echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/99_wheel'
+bash -c 'echo "%wheel ALL=(ALL:ALL) ALL" > /etc/sudoers.d/99_wheel'
 chmod 440 /etc/sudoers.d/99_wheel
 visudo -cf /etc/sudoers.d/99_wheel
 EDITOR=vim visudo

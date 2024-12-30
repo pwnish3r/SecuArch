@@ -7,14 +7,8 @@ if [ "$choice" == "i3" ]; then
     git clone https://github.com/pwnish3r/dotfiles-i3.git
     cd dotfiles-i3
     cp -r .config $HOME/
-    echo "Install script 2/2 complete. Do you want to reboot now? (yes/no)"
-    read reboot_now
-    if [ "$reboot_now" == "yes" ]; then
-        umount -R /mnt
-        reboot
-    else
-        echo "You can reboot later with the 'reboot' command."
-    fi
+    echo -e "\e[32mInstall script 2/2 complete.The system will reboot now!\e[0m."
+    sleep 2
 elif [ "$choice" == "bspwm" ]; then
     curl -L https://is.gd/gh0stzk_dotfiles -o $HOME/RiceInstaller
     chmod +x RiceInstaller
@@ -26,12 +20,7 @@ elif [ "$choice" == "bspwm" ]; then
     cp -r nvim ../
     cp -r tmux ../
     cp -r zsh ../
-    echo "Install script 2/2 complete. Do you want to reboot now? (yes/no)"
-    read reboot_now
-    if [ "$reboot_now" == "yes" ]; then
-        reboot
-    else
-        echo "You can reboot later with the 'reboot' command."
-    fi
+    echo -e "\e[32mInstall script 2/2 complete.The system will reboot now!\e[0m."
+    sleep 2
 fi
 
