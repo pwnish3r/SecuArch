@@ -43,6 +43,3 @@ if [ -z "$NEXT_SCRIPT" ]; then
     exit 0
 fi
 
-# Update the current script file with the next script
-echo "$NEXT_SCRIPT" > "$CURRENT_SCRIPT_FILE"
-
