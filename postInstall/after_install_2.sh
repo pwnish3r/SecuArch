@@ -1,4 +1,5 @@
 #!/bin/bash
+sudo systemctl enable sddm
 echo -e "Now you can choose to install either \e[32mi3\e[0m or \e[32mbspwm\e[0m. For any other WM or DE, check the arch wiki for details"
 echo "Your choice: "
 read choice
@@ -8,7 +9,6 @@ if [ "$choice" == "i3" ]; then
     cd dotfiles-i3
     cp -r .config $HOME/
     echo -e "\e[32mInstall script 2/2 complete.The system will reboot now!\e[0m."
-    sudo systemctl enable sddm
     sleep 2
 elif [ "$choice" == "bspwm" ]; then
     curl -L https://is.gd/gh0stzk_dotfiles -o $HOME/RiceInstaller
@@ -22,6 +22,5 @@ elif [ "$choice" == "bspwm" ]; then
     cp -r tmux ../
     cp -r zsh ../
     echo -e "\e[32mInstall script 2/2 complete.The system will reboot now!\e[0m."
-    sudo systemctl enable sddm
     sleep 2
 fi
