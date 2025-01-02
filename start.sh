@@ -1,5 +1,5 @@
 #!/bin/bash
-pacman -Sy
+pacman -Syy
 pacman -S --noconfirm util-linux
 pacman -S --noconfirm figlet
 pacman-key --init || true
@@ -81,10 +81,11 @@ if (( progress == 0 )); then
 	if [ "$method" == "2" ]; then
 		 wipefs --all $disk
 		 sgdisk --zap-all $disk
+		 dd if=/d1ev/urandom of=$disk bs=1M count=10 status=progress || true
 	fi
 	
 	if [ "$method" == "3" ]; then
-		dd if=/dev/urandom of=$disk bs=1M status=progress || true
+		dd if=/d1ev/urandom of=$disk bs=1M status=progress || true
 	fi
 	
 	# 3. Partition the selected disk using fdisk (automated)
