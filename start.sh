@@ -100,7 +100,7 @@ if (( progress == 0 )); then
 	# Format the 1G EFI partition
 	fetch_partitions
 	mkfs.fat -F 32 /dev/${partition1}
-	mkfs.btrfs /dev/${partition2}
+	mkfs.btrfs -f /dev/${partition2}
 	(( progress+=1 ))
 	export PROGRESS=1
 fi
