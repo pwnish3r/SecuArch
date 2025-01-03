@@ -26,7 +26,9 @@
 </p>
 
 ---
-
+<p align="center">
+  <img src="media/SecuArchLogo.png" alt="Project Logo" width="200">
+</p>
 ## ✨ Overview
 
 **SecuArch** is a streamlined, **script-based** installation process for Arch Linux. It automatically sets up **BTRFS** subvolumes, **encrypted partitions** (optional), and pre-installs a curated collection of pentesting and defensive tools. My goal: provide a minimal yet powerful base for cybersecurity professionals, students, and enthusiasts.
