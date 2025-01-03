@@ -49,5 +49,23 @@
 
 ---
 
-## 📁 Repository Structure
+## ✅ Prerequisites (Before Install)
 
+1. **Bootable Arch ISO**: Download from [Arch Linux official site](https://archlinux.org/download/).
+2. **Internet Connection**: The script will update mirrors and install packages online.
+3. **UEFI or Legacy Mode**: Ensure your system is properly set up to boot in UEFI if you want EFI partitions.
+4. **Storage Device**: This script will format your chosen drive. Double-check you’re okay with losing data.
+
+> **Warning**: This installer **wipes** the selected disk. Back up any essential data!
+
+---
+
+## ⚙️ Installation Process
+
+1. **Boot from Arch ISO**  
+   Insert your USB and boot the live environment.
+
+2. **Clone the Repository**  
+   ```bash
+   git clone https://github.com/YourUsername/CyberArch.git
+   cd CyberArch
