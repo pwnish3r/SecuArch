@@ -115,7 +115,7 @@
     3. Wi-Fi Issues: Network Manager is included, 
     but certain Wi-Fi chipsets may require extra firmware.
     4. BSPWM: The ricer installer included doesn't really work in a VM, 
-    but works perfectly fine even on laptop from 2012 Bare Metal. 
+    but works perfectly fine even on a laptop from 2012 Bare Metal. 
     Either don't install anything and configure your own Desktop Environment or Window Manager 
     or choose the i3 configuration.
 
