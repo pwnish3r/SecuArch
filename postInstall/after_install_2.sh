@@ -7,7 +7,7 @@ read choice
 #echo "$choice" > ~/auxiliary_scripts/SecuArch/postInstall/choice.txt
 sed -i "s|^choice=choice$|choice=\"$choice\"|g" ~/auxiliary_scripts/SecuArch/postInstall/after_install_3.sh
 if [ "$choice" == "1" ]; then
-    yay -S i3 rofi thunar xclip clipmenu dunst feh picom xss-lock lxappearance arandr
+    yay -S --noconfirm i3 rofi thunar xclip clipmenu dunst feh picom xss-lock lxappearance arandr alacritty
     git clone https://github.com/pwnish3r/dotfiles-i3.git
     cd dotfiles-i3
     cp -r .config $HOME/
