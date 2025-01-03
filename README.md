@@ -132,9 +132,3 @@ Contributions make this project better! To contribute:
     Push to the branch (git push origin feature/CoolThing)
     Open a Pull Request
     
-## 🙏 Acknowledgments
-
-    Inspiration from Arch Wiki
-    Thanks to the creators of BlackArch, Kali, & Parrot for the open-source security tools
-    To the Arch community for their fantastic documentation & support
-    mjkstra 
