@@ -3,10 +3,10 @@
 <p align="center">
   <img src="https://img.shields.io/badge/ArchLinux-BTRFS-informational?style=flat&logo=arch-linux&color=1793D1" alt="ArchLinux BTRFS"/>
   <img src="https://img.shields.io/badge/Focus-OffSec/CyberSec-success?style=flat"/>
-  <img src="https://img.shields.io/github/license/YourUsername/YourRepoName?style=flat" alt="License"/>
-  <img src="https://img.shields.io/github/issues/YourUsername/YourRepoName?style=flat" alt="Issues"/>
-  <img src="https://img.shields.io/github/forks/YourUsername/YourRepoName?style=flat" alt="Forks"/>
-  <img src="https://img.shields.io/github/stars/YourUsername/YourRepoName?style=flat" alt="Stars"/>
+  <img src="https://img.shields.io/github/license/pwnish3r/SecuArch?style=flat" alt="License"/>
+  <img src="https://img.shields.io/github/issues/pwnish3r/SecuArch?style=flat" alt="Issues"/>
+  <img src="https://img.shields.io/github/forks/pwnish3r/SecuArch?style=flat" alt="Forks"/>
+  <img src="https://img.shields.io/github/stars/pwnish3r/SecuArch?style=flat" alt="Stars"/>
 </p>
 
 <p align="center">
@@ -61,11 +61,44 @@
 ---
 
 ## ⚙️ Installation Process
-
+**BARE METAL**
 1. **Boot from Arch ISO**  
    Insert your USB and boot the live environment.
 
+**VIRTUAL MACHINE**
+1. **Prerequisite**
+  -If you're running linux, I recommend QEMU/KVM. It supports TRIM and has less strange bugs than virtualbox (At least in my case). In any case, make sure you have the resources necessary for running a virtual graphical environment.
+   -Enable EFI
+   -Make sure you have at least 40GB free. If you want a more lightweight distro, eliminate some of the packages in the _packages.txt_ file.
+
 2. **Clone the Repository**  
    ```bash
-   git clone https://github.com/YourUsername/CyberArch.git
-   cd CyberArch
+   pacman -Syy
+   pacman-key --init
+   pacman -S git
+   git clone https://github.com/pwnish3r/SecuArch.git
+   cd SecuArch
+   ```
+   The _pacman -S git_ may fail a few times, keep trying.
+   
+3. **Run the installer**
+   ```bash
+   chmod +x start.sh
+   ./start.sh
+   ```
+4. **Sudo Privileges**
+   
+   Before the first reboot, you will be presented with the sudoers file opened with VIM, scroll down and make sure the _# %wheel ALL=(ALL:ALL) ALL_ line is uncommented. Uncomment it by removing _#_.
+
+5. **After Install Scripts**
+
+   The After Install scripts make sure everything is installed and enabled on the system. The first script takes care of the packages and straps BlackArch repo on your system, changes GRUB and SDDM theme. The second script takes care of the actual environment, by choosing a Tiling Window Manager. *I recommend i3 for VMs where resources are limited or systems running low end hardware*.
+
+## 🏗️ Known Issues
+
+    Nvidia/AMD Drivers: Some laptops with hybrid GPU might need manual driver setup post-install.
+    Secure Boot: If you have Secure Boot enabled, additional steps or kernel signing might be needed.
+    Wi-Fi Issues: Network Manager is included, but certain Wi-Fi chipsets may require extra firmware.
+    BSPWM: The ricer installer included doesn't really work in a VM, but works perfectly fine even on laptop from 2012 Bare Metal. Either don't install anything and configure your own Desktop Environment or Window Manager or choose the i3 configuration.
+
+Please report issues or open a pull request if you find a bug or have a workaround!
