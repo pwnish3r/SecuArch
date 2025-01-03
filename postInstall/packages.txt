@@ -54,3 +54,5 @@ ebtables
 iptables
 libguestfs
 suricata
+alacritty
+firefox
