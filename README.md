@@ -92,13 +92,45 @@
 
 5. **After Install Scripts**
 
-   The After Install scripts make sure everything is installed and enabled on the system. The first script takes care of the packages and straps BlackArch repo on your system, changes GRUB and SDDM theme. The second script takes care of the actual environment, by choosing a Tiling Window Manager. *I recommend i3 for VMs where resources are limited or systems running low end hardware*.
+   The After Install scripts make sure everything is installed and enabled on the system. The first script takes care of the packages and straps BlackArch repo on your system, changes GRUB and SDDM theme. The second script takes care of the actual environment, by choosing a Tiling Window Manager.
+   > I recommend i3WM for VMs where resources are limited or on systems running low end hardware.
 
 ## 🏗️ Known Issues
 
-    Nvidia/AMD Drivers: Some laptops with hybrid GPU might need manual driver setup post-install.
-    Secure Boot: If you have Secure Boot enabled, additional steps or kernel signing might be needed.
-    Wi-Fi Issues: Network Manager is included, but certain Wi-Fi chipsets may require extra firmware.
-    BSPWM: The ricer installer included doesn't really work in a VM, but works perfectly fine even on laptop from 2012 Bare Metal. Either don't install anything and configure your own Desktop Environment or Window Manager or choose the i3 configuration.
+    1. Nvidia/AMD Drivers: Some laptops with hybrid GPU might 
+    need manual driver setup post-install.
+    2. Secure Boot: If you have Secure Boot enabled, 
+    additional steps or kernel signing might be needed.
+    3. Wi-Fi Issues: Network Manager is included, 
+    but certain Wi-Fi chipsets may require extra firmware.
+    4. BSPWM: The ricer installer included doesn't really work in a VM, 
+    but works perfectly fine even on laptop from 2012 Bare Metal. 
+    Either don't install anything and configure your own Desktop Environment or Window Manager 
+    or choose the i3 configuration.
 
 Please report issues or open a pull request if you find a bug or have a workaround!
+
+## 🚀 Roadmap & Future Improvements
+
+    Additional Subvolume Layout: Offer advanced partition schemes for containers, logs, etc.
+    GUI Installer: Possibly build a minimalist curses or web-based front-end.
+    Extensive Hardening: systemd security profiles, SELinux/AppArmor integration, etc.
+    Local CTF Lab: Automate spinning up local vulnerable VMs or Docker images for practice.
+    Customization Wizard: Let users pick from multiple security profiles (Red Team, Blue Team, Reverse Engineering, etc.) during installation.
+
+## 🤝 Contributing
+
+Contributions make this project better! To contribute:
+
+    Fork the project
+    Create a feature branch (git checkout -b feature/CoolThing)
+    Commit your changes (git commit -m "Add some CoolThing")
+    Push to the branch (git push origin feature/CoolThing)
+    Open a Pull Request
+    
+## 🙏 Acknowledgments
+
+    Inspiration from Arch Wiki
+    Thanks to the creators of BlackArch, Kali, & Parrot for the open-source security tools
+    To the Arch community for their fantastic documentation & support
+    mjkstra 
