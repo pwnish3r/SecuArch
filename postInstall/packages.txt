@@ -52,4 +52,4 @@ dmidecode
 ebtables
 iptables
 libguestfs
-
+suricata
