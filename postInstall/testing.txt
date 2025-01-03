@@ -2,3 +2,4 @@ timeshift-autosnap
 dosfstools
 ntfs-3g
 sddm
+qt6-svg
