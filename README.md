@@ -73,7 +73,9 @@
 1. **Prerequisite**
 
    -If you're running linux, I recommend QEMU/KVM. It supports TRIM and has less strange bugs than virtualbox (At least in my case). In any case, make sure you have the resources necessary for running a virtual graphical environment.
+
    -Enable EFI
+
    -Make sure you have at least 40GB free. If you want a more lightweight distro, eliminate some of the packages in the _packages.txt_ file.
 
 3. **Clone the Repository**  
