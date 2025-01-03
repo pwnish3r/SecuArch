@@ -33,6 +33,7 @@ aws-cli
 azure-cli
 sddm
 qt6-svg
+qt6-multimedia
 openvpn
 tor
 wireguard-tools

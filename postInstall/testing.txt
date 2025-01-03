@@ -3,3 +3,4 @@ dosfstools
 ntfs-3g
 sddm
 qt6-svg
+qt6-multimedia

@@ -39,7 +39,7 @@ if [ -z "$NEXT_SCRIPT" ]; then
     echo "No more scripts to run. Cleaning up..."
     rm -f "$CURRENT_SCRIPT_FILE"
 #    systemctl disable script-scheduler.service || true
-    sed -i "s|^\"\$.*\"||g" ~/.bashrc
+    sed -i "s|^/home/Arch.*$||g" ~/.bashrc
     exit 0
 fi
 
