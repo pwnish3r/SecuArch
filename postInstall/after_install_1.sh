@@ -68,6 +68,16 @@ sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/grub-btrfsd --syslog --timeshift
 sudo systemctl enable grub-btrfsd
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 yay
+
+clear
+echo "Are you using a virtualbox VM? (y/n)"
+read VM
+if [ "$VM" == "y" ];then
+	yay -S --noconfirm virtualbox-guest-utils
+	systemctl enable vboxservice.service
+fi
+clear
+
 installPackages
 '''
 sudo systemctl enable libvirtd.service
