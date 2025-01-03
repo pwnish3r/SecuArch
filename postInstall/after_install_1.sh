@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 ######################################################################################
 installPackages(){
@@ -27,6 +26,7 @@ check_internet() {
 }
 if check_internet; then
     echo "Internet connection detected. Proceeding with the installation."
+    sleep 2
 else
     echo "No internet connection detected."
     while true; do

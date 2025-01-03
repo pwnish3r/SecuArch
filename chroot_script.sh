@@ -20,7 +20,6 @@ cat <<EOF > /etc/hosts
 EOF
 echo -e "\n\nEnter a password for \e[32mroot\e[0m (type carefully!):"
 passwd
-echo -e "\nEnter a username for the \e[32mnew user\e[0m:"
 read -p "Enter a username for the new user: " username
 if id "$username" &>/dev/null; then
     echo "User $username already exists. Skipping user creation."
@@ -51,7 +50,7 @@ chmod +x SecuArch/*.sh
 echo -e "\e[32Activating post install scripts autorun...\e[0m"
 echo "\$HOME/auxiliary_scripts/SecuArch/scriptScheduler.sh" >> ~/.bashrc
 EOF
-
+sleep 1
 echo -e "Base System install complete. Do you want to reboot now? (\e[32myes\e[0m/\e[31mno\e[0m)"
 read reboot_now
 if [ "$reboot_now" == "yes" ]; then
