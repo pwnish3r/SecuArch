@@ -32,7 +32,7 @@ fi
 if ! grep -q "^%wheel ALL=(ALL:ALL) ALL" /etc/sudoers; then
     sed -i '/^# %wheel ALL=(ALL:ALL) ALL/s/^# //' /etc/sudoers || true
 fi
-EDITOR=vim visudo
+#EDITOR=vim visudo
 
 grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
