@@ -37,7 +37,7 @@ fetch_partitions(){
 ###################################################################
 
 clear
-figlet -f slant "Welcome to SecuArch Install"
+figlet -f slant "SecuArch Install"
 echo -e "\e[32mThis script will guide you through the SecuArch installation process."
 echo -e "Follow the steps carefully and ensure you have an internet connection.\e[0m"
 sleep 3
@@ -70,7 +70,7 @@ if (( progress == 0 )); then
 	    echo -e "\e[31mAborting the operation.\e[0m"
 	    exit 1
 	fi
-	echo -e "Choose method of disk wiping: " && echo -e "1.\e[33mblkdiscard (Preffered. Works with TRIM compatible hardware. If in a VM, use this for QEMU/KVM)\e[0m" && echo -e "2.\e[33msgdisk (All purpose. Use this if using Virtual Box without TRIM.)\e[0m" && echo -e "3.\e[33mdd (Completeley zeroes the disk. The most secure but very slow!)\e[0m"
+	echo -e "Choose method of disk wiping: " && echo -e "1.\e[33mblkdiscard (Preferred. Works with TRIM compatible hardware. If in a VM, use this for QEMU/KVM)\e[0m" && echo -e "2.\e[33msgdisk (All purpose. Use this if using Virtual Box without TRIM.)\e[0m" && echo -e "3.\e[33mdd (Completeley zeroes the disk. The most secure but very slow!)\e[0m"
 	read method
 	
 	if [ "$method" == "1" ]; then
