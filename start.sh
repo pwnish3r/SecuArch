@@ -127,7 +127,7 @@ if (( progress == 1 )); then
 	# 6. Install the base system and essential packages
 	clear
 	echo -e "\n\n\e[32mInstalling the base system...\e[0m"
-	pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift intel-ucode nano networkmanager networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim
+	pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim
 
 	# 7. Generate the fstab file
 	genfstab -U /mnt >> /mnt/etc/fstab
