@@ -29,8 +29,8 @@ else
     passwd "$username" || true
 fi
 # Enable sudo for wheel group
-if ! grep -q "^%wheel ALL=(ALL) ALL" /etc/sudoers; then
-    sed -i '/^# %wheel ALL=(ALL) ALL/s/^# //' /etc/sudoers || true
+if ! grep -q "^%wheel ALL=(ALL:ALL) ALL" /etc/sudoers; then
+    sed -i '/^# %wheel ALL=(ALL:ALL) ALL/s/^# //' /etc/sudoers || true
 fi
 EDITOR=vim visudo
 
