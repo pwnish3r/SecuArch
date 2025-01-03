@@ -95,11 +95,8 @@
    chmod +x start.sh
    ./start.sh
    ```
-4. **Sudo Privileges**
-   
-   Before the first reboot, you will be presented with the sudoers file opened with VIM, scroll down and make sure the _# %wheel ALL=(ALL:ALL) ALL_ line is uncommented. Uncomment it by removing _#_.
 
-5. **After Install Scripts**
+4. **After Install Scripts**
 
    The After Install scripts make sure everything is installed and enabled on the system. The first script takes care of the packages and straps BlackArch repo on your system, changes GRUB and SDDM theme. The second script takes care of the actual environment, by choosing a Tiling Window Manager.
    > I recommend i3WM for VMs where resources are limited or on systems running low end hardware.
