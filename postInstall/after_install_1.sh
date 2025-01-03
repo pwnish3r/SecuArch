@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 ######################################################################################
 installPackages(){
 	package_file="$HOME/auxiliary_scripts/SecuArch/postInstall/testing.txt"
@@ -13,6 +15,45 @@ installPackages(){
 	echo -e "\n\e[32mInstallation process complete.\e[0m"
 }
 ######################################################################################
+
+################ INTERNET CONNECTIVITY ###########################
+echo "Checking for an internet connection..."
+check_internet() {
+    if ping -q -c 1 -W 1 8.8.8.8 >/dev/null 2>&1; then
+        return 0
+    else
+        return 1
+    fi
+}
+if check_internet; then
+    echo "Internet connection detected. Proceeding with the installation."
+else
+    echo "No internet connection detected."
+    while true; do
+        read -p "Would you like to connect to a WiFi network? (yes/no): " wifi_choice
+        case $wifi_choice in
+            yes|YES|y|Y)
+                # Use nmtui to connect to WiFi
+                echo "Launching WiFi connection tool..."
+                nmtui-connect
+                if check_internet; then
+                    echo "Internet connection established. Proceeding with the installation."
+                    break
+                else
+                    echo "Still no internet connection detected. Please try again."
+                fi
+                ;;
+            no|NO|n|N)
+                echo "Internet is required to continue the installation. Please connect to the internet and restart the installation."
+                exit 1
+                ;;
+            *)
+                echo "Please answer yes or no."
+                ;;
+        esac
+    done
+fi
+###################################################################
 
 sudo cp -r $HOME/auxiliary_scripts/SecuArch/grubTheme/catppuccin-mocha-grub-theme /boot/grub/themes
 sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/boot/grub/themes/catppuccin-mocha-grub-theme/theme.txt|' /etc/default/grub
