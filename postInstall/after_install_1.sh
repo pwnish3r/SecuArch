@@ -6,7 +6,7 @@ installPackages(){
 	mapfile -t packages < "$package_file"
 	for pkg in "${packages[@]}"; do
 		echo -e "Installing \e[32m$pkg\e[0m..."
-		if ! yay -S --noconfirm "$pkg"; then
+		if ! yay -S --noconfirm --needed "$pkg"; then
         		echo -e "Failed to install \e[31m$pkg\e[0m. Logging error..."
         		echo -e "$pkg" >> failed_packages.log
     		fi
@@ -62,21 +62,21 @@ cd $HOME/auxiliary_scripts
 curl -O https://blackarch.org/strap.sh
 chmod +x strap.sh
 sudo ./strap.sh
+sleep 1
 sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/grub-btrfsd --syslog --timeshift-auto|' /usr/lib/systemd/system/grub-btrfsd.service
 sudo systemctl enable grub-btrfsd
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 yay
-
-clear
+sleep 1
 echo "Are you using a virtualbox VM? (y/n)"
 read VM
 if [ "$VM" == "y" ];then
 	yay -S --noconfirm virtualbox-guest-utils
 	systemctl enable vboxservice.service
 fi
-clear
-
+sleep 1
 installPackages
+sleep 1
 sudo systemctl enable libvirtd.service
 sudo systemctl start libvirtd.service
 sudo sed -i "s|^#unix_sock_group.*$|unix_sock_group= \"libvirt\"|g" /etc/libvirt/libvirtd.conf
