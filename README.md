@@ -1,3 +1,104 @@
-# SecuArch : Arch Linux for Penetration Testing and Blue Team Operations
-### State: Unfinished
-Automated install of Arch Linux with BTRFS filesystem, snapshots with timeshift, and a focus on CyberSecurity
+<!-- PROJECT TITLE & BADGES -->
+<h1 align="center">SecuArch: Automated Arch Linux BTRFS Installation for Pentesters</h1>
+<p align="center">
+  <img src="https://img.shields.io/badge/ArchLinux-BTRFS-informational?style=flat&logo=arch-linux&color=1793D1" alt="ArchLinux BTRFS"/>
+  <img src="https://img.shields.io/badge/Focus-OffSec/CyberSec-success?style=flat"/>
+  <img src="https://img.shields.io/github/license/pwnish3r/SecuArch?style=flat" alt="License"/>
+  <img src="https://img.shields.io/github/issues/pwnish3r/SecuArch?style=flat" alt="Issues"/>
+  <img src="https://img.shields.io/github/forks/pwnish3r/SecuArch?style=flat" alt="Forks"/>
+  <img src="https://img.shields.io/github/stars/pwnish3r/SecuArch?style=flat" alt="Stars"/>
+</p>
+
+<p align="center">
+  An automated Arch Linux install script with a BTRFS layout, focusing on Cyber Security, Penetration Testing, and OffSec tooling.
+  <br/>
+  <strong>Explore the docs »</strong>
+  <br/>
+  <a href="#-features">Features</a>
+  ·
+  <a href="#-prerequisites-before-install">Prerequisites</a>
+  ·
+  <a href="#-installation-process">Installation</a>
+  ·
+  <a href="#-known-issues">Known Issues</a>
+  ·
+  <a href="#-roadmap--future-improvements">Future</a>
+</p>
+
+---
+
+## ✨ Overview
+
+**SecuArch** is a streamlined, **script-based** installation process for Arch Linux. It automatically sets up **BTRFS** subvolumes, **encrypted partitions** (optional), and pre-installs a curated collection of pentesting and defensive tools. My goal: provide a minimal yet powerful base for cybersecurity professionals, students, and enthusiasts.
+
+### Why SecuArch?
+- **BTRFS** for snapshotting & rollback—great for testing out risky software or experiments.
+- **Pentesting Tools** out of the box, inspired by Kali/BlackArch, but with full Arch flexibility.
+- **Focus on Security**: optional LUKS encryption, hardened configs, user-friendly scripts.
+
+---
+
+## 🔒 Key Features
+
+- **Automated Partitioning & BTRFS**: Create separate subvolumes for `/root`, `/home`, `/var`, etc.
+- **Optional LUKS Encryption**: Secure your data at rest with full-disk encryption.
+- **Pentesting Tools**: Installs essential packages (Metasploit, nmap, Wireshark, sqlmap, etc.).
+- **Blue Team & OffSec**: Suricata, OpenVAS, Tor, i2p, Firejail, etc.
+- **Customizable**: Pick and choose which tools to install during or after setup.
+- **Post-Install Scripts**: Automatic configuration of sudoers, network, display manager, or security tweaks.
+
+---
+
+## ✅ Prerequisites (Before Install)
+
+1. **Bootable Arch ISO**: Download from [Arch Linux official site](https://archlinux.org/download/).
+2. **Internet Connection**: The script will update mirrors and install packages online.
+3. **UEFI or Legacy Mode**: Ensure your system is properly set up to boot in UEFI if you want EFI partitions.
+4. **Storage Device**: This script will format your chosen drive. Double-check you’re okay with losing data.
+
+> **Warning**: This installer **wipes** the selected disk. Back up any essential data!
+
+---
+
+## ⚙️ Installation Process
+**BARE METAL**
+1. **Boot from Arch ISO**  
+   Insert your USB and boot the live environment.
+
+**VIRTUAL MACHINE**
+1. **Prerequisite**
+  -If you're running linux, I recommend QEMU/KVM. It supports TRIM and has less strange bugs than virtualbox (At least in my case). In any case, make sure you have the resources necessary for running a virtual graphical environment.
+   -Enable EFI
+   -Make sure you have at least 40GB free. If you want a more lightweight distro, eliminate some of the packages in the _packages.txt_ file.
+
+2. **Clone the Repository**  
+   ```bash
+   pacman -Syy
+   pacman-key --init
+   pacman -S git
+   git clone https://github.com/pwnish3r/SecuArch.git
+   cd SecuArch
+   ```
+   The _pacman -S git_ may fail a few times, keep trying.
+   
+3. **Run the installer**
+   ```bash
+   chmod +x start.sh
+   ./start.sh
+   ```
+4. **Sudo Privileges**
+   
+   Before the first reboot, you will be presented with the sudoers file opened with VIM, scroll down and make sure the _# %wheel ALL=(ALL:ALL) ALL_ line is uncommented. Uncomment it by removing _#_.
+
+5. **After Install Scripts**
+
+   The After Install scripts make sure everything is installed and enabled on the system. The first script takes care of the packages and straps BlackArch repo on your system, changes GRUB and SDDM theme. The second script takes care of the actual environment, by choosing a Tiling Window Manager. *I recommend i3 for VMs where resources are limited or systems running low end hardware*.
+
+## 🏗️ Known Issues
+
+    Nvidia/AMD Drivers: Some laptops with hybrid GPU might need manual driver setup post-install.
+    Secure Boot: If you have Secure Boot enabled, additional steps or kernel signing might be needed.
+    Wi-Fi Issues: Network Manager is included, but certain Wi-Fi chipsets may require extra firmware.
+    BSPWM: The ricer installer included doesn't really work in a VM, but works perfectly fine even on laptop from 2012 Bare Metal. Either don't install anything and configure your own Desktop Environment or Window Manager or choose the i3 configuration.
+
+Please report issues or open a pull request if you find a bug or have a workaround!
