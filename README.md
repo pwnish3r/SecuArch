@@ -72,13 +72,15 @@
 **VIRTUAL MACHINE**
 1. **Prerequisite**
 
-   -If you're running linux, I recommend QEMU/KVM. It supports TRIM and has less strange bugs than virtualbox (At least in my case). In any case, make sure you have the resources necessary for running a virtual graphical environment.
+   - If you're running linux, I recommend QEMU/KVM. It supports TRIM and has less strange bugs than virtualbox (At least in my case). In any case, make sure you have the resources necessary for running a virtual graphical environment.
 
-   -Enable EFI
+   - Enable EFI
 
-   -Make sure you have at least 40GB free. If you want a more lightweight distro, eliminate some of the packages in the _packages.txt_ file.
+   - Make sure you have at least 40GB free. If you want a more lightweight distro, eliminate some of the packages in the _packages.txt_ file.
 
-3. **Clone the Repository**  
+---
+
+2. **Clone the Repository**  
    ```bash
    pacman -Syy
    pacman-key --init
@@ -88,19 +90,21 @@
    ```
    The _pacman -S git_ may fail a few times, keep trying.
    
-4. **Run the installer**
+3. **Run the installer**
    ```bash
    chmod +x start.sh
    ./start.sh
    ```
-5. **Sudo Privileges**
+4. **Sudo Privileges**
    
    Before the first reboot, you will be presented with the sudoers file opened with VIM, scroll down and make sure the _# %wheel ALL=(ALL:ALL) ALL_ line is uncommented. Uncomment it by removing _#_.
 
-6. **After Install Scripts**
+5. **After Install Scripts**
 
    The After Install scripts make sure everything is installed and enabled on the system. The first script takes care of the packages and straps BlackArch repo on your system, changes GRUB and SDDM theme. The second script takes care of the actual environment, by choosing a Tiling Window Manager.
    > I recommend i3WM for VMs where resources are limited or on systems running low end hardware.
+
+---
 
 ## 🏗️ Known Issues
 
@@ -117,13 +121,22 @@
 
 Please report issues or open a pull request if you find a bug or have a workaround!
 
+---
+
 ## 🚀 Roadmap & Future Improvements
 
-    Additional Subvolume Layout: Offer advanced partition schemes for containers, logs, etc.
-    GUI Installer: Possibly build a minimalist curses or web-based front-end.
-    Extensive Hardening: systemd security profiles, SELinux/AppArmor integration, etc.
-    Local CTF Lab: Automate spinning up local vulnerable VMs or Docker images for practice.
-    Customization Wizard: Let users pick from multiple security profiles (Red Team, Blue Team, Reverse Engineering, etc.) during installation.
+    1. Additional Subvolume Layout: Offer advanced 
+    partition schemes for containers, logs, etc.
+    2. GUI Installer: Possibly build a minimalist 
+    curses or web-based front-end.
+    3. Extensive Hardening: systemd security profiles, 
+    SELinux/AppArmor integration, etc.
+    4. Local CTF Lab: Automate spinning up local 
+    vulnerable VMs or Docker images for practice.
+    5. Customization Wizard: Let users pick from 
+    multiple security profiles (Red Team, Blue Team, Reverse Engineering, etc.) during installation.
+
+---
 
 ## 🤝 Contributing
 
