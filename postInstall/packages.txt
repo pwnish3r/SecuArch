@@ -5,7 +5,7 @@ wget
 curl
 tmux
 vim
-zram
+zram-generator
 metasploit
 nmap
 wireshark-cli
