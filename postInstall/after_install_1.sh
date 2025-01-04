@@ -54,7 +54,7 @@ else
     done
 fi
 ###################################################################
-
+timedatectl set-ntp true
 sudo cp -r $HOME/auxiliary_scripts/SecuArch/grubTheme/darkmatter /boot/grub/themes
 sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/boot/grub/themes/darkmatter/theme.txt|' /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
@@ -77,24 +77,48 @@ fi
 sleep 1
 installPackages
 sleep 1
+
+echo -e "\e[31mService\e[0m"
+sleep 2
 sudo systemctl enable libvirtd.service
+
+
+echo -e "\e[31mService\e[0m"
+sleep 2
 sudo systemctl start libvirtd.service
+
+echo -e "\e[31msed\e[0m"
+sleep 2
 sudo sed -i "s|^#unix_sock_group.*$|unix_sock_group= \"libvirt\"|g" /etc/libvirt/libvirtd.conf
 sudo sed -i "s|^#unix_sock_rw_perms.*$|unix_sock_rw_perms= \"0770\"|g" /etc/libvirt/libvirtd.conf
+
+
+echo -e "\e[31mUsermod\e[0m"
+sleep 2
 sudo usermod -a -G libvirt $(whoami)
 newgrp libvirt
+
+echo -e "\e[31mService libvirtd\e[0m"
 sudo systemctl restart libvirtd.service
 sudo systemctl enable vmtoolsd.service
 sudo systemctl start vmtoolsd.service
+sleep 2
+
+echo -e "\e[31mService ufw\e[0m"
+sleep 2
 sudo systemctl enable ufw
 sudo systemctl start ufw
 ufw default deny incoming
 ufw default allow outgoing
 ufw enable
+
+echo -e "\e[31mService apparmor auditd docker\e[0m"
+sleep 2
 sudo systemctl enable apparmor
 sudo systemctl enable auditd
 sudo systemctl enable docker
 sudo systemctl start docker
+sleep 1
 sudo git clone https://github.com/keyitdev/sddm-astronaut-theme.git /usr/share/sddm/themes/sddm-astronaut-theme
 sudo cp /usr/share/sddm/themes/sddm-astronaut-theme/Fonts/* /usr/share/fonts/
 echo "[Theme]
