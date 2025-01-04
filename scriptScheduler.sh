@@ -8,7 +8,7 @@ CURRENT_SCRIPT_FILE="$SCRIPT_DIR/current_script"
 
 # Initialize the tracking file if it doesn't exist
 if [ ! -f "$CURRENT_SCRIPT_FILE" ]; then
-    echo -e "\e[31mNo current script to run. Initializing with the first script...\e[0m"
+    echo -e "\e[32mNo current script to run. Initializing with the first script...\e[0m"
     NEXT_SCRIPT=$(ls "$SCRIPT_DIR" | grep -E '^after_install_[0-9]+\.sh$' | sort | head -n 1)
     if [ -z "$NEXT_SCRIPT" ]; then
         echo -e "No scripts found to run. \e[31mExiting...\e[0m"
