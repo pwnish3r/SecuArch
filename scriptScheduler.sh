@@ -25,7 +25,7 @@ if [ -f "$SCRIPT_DIR/$CURRENT_SCRIPT" ]; then
     echo "Executing $CURRENT_SCRIPT..."
     bash "$SCRIPT_DIR/$CURRENT_SCRIPT"
     echo -e "\e[32mFinished executing $CURRENT_SCRIPT.\e[0m"
-    sleep 3
+    sleep 2
     rm -f "$SCRIPT_DIR/$CURRENT_SCRIPT"
     NEXT_SCRIPT=$(ls "$SCRIPT_DIR" | grep -E '^after_install_[0-9]+\.sh$' | sort | head -n 1)
     echo "$NEXT_SCRIPT" > "$CURRENT_SCRIPT_FILE"
