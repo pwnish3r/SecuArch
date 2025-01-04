@@ -50,6 +50,7 @@ chmod +x SecuArch/*.sh
 echo -e "\e[32Activating post install scripts autorun...\e[0m"
 echo "\$HOME/auxiliary_scripts/SecuArch/scriptScheduler.sh" >> ~/.bashrc
 EOF
+clear
 sleep 1
 echo -e "Base System install complete. Do you want to reboot now? (\e[32myes\e[0m/\e[31mno\e[0m)"
 read reboot_now
