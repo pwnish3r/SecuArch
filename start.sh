@@ -158,7 +158,7 @@ fi
 if (( progress == 2 )); then
 	if [ "$encryption_choice" = "y" ] || [ "$encryption_choice" = "Y" ]; then
 		export ENCRYPTED=1
-		export ROOT_PARTITION=$rootdev
+		export ROOT_PARTITION="/dev/${partition2}"
 	else
 		export ENCRYPTED=0
 	fi
