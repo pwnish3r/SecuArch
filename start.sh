@@ -5,7 +5,7 @@ pacman -S --noconfirm figlet
 pacman-key --init || true
 set -e
 trap 'echo -e "\e[31mAn error occurred on line $LINENO. Exiting...\e[0m"; exit 1' ERR
-trap 'echo -e "\e[31mAn error occurred. Cleaning up...\e[0m"; umount -R /mnt || true; exit 1' ERR
+trap 'echo -e "\e[31mAn error occurred. Cleaning up...\e[0m"; umount -R /mnt || true; umount /dev/mapper/luksroot || true; cryptsetup close luksroot; exit 1' ERR
 
 ###################################################################
 if [ -z "${PROGRESS}" ]; then
@@ -52,6 +52,9 @@ chmod +x postInstall/*.sh
 # 1. Disk formatting
 ###################################################################
 if (( progress == 0 )); then
+	cryptsetup close luksroot || true
+	umount /mnt || true
+	umount /dev/mapper/luksroot || true
 	# 2. List available disks and prompt for selection
 	clear
 	echo -e "\e[32mListing available disks:\e[0m\n\n"
