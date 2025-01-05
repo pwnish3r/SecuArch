@@ -59,7 +59,7 @@ if [ "$ENCRYPTED" = "1" ]; then
     # 2.3 Modify mkinitcpio.conf HOOKS
     # Typically: HOOKS=(base udev autodetect modconf block encrypt filesystems keyboard fsck)
     sed -i 's/^HOOKS=.*/HOOKS=(base udev autodetect modconf block encrypt filesystems keyboard fsck)/' /etc/mkinitcpio.conf
-
+    echo "GRUB_ENABLE_CRYPTODISK=y" >> /etc/default/grub
     # 2.4 Rebuild initramfs
     mkinitcpio -P
 fi
