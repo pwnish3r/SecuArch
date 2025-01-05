@@ -147,7 +147,7 @@ if (( progress == 1 )); then
 	echo -e "\n\n\e[32mInstalling the base system...\e[0m"
 	pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim
 	genfstab -U /mnt >> /mnt/etc/fstab
-	cat /mnt/etc/fstab
+	nano /mnt/etc/fstab
 	(( progress+=1 ))
 	export PROGRESS=2
 fi
