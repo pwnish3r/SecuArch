@@ -54,7 +54,7 @@ if [ "$ENCRYPTED" = "1" ]; then
 
     # 2.2 Edit /etc/default/grub to include cryptdevice param
     # If there's already a line, we replace it; if not, we insert a new line.
-    sed -i "s|^GRUB_CMDLINE_LINUX=.*|GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=$PART_UUID:luksroot root=/dev/mapper/luksroot\"|" /etc/default/grub
+    sed -i "s|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet cryptdevice=UUID=$PART_UUID:luksroot root=/dev/mapper/luksroot\"|" /etc/default/grub
     echo "cryptdevice=UUID=$PART_UUID:luksroot root=/dev/mapper/luksroot"
     echo "$ROOT_PARTITION"
     blkid
@@ -62,6 +62,7 @@ if [ "$ENCRYPTED" = "1" ]; then
     # 2.3 Modify mkinitcpio.conf HOOKS
     # Typically: HOOKS=(base udev autodetect modconf block encrypt filesystems keyboard fsck)
     sed -i 's/^HOOKS=.*/HOOKS=(base udev autodetect modconf block encrypt filesystems keyboard fsck)/' /etc/mkinitcpio.conf
+    sed -i 's/^MODULES=.*/MODULES=(btrfs)/' /etc/mkinitcpio.conf
     echo "GRUB_ENABLE_CRYPTODISK=y" >> /etc/default/grub
     # 2.4 Rebuild initramfs
     mkinitcpio -P

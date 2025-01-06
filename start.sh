@@ -131,10 +131,11 @@ mount "$rootdev" /mnt
 btrfs subvolume create /mnt/@ || true
 btrfs subvolume create /mnt/@home || true
 umount /mnt || true
-mount -o compress=zstd,subvol=@ "$rootdev" /mnt || true
+mount -o noatime,ssd,compress=zstd,space_cache=v2,discard=async,subvol=@ "$rootdev" /mnt || true
 
 mkdir -p /mnt/home || true
-mount -o compress=zstd,subvol=@home "$rootdev" /mnt/home || true
+mount -o noatime,ssd,compress=zstd,space_cache=v2,discard=async,subvol=@ "$rootdev" /mnt || true
+subvol=@home "$rootdev" /mnt/home || true
 
 mkdir -p /mnt/efi || true
 mount /dev/${partition1} /mnt/efi || true
@@ -145,8 +146,8 @@ mount /dev/${partition1} /mnt/efi || true
 if (( progress == 1 )); then	
 	clear
 	echo -e "\n\n\e[32mInstalling the base system...\e[0m"
-	pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim
-	genfstab -U /mnt >> /mnt/etc/fstab
+	pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim
+	genfstab -U -p /mnt >> /mnt/etc/fstab
 	nano /mnt/etc/fstab
 	(( progress+=1 ))
 	export PROGRESS=2
