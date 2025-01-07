@@ -134,8 +134,7 @@ umount /mnt || true
 mount -o noatime,ssd,compress=zstd,space_cache=v2,discard=async,subvol=@ "$rootdev" /mnt || true
 
 mkdir -p /mnt/home || true
-mount -o noatime,ssd,compress=zstd,space_cache=v2,discard=async,subvol=@ "$rootdev" /mnt || true
-subvol=@home "$rootdev" /mnt/home || true
+mount -o noatime,ssd,compress=zstd,space_cache=v2,discard=async,subvol=@home "$rootdev" /mnt/home || true
 
 mkdir -p /mnt/efi || true
 mount /dev/${partition1} /mnt/efi || true
