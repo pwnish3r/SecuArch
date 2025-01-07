@@ -137,8 +137,8 @@ mount -o noatime,ssd,compress=zstd,space_cache=v2,discard=async,subvol=@ "$rootd
 mkdir -p /mnt/home || true
 mount -o noatime,ssd,compress=zstd,space_cache=v2,discard=async,subvol=@home "$rootdev" /mnt/home || true
 
-mkdir -p /mnt/boot/efi || true
-mount /dev/${partition1} /mnt/boot/efi || true
+mkdir -p /mnt/efi || true
+mount /dev/${partition1} /mnt/efi || true
 
 ###################################################################
 # 3. Install the base system and essential packages
