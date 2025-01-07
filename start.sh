@@ -2,7 +2,7 @@
 pacman -Syy
 pacman -S --noconfirm util-linux
 pacman -S --noconfirm figlet
-pacman -Sy cryptsetup grub
+pacman -Sy --noconfirm cryptsetup grub
 pacman-key --init || true
 set -e
 trap 'echo -e "\e[31mAn error occurred on line $LINENO. Exiting...\e[0m"; exit 1' ERR
@@ -104,7 +104,7 @@ if (( progress == 0 )); then
 	read encryption_choice
 	if [ "$encryption_choice" = "y" ] || [ "$encryption_choice" = "Y" ]; then
 	    echo -e "\n\e[32mSetting up LUKS2 on /dev/${partition2}...\e[0m"
-	    cryptsetup luksFormat --type luks2 -pbkdf pbkdf2 /dev/${partition2}
+	    cryptsetup luksFormat --type luks2 /dev/${partition2}
 	    cryptsetup open /dev/${partition2} luksroot
 	    mkfs.btrfs -f /dev/mapper/luksroot
 	    rootdev="/dev/mapper/luksroot"
