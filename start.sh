@@ -145,7 +145,7 @@ mount /dev/${partition1} /mnt/efi || true
 if (( progress == 1 )); then	
 	clear
 	echo -e "\n\n\e[32mInstalling the base system...\e[0m"
-	pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim grub-install
+	pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim
 	genfstab -U -p /mnt >> /mnt/etc/fstab
 	nano /mnt/etc/fstab
 	(( progress+=1 ))
