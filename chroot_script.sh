@@ -77,8 +77,11 @@ grub-mkconfig -o /boot/grub/grub.cfg
 #############################################
 # PLYMOUTH THEME
 #############################################
-plymouth-set-default-theme spinner
-
+setPlymouth(){
+	cp -r /home/$username/auxiliary_scripts/plymouth-themes/pack_1/angular /usr/share/plymouth/themes/
+	plymouth-set-default-theme -R angular
+	mkinitcpio -P
+}
 #############################################
 # 4. Enable networking and finalize
 #############################################
@@ -96,8 +99,10 @@ chmod +x SecuArch/postInstall/after_install_*.sh
 chmod +x SecuArch/*.sh
 echo -e "\e[32mActivating post install scripts autorun...\e[0m"
 echo "\$HOME/auxiliary_scripts/SecuArch/scriptScheduler.sh" >> ~/.bashrc
+cd auxiliary_scripts
+git clone https://github.com/adi1090x/plymouth-themes.git
 EOF
-
+setPlymouth
 clear
 sleep 1
 

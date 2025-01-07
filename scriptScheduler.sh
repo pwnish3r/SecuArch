@@ -12,6 +12,7 @@ if [ ! -f "$CURRENT_SCRIPT_FILE" ]; then
     NEXT_SCRIPT=$(ls "$SCRIPT_DIR" | grep -E '^after_install_[0-9]+\.sh$' | sort | head -n 1)
     if [ -z "$NEXT_SCRIPT" ]; then
         echo -e "No scripts found to run. \e[31mExiting...\e[0m"
+        sed -i "s|^/home/Arch.*$||g" ~/.bashrc
         exit 0
     fi
     echo "$NEXT_SCRIPT" > "$CURRENT_SCRIPT_FILE"
@@ -32,6 +33,7 @@ if [ -f "$SCRIPT_DIR/$CURRENT_SCRIPT" ]; then
     reboot
 else
     echo "Script $CURRENT_SCRIPT not found. Exiting..."
+    sed -i "s|^/home/Arch.*$||g" ~/.bashrc
     exit 1
 fi
 
