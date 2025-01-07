@@ -58,3 +58,6 @@ libguestfs
 suricata
 alacritty
 firefox
+cantarell-fonts
+plymouth
+plymouth-x11

@@ -104,7 +104,7 @@ if (( progress == 0 )); then
 	read encryption_choice
 	if [ "$encryption_choice" = "y" ] || [ "$encryption_choice" = "Y" ]; then
 	    echo -e "\n\e[32mSetting up LUKS2 on /dev/${partition2}...\e[0m"
-	    cryptsetup luksFormat --type luks2 --pbkdf pbkdf2 /dev/${partition2}
+	    cryptsetup luksFormat --type luks2 --pbkdf pbkdf2 --pbkdf-force-iterations=500000 /dev/${partition2}
 	    cryptsetup open /dev/${partition2} luksroot
 	    mkfs.btrfs -f /dev/mapper/luksroot
 	    rootdev="/dev/mapper/luksroot"
@@ -146,7 +146,7 @@ mount /dev/${partition1} /mnt/efi || true
 if (( progress == 1 )); then	
 	clear
 	echo -e "\n\n\e[32mInstalling the base system...\e[0m"
-	pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim
+	pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim plymouth
 	genfstab -U -p /mnt >> /mnt/etc/fstab
 	nano /mnt/etc/fstab
 	(( progress+=1 ))
