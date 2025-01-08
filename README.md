@@ -44,7 +44,7 @@
 
 ## 🔒 Key Features
 
-- **Automated Partitioning & BTRFS**: Create separate subvolumes for `/root`, `/home`, `/var`, etc.
+- **Automated Partitioning & BTRFS**: Create separate subvolumes for `/root`, `/home`.
 - **Optional LUKS Encryption**: Secure your data at rest with full-disk encryption.
 - **Pentesting Tools**: Installs essential packages (Metasploit, nmap, Wireshark, sqlmap, etc.).
 - **Blue Team & OffSec**: Suricata, OpenVAS, Tor, i2p, Firejail, etc.
