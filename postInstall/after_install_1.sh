@@ -81,15 +81,6 @@ sudo systemctl enable libvirtd.service
 sudo systemctl start libvirtd.service
 sudo sed -i "s|^#unix_sock_group.*$|unix_sock_group= \"libvirt\"|g" /etc/libvirt/libvirtd.conf
 sudo sed -i "s|^#unix_sock_rw_perms.*$|unix_sock_rw_perms= \"0770\"|g" /etc/libvirt/libvirtd.conf
-sudo usermod -a -G libvirt $(whoami)
-sudo systemctl restart libvirtd.service
-sudo systemctl enable vmtoolsd.service
-sudo systemctl start vmtoolsd.service
-sudo systemctl enable ufw
-sudo systemctl start ufw
-ufw default deny incoming
-ufw default allow outgoing
-ufw enable
 sudo systemctl enable apparmor
 sudo systemctl enable auditd
 sudo systemctl enable docker
@@ -103,5 +94,14 @@ sudo sed -i "s|^BlurMax.*$|BlurMax=\"64\"|g" /usr/share/sddm/themes/sddm-astrona
 sudo sed -i "s|^Blur.*$|Blur=\"1.0\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/theme1.conf
 sudo sed -i "s|^AllowUppercaseLettersInUsernames.*$|AllowUppercaseLettersInUsernames=\"true\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/theme1.conf
 sudo cp ~/auxiliary_scripts/SecuArch/postInstall/1.png /usr/share/sddm/themes/sddm-astronaut-theme/Backgrounds/1.png
+sudo systemctl enable ufw
+sudo systemctl start ufw
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw enable
+sudo usermod -a -G libvirt $(whoami)
+sudo systemctl restart libvirtd.service
+sudo systemctl enable vmtoolsd.service
+sudo systemctl start vmtoolsd.service
 echo -e "\e[32mInstall script 1/3 complete.The system will reboot now!\e[0m."
 sleep 2

@@ -52,7 +52,12 @@ bridge-utils
 dmidecode
 ebtables
 iptables
+iptables-nft
+ipset
 libguestfs
 suricata
 alacritty
 firefox
+cantarell-fonts
+plymouth
+plymouth-x11
