@@ -119,6 +119,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 #############################################
 setPlymouth(){
 	cp -r /home/$username/auxiliary_scripts/plymouth-themes/pack_2/glitch /usr/share/plymouth/themes/
+	sudo sed -i "s|Enter password|Enter LUKS passphrase|g" /usr/share/plymouth/themes/glitch/glitch.script
 	plymouth-set-default-theme -R glitch
 	mkinitcpio -P
 }

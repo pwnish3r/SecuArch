@@ -1,4 +1,7 @@
 #!/bin/bash
+clear
+sleep 0.1
+figlet -f slant "Script 2"
 sudo systemctl enable sddm
 echo -e "Now you can choose to install either \n\e[32m1.i3\e[0m\n\e[32m2.bspwm\e[0m. For any other WM or DE, check the arch wiki for details"
 echo "Your choice(1 or 2): "
@@ -8,13 +11,12 @@ if [ "$choice" == "1" ]; then
     git clone https://github.com/pwnish3r/dotfiles-i3.git
     cd dotfiles-i3
     cp -r .config $HOME/
-    echo -e "\e[32mInstall script 2/3 complete.The system will reboot now!\e[0m."
-    sleep 2
+    sleep 1
 elif [ "$choice" == "2" ]; then
     curl -L https://is.gd/gh0stzk_dotfiles -o $HOME/RiceInstaller
     chmod +x RiceInstaller
     echo -e "The Rice Installer will begin. Choose \e[31mNO\e[0m when asked to reboot"
-    sleep 2
+    sleep 1
     ./RiceInstaller
     cd $HOME/.config
     git clone https://github.com/pwnish3r/dotfiles-bspwm.git
@@ -23,6 +25,13 @@ elif [ "$choice" == "2" ]; then
     cp -r nvim ../
     cp -r tmux ../
     cp -r zsh ../
-    echo -e "\e[32mInstall script 2/3 complete.The system will reboot now!\e[0m."
-    sleep 2
+    sleep 1
 fi
+
+clear
+sleep 0.1
+echo -e "Cleaning up..."
+rm -r -f ~/auxiliary_scripts/SecuArch
+rm -f ~/auxiliary_scripts/strap.sh
+rm -r -f /auxiliary_scripts/yay
+echo -e "\e[32mInstall script 2/3 complete.The system will reboot now!\e[0m."
