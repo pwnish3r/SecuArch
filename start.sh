@@ -9,6 +9,38 @@ trap 'echo -e "\e[31mAn error occurred on line $LINENO. Exiting...\e[0m"; exit 1
 trap 'echo -e "\e[31mAn error occurred. Cleaning up...\e[0m"; umount -R /mnt || true; umount /dev/mapper/luksroot || true; cryptsetup close luksroot; exit 1' ERR
 
 ###################################################################
+###################################################################
+RED() {
+    local RED="\e[31m"
+    local RESET="\e[0m"
+    echo -e "${RED}$1${RESET}"
+}
+GREEN() {
+    local GREEN="\e[32m"
+    local RESET="\e[0m"
+    echo -e "${GREEN}$1${RESET}"
+}
+YELLOW() {
+    local YELLOW="\e[33m"
+    local RESET="\e[0m"
+    echo -e "${YELLOW}$1${RESET}"
+}
+BLUE() {
+    local BLUE="\e[34m"
+    local RESET="\e[0m"
+    echo -e "${BLUE}$1${RESET}"
+}
+CYAN() {
+    local CYAN="\e[36m"
+    local RESET="\e[0m"
+    echo -e "${CYAN}$1${RESET}"
+}
+###################################################################
+###################################################################
+
+
+
+###################################################################
 if [ -z "${PROGRESS}" ]; then
 	export PROGRESS=0
 else
@@ -19,66 +51,81 @@ fi
 fetch_partitions(){
 	lsblk
 	while true; do
-	    echo -e "\e[32mPlease enter the EFI partition (e.g., sda1):\e[0m"
+	    GREEN "Please enter the EFI partition (e.g., sda1):"
 	    read partition1
 	    if lsblk | grep -q "${partition1}"; then
 		break
 	    else
-		echo -e "\e[31mInvalid partition. Please enter a valid partition (e.g., sda1).\e[0m"
+		RED "ERROR: Invalid partition. Please enter a valid partition (e.g., sda1)"
 	    fi
 	done
 	while true; do
-	    echo -e "\e[32mPlease enter the ROOT partition (e.g., sda2):\e[0m"
+	    GREEN "Please enter the ROOT partition (e.g., sda2):"
 	    read partition2
 	    if lsblk | grep -q "${partition2}"; then
 		break
 	    else
-		echo -e "\e[31mInvalid partition. Please enter a valid partition (e.g., sda2).\e[0m"
+		RED "ERROR: Invalid partition. Please enter a valid partition (e.g., sda2)"
 	    fi
 	done
 }
+
+###################################################################
+###################################################################
+spinner() {
+    local pid=$!
+    local delay=0.1
+    local spinstr='|/-\\'
+    while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
+        local temp=${spinstr#?}
+        printf " [%c]  " "$spinstr"
+        local spinstr=$temp${spinstr%"$temp"}
+        sleep $delay
+        printf "\\b\\b\\b\\b\\b\\b"
+    done
+    printf "    \\b\\b\\b\\b"
+}
+###################################################################
 ###################################################################
 
 clear
 figlet -f slant "SecuArch Install"
-echo -e "\e[32mThis script will guide you through the SecuArch installation process."
-echo -e "Follow the steps carefully and ensure you have an internet connection.\e[0m"
+GREEN "This script will guide you through the SecuArch installation process.\nFollow the steps carefully and ensure you have an internet connection."
 sleep 3
 loadkeys en
 timedatectl set-ntp true
 chmod +x *.sh
-chmod +x postInstall/*.sh
-
 ###################################################################
 # 1. Disk formatting
 ###################################################################
+figlet -f slant "Disk Formatting"
 if (( progress == 0 )); then
 	cryptsetup close luksroot || true
 	umount /mnt || true
 	umount /dev/mapper/luksroot || true
 	# 2. List available disks and prompt for selection
 	clear
-	echo -e "\e[32mListing available disks:\e[0m\n\n"
+	GREEN "\nListing available disks:\n"
 	sleep 1
 	fdisk -l
 	while true; do
-	    echo -e "\n\n\e[32mEnter the disk you want to partition (e.g., /dev/sda):\e[0m"
+	    GREEN "\nEnter the disk you want to partition (e.g., /dev/sda):"
 	    read disk
 	    if lsblk | grep -q "^$(basename $disk)"; then
 		break
 	    else
-		echo -e "\e[31mInvalid disk. Please enter a valid disk (e.g., /dev/sda).\e[0m"
+		RED "ERROR: Invalid partition. Please enter a valid partition (e.g., /dev/sda)"
 	    fi
 	done
 
-	echo -e "You are about to \e[31moverwrite\e[0m $disk. All data will be \e[31mlost\e[0m."
-	echo -e "Do you want to continue? Type \e[32mYES\e[0m to proceed:"
+	echo -e "\nYou are about to \e[31moverwrite\e[0m $disk. All data will be \e[31mlost\e[0m."
+	echo -e "Do you want to continue? Type \e[32mYES\e[0m to proceed:\n"
 	read confirm
 	if [ "$confirm" != "YES" ]; then
-	    echo -e "\e[31mAborting the operation.\e[0m"
+	    RED "Aborting the operation"
 	    exit 1
 	fi
-	echo -e "Choose method of disk wiping: " && echo -e "1.\e[33mblkdiscard (Preferred. Works with TRIM compatible hardware. If in a VM, use this for QEMU/KVM)\e[0m" && echo -e "2.\e[33msgdisk (All purpose. Use this if using Virtual Box without TRIM.)\e[0m" && echo -e "3.\e[33mdd (Completeley zeroes the disk. The most secure but very slow!)\e[0m"
+	echo -e "\nChoose method of disk wiping: " && echo -e "1.\e[33mblkdiscard (Preferred. Works with TRIM compatible hardware. If in a VM, use this for QEMU/KVM)\e[0m" && echo -e "2.\e[33msgdisk (All purpose. Use this if using Virtual Box without TRIM.)\e[0m" && echo -e "3.\e[33mdd (Completeley zeroes the disk. The most secure but very slow!)\e[0m\n\n"
 	read method
 	if [ "$method" == "1" ]; then
 		wipefs --all $disk
@@ -100,17 +147,18 @@ if (( progress == 0 )); then
 	sgdisk -n 2:0:0 -t 2:8300 $disk   # Root partition
 	fetch_partitions
 	mkfs.fat -F 32 /dev/${partition1}
-	echo -e "\n\e[33mWould you like to enable LUKS2 encryption for your root partition? (y/n)\e[0m"
+	figlet -f slant "Encryption"
+	YELLOW "Would you like to enable LUKS2 encryption for your root partition? (y/n)"
 	read encryption_choice
 	if [ "$encryption_choice" = "y" ] || [ "$encryption_choice" = "Y" ]; then
-	    echo -e "\n\e[32mSetting up LUKS2 on /dev/${partition2}...\e[0m"
+	    GREEN "\nSetting up LUKS2 on /dev/${partition2}..."
 	    cryptsetup luksFormat --type luks2 --pbkdf pbkdf2 --pbkdf-force-iterations=1000000 /dev/${partition2}
 	    cryptsetup open /dev/${partition2} luksroot
 	    mkfs.btrfs -f /dev/mapper/luksroot
 	    rootdev="/dev/mapper/luksroot"
 	    export ENCRYPTED=1
 	else
-	    echo -e "\n\e[32mFormatting /dev/${partition2} with BTRFS...\e[0m"
+	    GREEN "\nFormatting /dev/${partition2} with BTRFS..."
 	    mkfs.btrfs -f /dev/${partition2}
 	    rootdev="/dev/${partition2}"
 	    export ENCRYPTED=0
@@ -127,7 +175,8 @@ if [ -z "${partition1}" ]; then
 	fetch_partitions
 fi
 clear
-echo -e "\e[32mMounting the partitions...\e[0m"
+figlet -f slant "Partition Mounting"
+GREEN "\nMounting the partitions..."
 mount "$rootdev" /mnt
 btrfs subvolume create /mnt/@ || true
 btrfs subvolume create /mnt/@home || true
@@ -143,12 +192,14 @@ mount /dev/${partition1} /mnt/efi || true
 ###################################################################
 # 3. Install the base system and essential packages
 ###################################################################
+clear
+sleep 0.1
+figlet -f slant "Pacstrap"
 if (( progress == 1 )); then	
 	clear
 	echo -e "\n\n\e[32mInstalling the base system...\e[0m"
-	pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim plymouth
+	pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim plymouth figlet & spinner
 	genfstab -U -p /mnt >> /mnt/etc/fstab
-	nano /mnt/etc/fstab
 	(( progress+=1 ))
 	export PROGRESS=2
 fi

@@ -91,13 +91,13 @@ echo "[Theme]
 Current=sddm-astronaut-theme" | sudo tee /etc/sddm.conf
 echo "[General]
 InputMethod=qtvirtualkeyboard" | sudo tee /etc/sddm.conf.d/virtualkbd.conf
-sudo sed -i "s|^ConfigFile=.*|ConfigFile=Themes/pixel_sakura_static.conf|g" usr/share/sddm/themes/sddm-astronaut-theme/metadata.desktop
-sudo sed -i "s|^FullBlur.*$|FullBlur=\"true\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/pixel_sakura_static.conf
-sudo sed -i "s|^BlurMax.*$|BlurMax=\"64\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/pixel_sakura_static.conf
-sudo sed -i "s|^Blur.*$|Blur=\"1.0\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/pixel_sakura_static.conf
-sudo sed -i "s|^AllowUppercaseLettersInUsernames.*$|AllowUppercaseLettersInUsernames=\"true\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/pixel_sakura_static.conf
+sudo sed -i "s|astronaut.conf|cyberpunk.conf|g" usr/share/sddm/themes/sddm-astronaut-theme/metadata.desktop
+sudo sed -i "s|^FullBlur.*$|FullBlur=\"true\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/cyberpunk.conf
+sudo sed -i "s|^BlurMax.*$|BlurMax=\"64\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/cyberpunk.conf
+sudo sed -i "s|^Blur.*$|Blur=\"1.0\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/cyberpunk.conf
+sudo sed -i "s|^AllowUppercaseLettersInUsernames.*$|AllowUppercaseLettersInUsernames=\"true\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/cyberpunk.conf
 sudo cp ~/auxiliary_scripts/SecuArch/postInstall/1.png /usr/share/sddm/themes/sddm-astronaut-theme/Backgrounds/FSociety.png
-sudo sed -i "s|pixel_sakura_static.png|FSociety.png|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/pixel_sakura_static.conf
+sudo sed -i "s|cyberpunk.png|FSociety.png|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/cyberpunk.conf
 sudo systemctl enable ufw
 sudo systemctl start ufw
 sudo ufw default deny incoming
