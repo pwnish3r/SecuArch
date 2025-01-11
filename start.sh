@@ -104,7 +104,6 @@ if (( progress == 0 )); then
 	umount /mnt || true
 	umount /dev/mapper/luksroot || true
 	# 2. List available disks and prompt for selection
-	clear
 	GREEN "\nListing available disks:\n"
 	sleep 1
 	fdisk -l
