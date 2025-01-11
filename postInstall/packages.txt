@@ -58,7 +58,7 @@ ipset
 libguestfs
 suricata
 alacritty
-firefox
+zen-browser
 cantarell-fonts
 plymouth
 plymouth-x11

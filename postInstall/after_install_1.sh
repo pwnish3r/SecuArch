@@ -136,13 +136,15 @@ echo "[Theme]
 Current=sddm-astronaut-theme" | sudo tee /etc/sddm.conf
 echo "[General]
 InputMethod=qtvirtualkeyboard" | sudo tee /etc/sddm.conf.d/virtualkbd.conf
-sudo sed -i "s|astronaut.conf|cyberpunk.conf|g" /usr/share/sddm/themes/sddm-astronaut-theme/metadata.desktop
-sudo sed -i "s|^FullBlur.*$|FullBlur=\"true\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/cyberpunk.conf
-sudo sed -i "s|^BlurMax.*$|BlurMax=\"64\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/cyberpunk.conf
-sudo sed -i "s|^Blur.*$|Blur=\"1.0\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/cyberpunk.conf
-sudo sed -i "s|^AllowUppercaseLettersInUsernames.*$|AllowUppercaseLettersInUsernames=\"true\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/cyberpunk.conf
+sudo cp /usr/share/sddm/themes/sddm-astronaut-theme/Themes/post-apocalyptic_hacker.conf /usr/share/sddm/themes/sddm-astronaut-theme/Themes/custom.conf
+sudo sed -i "s|astronaut.conf|custom.conf|g" /usr/share/sddm/themes/sddm-astronaut-theme/metadata.desktop
+sudo sed -i "s|^FullBlur.*$|FullBlur=\"true\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/custom.conf
+sudo sed -i "s|^BlurMax.*$|BlurMax=\"64\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/custom.conf
+sudo sed -i "s|^Blur.*$|Blur=\"1.0\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/custom.conf
+sudo sed -i "s|^AllowUppercaseLettersInUsernames.*$|AllowUppercaseLettersInUsernames=\"true\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/custom.conf
 sudo cp ~/auxiliary_scripts/SecuArch/postInstall/1.png /usr/share/sddm/themes/sddm-astronaut-theme/Backgrounds/FSociety.png
-sudo sed -i "s|cyberpunk.png|FSociety.png|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/cyberpunk.conf
+sudo sed -i "s|post-apocalyptic_hacker.png|FSociety.png|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/custom.conf
+sudo sed -i "s|Fragile Bombers Attack|pixelon|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/custom.conf
 sudo systemctl enable ufw
 sudo systemctl start ufw
 sudo ufw default allow incoming
