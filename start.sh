@@ -120,7 +120,7 @@ if (( progress == 0 )); then
 
 	echo -e "\nYou are about to \e[31moverwrite\e[0m $disk. All data will be \e[31mlost\e[0m."
 	echo -e "Do you want to continue? Type \e[32mYES\e[0m to proceed:\n"
-	read confirm
+	read -p "Choice: " confirm
 	if [ "$confirm" != "YES" ]; then
 	    RED "Aborting the operation"
 	    exit 1

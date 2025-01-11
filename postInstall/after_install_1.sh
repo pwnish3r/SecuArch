@@ -46,6 +46,8 @@ CYAN() {
 ###################################################################
 
 ################ INTERNET CONNECTIVITY ###########################
+clear
+sleep 0.1
 figlet -f slant "Internet"
 echo -e "\n\nChecking for an internet connection..."
 check_internet() {
