@@ -145,7 +145,7 @@ sudo cp ~/auxiliary_scripts/SecuArch/postInstall/1.png /usr/share/sddm/themes/sd
 sudo sed -i "s|cyberpunk.png|FSociety.png|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/cyberpunk.conf
 sudo systemctl enable ufw
 sudo systemctl start ufw
-sudo ufw default deny incoming
+sudo ufw default allow incoming
 sudo ufw default allow outgoing
 sudo ufw enable
 sudo usermod -a -G libvirt $(whoami)

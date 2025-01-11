@@ -95,7 +95,7 @@ if [ "$ENCRYPTED" = "1" ]; then
     PART_UUID=$(blkid -s UUID -o value "$ROOT_PARTITION")
 
     # 2.2 Edit /etc/default/grub to include cryptdevice param
-    sed -i "s|^GRUB_CMDLINE_LINUX=.*|GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=$PART_UUID:luksroot root=/dev/mapper/luksroot plymouth.enable=1\"|" /etc/default/grub
+    sed -i "s|^GRUB_CMDLINE_LINUX=.*|GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=$PART_UUID:luksroot root=/dev/mapper/luksroot plymouth.enable=1 quiet splash\"|" /etc/default/grub
     # 2.3 Modify mkinitcpio.conf HOOKS
     # Typically: HOOKS=(base udev autodetect modconf block encrypt filesystems keyboard fsck)
     sed -i 's/^HOOKS=.*/HOOKS=(base udev autodetect modconf block plymouth encrypt filesystems keyboard fsck)/' /etc/mkinitcpio.conf
@@ -118,8 +118,8 @@ grub-mkconfig -o /boot/grub/grub.cfg
 # PLYMOUTH THEME
 #############################################
 setPlymouth(){
-	cp -r /home/$username/auxiliary_scripts/plymouth-themes/pack_1/angular /usr/share/plymouth/themes/
-	plymouth-set-default-theme -R angular
+	cp -r /home/$username/auxiliary_scripts/plymouth-themes/pack_2/glitch /usr/share/plymouth/themes/
+	plymouth-set-default-theme -R glitch
 	mkinitcpio -P
 }
 #############################################
