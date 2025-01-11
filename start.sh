@@ -92,6 +92,7 @@ clear
 figlet -f slant "SecuArch Install"
 GREEN "This script will guide you through the SecuArch installation process.\nFollow the steps carefully and ensure you have an internet connection."
 sleep 3
+clear
 loadkeys en
 timedatectl set-ntp true
 chmod +x *.sh
