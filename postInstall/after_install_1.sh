@@ -15,8 +15,39 @@ installPackages(){
 }
 ######################################################################################
 
+###################################################################
+###################################################################
+RED() {
+    local RED="\e[31m"
+    local RESET="\e[0m"
+    echo -e "${RED}$1${RESET}"
+}
+GREEN() {
+    local GREEN="\e[32m"
+    local RESET="\e[0m"
+    echo -e "${GREEN}$1${RESET}"
+}
+YELLOW() {
+    local YELLOW="\e[33m"
+    local RESET="\e[0m"
+    echo -e "${YELLOW}$1${RESET}"
+}
+BLUE() {
+    local BLUE="\e[34m"
+    local RESET="\e[0m"
+    echo -e "${BLUE}$1${RESET}"
+}
+CYAN() {
+    local CYAN="\e[36m"
+    local RESET="\e[0m"
+    echo -e "${CYAN}$1${RESET}"
+}
+###################################################################
+###################################################################
+
 ################ INTERNET CONNECTIVITY ###########################
-echo "Checking for an internet connection..."
+figlet -f slant "Internet"
+echo -e "\n\nChecking for an internet connection..."
 check_internet() {
     if ping -q -c 1 -W 1 8.8.8.8 >/dev/null 2>&1; then
         return 0
@@ -25,30 +56,30 @@ check_internet() {
     fi
 }
 if check_internet; then
-    echo "Internet connection detected. Proceeding with the installation."
+    GREEN "Internet connection detected. Proceeding with the installation."
     sleep 2
 else
-    echo "No internet connection detected."
+    RED "No internet connection detected."
     while true; do
         read -p "Would you like to connect to a WiFi network? (yes/no): " wifi_choice
         case $wifi_choice in
             yes|YES|y|Y)
                 # Use nmtui to connect to WiFi
-                echo "Launching WiFi connection tool..."
+                GREEN "Launching WiFi connection tool..."
                 nmtui-connect
                 if check_internet; then
-                    echo "Internet connection established. Proceeding with the installation."
+                    GREEN "\n\nInternet connection established. Proceeding with the installation."
                     break
                 else
-                    echo "Still no internet connection detected. Please try again."
+                    RED "Still no internet connection detected. Please try again."
                 fi
                 ;;
             no|NO|n|N)
-                echo "Internet is required to continue the installation. Please connect to the internet and restart the installation."
+                RED "Internet is required to continue the installation. Please connect to the internet and restart the installation."
                 exit 1
                 ;;
             *)
-                echo "Please answer yes or no."
+                CYAN "Please answer yes or no."
                 ;;
         esac
     done
@@ -59,24 +90,35 @@ sudo cp -r $HOME/auxiliary_scripts/SecuArch/grubTheme/darkmatter /boot/grub/them
 sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/boot/grub/themes/darkmatter/theme.txt|' /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 cd $HOME/auxiliary_scripts
+clear
+sleep 0.1
+figlet -f slant "BlackArch Strap"
 curl -O https://blackarch.org/strap.sh
 chmod +x strap.sh
 sudo ./strap.sh
-sleep 1
+sleep 0.1
 sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/grub-btrfsd --syslog --timeshift-auto|' /usr/lib/systemd/system/grub-btrfsd.service
 sudo systemctl enable grub-btrfsd
-sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
+clear
+sleep 0.1
+figlet -f slant "Yay Install"
+sudo pacman -S --needed --noconfirm git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm
 yay
-sleep 1
-echo "Are you using a virtualbox VM? (y/n)"
+sleep 0.1
+clear
+YELLOW "\nAre you using a virtualbox VM? (y/n)"
 read VM
 if [ "$VM" == "y" ];then
 	yay -S --noconfirm virtualbox-guest-utils
 	systemctl enable vboxservice.service
 fi
 sleep 1
+clear
+figlet -f slant "Install Packages"
 installPackages
 sleep 1
+clear
+figlet -f slant "Enable Services"
 sudo systemctl enable libvirtd.service
 sudo systemctl start libvirtd.service
 sudo sed -i "s|^#unix_sock_group.*$|unix_sock_group= \"libvirt\"|g" /etc/libvirt/libvirtd.conf
