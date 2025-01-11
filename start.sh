@@ -52,7 +52,7 @@ fetch_partitions(){
 	lsblk
 	while true; do
 	    GREEN "Please enter the EFI partition (e.g., sda1):"
-	    read partition1
+	    read -p "Partition 1: " partition1
 	    if lsblk | grep -q "${partition1}"; then
 		break
 	    else
@@ -61,7 +61,7 @@ fetch_partitions(){
 	done
 	while true; do
 	    GREEN "Please enter the ROOT partition (e.g., sda2):"
-	    read partition2
+	    read -p "Partition 2: " partition2
 	    if lsblk | grep -q "${partition2}"; then
 		break
 	    else
@@ -110,7 +110,7 @@ if (( progress == 0 )); then
 	fdisk -l
 	while true; do
 	    GREEN "\nEnter the disk you want to partition (e.g., /dev/sda):"
-	    read disk
+	    read -p "Disk: " disk
 	    if lsblk | grep -q "^$(basename $disk)"; then
 		break
 	    else
@@ -126,7 +126,7 @@ if (( progress == 0 )); then
 	    exit 1
 	fi
 	echo -e "\nChoose method of disk wiping: " && echo -e "1.\e[33mblkdiscard (Preferred. Works with TRIM compatible hardware. If in a VM, use this for QEMU/KVM)\e[0m" && echo -e "2.\e[33msgdisk (All purpose. Use this if using Virtual Box without TRIM.)\e[0m" && echo -e "3.\e[33mdd (Completeley zeroes the disk. The most secure but very slow!)\e[0m\n\n"
-	read method
+	read -p "Choice: " method
 	if [ "$method" == "1" ]; then
 		wipefs --all $disk
 		blkdiscard $disk
@@ -150,8 +150,9 @@ if (( progress == 0 )); then
 	clear
 	sleep 0.1
 	figlet -f slant "Encryption"
+	echo -e "\n\n"
 	YELLOW "Would you like to enable LUKS2 encryption for your root partition? (y/n)"
-	read encryption_choice
+	read -p "Choice: " encryption_choice
 	if [ "$encryption_choice" = "y" ] || [ "$encryption_choice" = "Y" ]; then
 	    GREEN "\nSetting up LUKS2 on /dev/${partition2}..."
 	    cryptsetup luksFormat --type luks2 --pbkdf pbkdf2 --pbkdf-force-iterations=1000000 /dev/${partition2}
@@ -197,8 +198,7 @@ mount /dev/${partition1} /mnt/efi || true
 clear
 sleep 0.1
 figlet -f slant "Pacstrap"
-if (( progress == 1 )); then	
-	clear
+if (( progress == 1 )); then
 	echo -e "\n\n\e[32mInstalling the base system...\e[0m"
 	pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim plymouth figlet
 	genfstab -U -p /mnt >> /mnt/etc/fstab

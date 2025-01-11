@@ -66,7 +66,7 @@ if id "$username" &>/dev/null; then
     echo "User $username already exists. Skipping user creation."
 else
     useradd -mG wheel "$username" || true
-    echo "Enter a password for $username:"
+    echo "Enter a password for $username"
     while true; do
     	if passwd "$username"; then
         	GREEN "Password successfully set for \"$username\"."
@@ -142,7 +142,7 @@ chmod +x SecuArch/postInstall/after_install_*.sh
 chmod +x SecuArch/*.sh
 echo -e "\e[32mActivating post install scripts autorun...\e[0m"
 echo "\$HOME/auxiliary_scripts/SecuArch/scriptScheduler.sh" >> ~/.bashrc
-cd auxiliary_scripts
+cd ~/auxiliary_scripts
 git clone https://github.com/adi1090x/plymouth-themes.git
 EOF
 setPlymouth
