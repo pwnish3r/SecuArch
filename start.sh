@@ -147,6 +147,8 @@ if (( progress == 0 )); then
 	sgdisk -n 2:0:0 -t 2:8300 $disk   # Root partition
 	fetch_partitions
 	mkfs.fat -F 32 /dev/${partition1}
+	clear
+	sleep 0.1
 	figlet -f slant "Encryption"
 	YELLOW "Would you like to enable LUKS2 encryption for your root partition? (y/n)"
 	read encryption_choice
@@ -198,7 +200,7 @@ figlet -f slant "Pacstrap"
 if (( progress == 1 )); then	
 	clear
 	echo -e "\n\n\e[32mInstalling the base system...\e[0m"
-	pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim plymouth figlet & spinner
+	pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim plymouth figlet
 	genfstab -U -p /mnt >> /mnt/etc/fstab
 	(( progress+=1 ))
 	export PROGRESS=2

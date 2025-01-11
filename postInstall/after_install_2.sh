@@ -3,9 +3,6 @@ sudo systemctl enable sddm
 echo -e "Now you can choose to install either \n\e[32m1.i3\e[0m\n\e[32m2.bspwm\e[0m. For any other WM or DE, check the arch wiki for details"
 echo "Your choice(1 or 2): "
 read choice
-#touch ~/auxiliary_scripts/SecuArch/postInstall/choice.txt
-#echo "$choice" > ~/auxiliary_scripts/SecuArch/postInstall/choice.txt
-sed -i "s|^choice=choice$|choice=\"$choice\"|g" ~/auxiliary_scripts/SecuArch/postInstall/after_install_3.sh
 if [ "$choice" == "1" ]; then
     yay -S --noconfirm i3 rofi thunar xclip clipmenu dunst feh picom xss-lock lxappearance arandr alacritty
     git clone https://github.com/pwnish3r/dotfiles-i3.git

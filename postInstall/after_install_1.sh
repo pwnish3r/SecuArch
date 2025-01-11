@@ -93,6 +93,7 @@ cd $HOME/auxiliary_scripts
 clear
 sleep 0.1
 figlet -f slant "BlackArch Strap"
+echo -e "\n\n"
 curl -O https://blackarch.org/strap.sh
 chmod +x strap.sh
 sudo ./strap.sh
@@ -133,7 +134,7 @@ echo "[Theme]
 Current=sddm-astronaut-theme" | sudo tee /etc/sddm.conf
 echo "[General]
 InputMethod=qtvirtualkeyboard" | sudo tee /etc/sddm.conf.d/virtualkbd.conf
-sudo sed -i "s|astronaut.conf|cyberpunk.conf|g" usr/share/sddm/themes/sddm-astronaut-theme/metadata.desktop
+sudo sed -i "s|astronaut.conf|cyberpunk.conf|g" /usr/share/sddm/themes/sddm-astronaut-theme/metadata.desktop
 sudo sed -i "s|^FullBlur.*$|FullBlur=\"true\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/cyberpunk.conf
 sudo sed -i "s|^BlurMax.*$|BlurMax=\"64\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/cyberpunk.conf
 sudo sed -i "s|^Blur.*$|Blur=\"1.0\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/cyberpunk.conf

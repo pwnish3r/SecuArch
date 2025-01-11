@@ -87,6 +87,9 @@ fi
 # 2. IF ENCRYPTED, Update mkinitcpio.conf & GRUB
 #############################################
 if [ "$ENCRYPTED" = "1" ]; then
+    clear
+    sleep 0.1
+    figlet -f slant "LUKS2 Config"
     GREEN "\nConfiguring system for LUKS2 encryption..."
     # 2.1 Identify the underlying partition's UUID (not /dev/mapper/luksroot).
     PART_UUID=$(blkid -s UUID -o value "$ROOT_PARTITION")
