@@ -90,6 +90,7 @@ fi
 timedatectl set-ntp true
 sudo cp -r $HOME/auxiliary_scripts/SecuArch/grubTheme/darkmatter /boot/grub/themes
 sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/boot/grub/themes/darkmatter/theme.txt|' /etc/default/grub
+sudo sed -i 's|Arch|SecuArch|' /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 cd $HOME/auxiliary_scripts
 clear
