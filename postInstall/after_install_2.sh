@@ -28,6 +28,8 @@ elif [ "$choice" == "2" ]; then
     sleep 1
 fi
 
+mkdir ~/Picture/wallpapers
+cp ~/auxiliary_scripts/SecuArch/media/wallpaper.png ~/Pictures/wallpapers/wallpaper.png
 clear
 sleep 0.1
 echo -e "Cleaning up..."
