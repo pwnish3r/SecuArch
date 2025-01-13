@@ -65,3 +65,4 @@ plymouth-x11
 gedit
 rkhunter
 cpupower
+geany
