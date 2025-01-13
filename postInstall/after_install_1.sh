@@ -116,6 +116,17 @@ if [ "$VM" == "y" ];then
 	yay -S --noconfirm virtualbox-guest-utils
 	systemctl enable vboxservice.service
 fi
+clear
+sleep 0.1
+if [ "$VM" == "n" ];then
+	YELLOW "\n\n\nAre you using an AMD CPU? (y/n)"
+	read CPU
+	if [ "$CPU" == "n" ];then
+		yay -S --noconfirm intel-ucode
+	else
+		yay -S --noconfirm amd-ucode
+	fi
+fi
 sleep 1
 clear
 figlet -f slant "Install Packages"
