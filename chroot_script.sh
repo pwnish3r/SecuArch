@@ -118,9 +118,16 @@ grub-mkconfig -o /boot/grub/grub.cfg
 # PLYMOUTH THEME
 #############################################
 setPlymouth(){
-	cp -r /home/$username/auxiliary_scripts/plymouth-themes/pack_2/glitch /usr/share/plymouth/themes/
-	sudo sed -i "s|Enter password|Enter LUKS passphrase|g" /usr/share/plymouth/themes/glitch/glitch.script
-	plymouth-set-default-theme -R glitch
+	cp -r /home/$username/auxiliary_scripts/plymouth-themes/pack_4/red_loader /usr/share/plymouth/themes/
+	sudo sed -i "s|Enter Password|Enter LUKS Passphrase|g" /usr/share/plymouth/themes/red_loader/red_loader.script
+	sudo cp /home/$username/auxiliary_scripts/SecuArch/media/ply_logo_1.png /usr/share/plymouth/themes/red_loader/
+	echo "# display logo" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
+	echo "sa_image = Image(\"ply_logo_1.png\");" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
+	echo "sa_sprite = Sprite();" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
+	echo "sa_sprite.SetImage(sa_image);" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
+	echo "sa_sprite.SetX(Window.GetX() + (Window.GetWidth() / 2 - sa_image.GetWidth() / 2));" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
+	echo "sa_sprite.SetY(Window.GetHeight() - sa_image.GetHeight() - 50);" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
+	plymouth-set-default-theme -R red_loader
 	mkinitcpio -P
 }
 #############################################
