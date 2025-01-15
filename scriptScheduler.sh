@@ -13,6 +13,7 @@ if [ ! -f "$CURRENT_SCRIPT_FILE" ]; then
     if [ -z "$NEXT_SCRIPT" ]; then
         echo -e "No scripts found to run. \e[31mExiting...\e[0m"
         sed -i "s|^$HOME/auxiliary_scripts.*$||g" ~/.bashrc
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
         exit 0
     fi
     echo "$NEXT_SCRIPT" > "$CURRENT_SCRIPT_FILE"
@@ -34,6 +35,7 @@ if [ -f "$SCRIPT_DIR/$CURRENT_SCRIPT" ]; then
 else
     echo "Script $CURRENT_SCRIPT not found. Exiting..."
     sed -i "s|^$HOME/auxiliary_scripts.*$||g" ~/.bashrc
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     exit 1
 fi
 
@@ -42,6 +44,7 @@ if [ -z "$NEXT_SCRIPT" ]; then
     rm -f "$CURRENT_SCRIPT_FILE"
 #    systemctl disable script-scheduler.service || true
     sed -i "s|^$HOME/auxiliary_scripts.*$||g" ~/.bashrc
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     exit 0
 fi
 

@@ -27,7 +27,6 @@ elif [ "$choice" == "2" ]; then
     cp -r zsh ../
     sleep 1
 fi
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 cp -r ~/auxiliary_scripts/SecuArch/postInstall/dotfiles/. ~/
 mkdir ~/Picture/wallpapers
 cp ~/auxiliary_scripts/SecuArch/media/wallpaper.png ~/Pictures/wallpapers/wallpaper.png
