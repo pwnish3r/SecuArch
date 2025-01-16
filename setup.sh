@@ -73,9 +73,10 @@ fetch_partitions(){
 ###################################################################
 ###################################################################
 spinner() {
-    local pid=$!
+    local pid=$1
     local delay=0.1
     local spinstr='|/-\\'
+    echo -n "$2"
     while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
         local temp=${spinstr#?}
         printf " [%c]  " "$spinstr"
@@ -83,7 +84,7 @@ spinner() {
         sleep $delay
         printf "\\b\\b\\b\\b\\b\\b"
     done
-    printf "    \\b\\b\\b\\b"
+    printf " [Check]\n"
 }
 ###################################################################
 ###################################################################
@@ -200,7 +201,12 @@ sleep 0.1
 figlet -f slant "Pacstrap"
 if (( progress == 1 )); then
 	echo -e "\n\n\e[32mInstalling the base system...\e[0m"
-	pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim plymouth figlet
+	pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim plymouth figlet > /dev/null 2>&1 &
+	pid=$!
+	spinner $pid "Pacstraping essential packages"
+	if wait $pid; then
+    		echo "Essential packages installed successfully!"
+        fi
 	genfstab -U -p /mnt >> /mnt/etc/fstab
 	(( progress+=1 ))
 	export PROGRESS=2
