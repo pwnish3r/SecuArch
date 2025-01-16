@@ -93,7 +93,7 @@ bindsym $mod+h split h
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym alt+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -190,7 +190,7 @@ bar {
 }
 
 #######################################################################################################################
-bindsym $mod+t exec --no-startup-id thunar
+bindsym $mod+f exec --no-startup-id dolphin
 exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/wallpaper.png
 bindsym $mod+Ctrl+Left resize shrink width 10 px or 10 ppt
 bindsym $mod+Ctrl+Right resize grow width 10 px or 10 ppt
