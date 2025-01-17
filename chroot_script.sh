@@ -126,7 +126,7 @@ setPlymouth(){
 	echo "sa_sprite = Sprite();" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
 	echo "sa_sprite.SetImage(sa_image);" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
 	echo "sa_sprite.SetX(Window.GetX() + (Window.GetWidth() / 2 - sa_image.GetWidth() / 2));" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
-	echo "sa_sprite.SetY(Window.GetHeight() - sa_image.GetHeight() - 50);" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
+	echo "sa_sprite.SetY(-Window.GetHeight() + sa_image.GetHeight());" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
 	plymouth-set-default-theme -R red_loader
 	mkinitcpio -P
 }
