@@ -112,11 +112,15 @@ sudo pacman -S --needed --noconfirm git base-devel && git clone https://aur.arch
 yay
 sleep 0.1
 clear
-YELLOW "\nAre you using a virtualbox VM? (y/n)"
+YELLOW "\nAre you using a VM? (y/n)"
 read VM
 if [ "$VM" == "y" ];then
-	yay -S --noconfirm virtualbox-guest-utils
-	systemctl enable vboxservice.service
+	YELLOW "\nAre you using a VirtualBox VM? (y/n)"
+	read vbox
+	if [ "$vbox" == "y" ];then 
+		yay -S --noconfirm virtualbox-guest-utils
+		systemctl enable vboxservice.service
+	fi
 fi
 clear
 sleep 0.1
