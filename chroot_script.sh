@@ -41,16 +41,30 @@ CYAN() {
 #############################################
 # 0. Basic System Setup (locale, hostname, etc.)
 #############################################
-ln -sf /usr/share/zoneinfo/Europe/Bucharest /etc/localtime
-hwclock --systohc
+clear
+sleep 0.1
+figlet -f slant "BASIC SYSTEM SETUP"
+echo "Please select your timezone:"
+timezone=$(tzselect)
+GREEN "You selected: $timezone"
+read -p "Do you want to apply this timezone? (y/n): " confirm
+if [[ $confirm == "yes" || $confirm == "y" ]]; then
+    ln -sf "/usr/share/zoneinfo/$timezone" /etc/localtime
+    hwclock --systohc
+    echo "Timezone set to $timezone and hardware clock updated."
+else
+    echo "Timezone selection canceled."
+fi
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
 echo "KEYMAP=en" > /etc/vconsole.conf
-echo "SecuArch" > /etc/hostname
+CYAN "\n\nPlease enter hostname:"
+read hostn
+echo "$hostn" > /etc/hostname
 cat <<EOF > /etc/hosts
 127.0.0.1 localhost
 ::1       localhost
-127.0.1.1 SecuArch
+127.0.1.1 $hostn
 EOF
 
 #############################################
@@ -91,18 +105,15 @@ if [ "$ENCRYPTED" = "1" ]; then
     sleep 0.1
     figlet -f slant "LUKS2 Config"
     GREEN "\nConfiguring system for LUKS2 encryption..."
-    # 2.1 Identify the underlying partition's UUID (not /dev/mapper/luksroot).
     PART_UUID=$(blkid -s UUID -o value "$ROOT_PARTITION")
-
-    # 2.2 Edit /etc/default/grub to include cryptdevice param
     sed -i "s|^GRUB_CMDLINE_LINUX=.*|GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=$PART_UUID:luksroot root=/dev/mapper/luksroot plymouth.enable=1 quiet splash\"|" /etc/default/grub
-    # 2.3 Modify mkinitcpio.conf HOOKS
-    # Typically: HOOKS=(base udev autodetect modconf block encrypt filesystems keyboard fsck)
     sed -i 's/^HOOKS=.*/HOOKS=(base udev autodetect modconf block plymouth encrypt filesystems keyboard fsck)/' /etc/mkinitcpio.conf
     sed -i 's/^MODULES=.*/MODULES=(btrfs)/' /etc/mkinitcpio.conf
     echo "GRUB_ENABLE_CRYPTODISK=y" >> /etc/default/grub
-    # 2.4 Rebuild initramfs
-    mkinitcpio -P
+    CYAN "\nCreating initial ramdisk with new parameters..."
+    if mkinitcpio -P > /dev/null 2>&1; then
+    	GREEN "Success [✔]"
+    fi
 fi
 
 #############################################
@@ -111,13 +122,21 @@ fi
 clear
 sleep 0.1
 figlet -f slant "GRUB"
-grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
-grub-mkconfig -o /boot/grub/grub.cfg
-
+CYAN "\nInstalling GRUB"
+if grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB > /dev/null 2>&1;then
+	GREEN "Success [✔]"
+fi
+CYAN "\nConfiguring GRUB"
+if grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1;then
+	GREEN "Success [✔]"
+fi
 #############################################
 # PLYMOUTH THEME
 #############################################
 setPlymouth(){
+	clear
+	sleep 0.1
+	figlet -f slant "PLYMOUTH"
 	cp -r /home/$username/auxiliary_scripts/plymouth-themes/pack_4/red_loader /usr/share/plymouth/themes/
 	sudo sed -i "s|Enter Password|Enter LUKS Passphrase|g" /usr/share/plymouth/themes/red_loader/red_loader.script
 	sudo cp /home/$username/auxiliary_scripts/SecuArch/media/ply_logo_1.png /usr/share/plymouth/themes/red_loader/
@@ -128,15 +147,15 @@ setPlymouth(){
 	echo "sa_sprite.SetX(Window.GetX() + (Window.GetWidth() / 2 - sa_image.GetWidth() / 2));" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
 	echo "sa_sprite.SetY(-Window.GetHeight() + sa_image.GetHeight());" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
 	plymouth-set-default-theme -R red_loader
-	mkinitcpio -P
+	CYAN "\nCreating initial ramdisk with new parameters..."
+   	if mkinitcpio -P > /dev/null 2>&1; then
+    		GREEN "Success [✔]"
+    	fi
 }
 #############################################
 # 4. Enable networking and finalize
 #############################################
 systemctl enable NetworkManager
-clear
-
-# Su into the new user to clone your scripts
 clear
 sleep 0.1
 figlet -f slant "Preparing Post Install"
@@ -144,14 +163,22 @@ su - "$username" <<EOF
 cd ~
 mkdir -p auxiliary_scripts
 cd auxiliary_scripts
-git clone https://github.com/pwnish3r/SecuArch.git
-echo -e "\e[32mMaking post install scripts executable...\e[0m"
+CYAN "\nCloning the repository..."
+if git clone https://github.com/pwnish3r/SecuArch.git > /dev/null 2>&1;then
+	GREEN "Done [✔]"
+fi
+
+CYAN "\nMaking post install scripts executable..."
 chmod +x SecuArch/postInstall/after_install_*.sh
 chmod +x SecuArch/*.sh
 echo -e "\e[32mActivating post install scripts autorun...\e[0m"
+CYAN "Activating post install scripts autorun...\n"
 echo "\$HOME/auxiliary_scripts/SecuArch/scriptScheduler.sh" >> ~/.bashrc
 cd ~/auxiliary_scripts
-git clone https://github.com/adi1090x/plymouth-themes.git
+CYAN "\nCloning the plymouth themes..."
+if git clone https://github.com/adi1090x/plymouth-themes.git > /dev/null 2>&1;then
+	GREEN "Done [✔]"
+fi
 EOF
 setPlymouth
 clear

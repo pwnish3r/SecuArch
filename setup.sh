@@ -75,7 +75,7 @@ fetch_partitions(){
 spinner() {
     local pid=$1
     local delay=0.1
-    local spinstr='|/-\\'
+    local spinstr='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
     echo -n "$2"
     while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
         local temp=${spinstr#?}
@@ -85,6 +85,17 @@ spinner() {
         printf "\\b\\b\\b\\b\\b\\b"
     done
     printf " [Check]\n"
+}
+###################################################################
+###################################################################
+pacstrap_package() {
+    local package=$1
+    echo "Installing package: $package"
+    if pacstrap /mnt "$package" --needed --noconfirm > /dev/null 2>&1; then
+        GREEN "[✔] Successfully installed: $package"
+    else
+        RED "[✘] Failed to install: $package" >&2
+    fi
 }
 ###################################################################
 ###################################################################
@@ -102,9 +113,9 @@ chmod +x *.sh
 ###################################################################
 figlet -f slant "Disk Formatting"
 if (( progress == 0 )); then
-	cryptsetup close luksroot || true
-	umount /mnt || true
-	umount /dev/mapper/luksroot || true
+	cryptsetup close luksroot || true > /dev/null 2>&1
+	umount /mnt || true > /dev/null 2>&1
+	umount /dev/mapper/luksroot || true > /dev/null 2>&1
 	# 2. List available disks and prompt for selection
 	GREEN "\nListing available disks:\n"
 	sleep 1
@@ -169,9 +180,7 @@ if (( progress == 0 )); then
 	fi
 	(( progress+=1 ))
 	export PROGRESS=1
-
 	fi
-
 ###################################################################
 # 2. Mount the partitions
 ###################################################################
@@ -201,12 +210,10 @@ sleep 0.1
 figlet -f slant "Pacstrap"
 if (( progress == 1 )); then
 	echo -e "\n\n\e[32mInstalling the base system...\e[0m"
-	pacstrap -K /mnt base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim plymouth figlet > /dev/null 2>&1 &
-	pid=$!
-	spinner $pid "Pacstraping essential packages"
-	if wait $pid; then
-    		echo "Essential packages installed successfully!"
-        fi
+	packages=(base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim plymouth figlet)
+	for pkg in "${packages[@]}"; do
+		pacstrap_package "$pkg"
+	done
 	genfstab -U -p /mnt >> /mnt/etc/fstab
 	(( progress+=1 ))
 	export PROGRESS=2

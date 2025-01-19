@@ -27,10 +27,10 @@ elif [ "$choice" == "2" ]; then
     cp -r zsh ../
     sleep 1
 fi
-cp -r ~/auxiliary_scripts/SecuArch/postInstall/dotfiles/. ~/
-mkdir ~/Pictures/wallpapers
 chmod +x ~/auxiliary_scripts/SecuArch/postInstall/ohmyzsh.sh
 sh ~/auxiliary_scripts/SecuArch/postInstall/ohmyzsh.sh --unattended
+cp -r ~/auxiliary_scripts/SecuArch/postInstall/dotfiles/. ~/
+mkdir ~/Pictures/wallpapers
 cp ~/auxiliary_scripts/SecuArch/media/wallpaper.png ~/Pictures/wallpapers/wallpaper.png
 clear
 sleep 0.1

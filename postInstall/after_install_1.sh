@@ -6,14 +6,35 @@ installPackages(){
 	mapfile -t packages < "$package_file"
 	for pkg in "${packages[@]}"; do
 		echo -e "Installing \e[32m$pkg\e[0m..."
-		if ! yay -S --noconfirm --needed "$pkg"; then
+		if ! yay -S --noconfirm --needed "$pkg" > /dev/null 2>&1; then
         		echo -e "Failed to install \e[31m$pkg\e[0m. Logging error..."
         		echo -e "$pkg" >> failed_packages.log
+    		else
+    			GREEN "Successfully installed \"$pkg\" [✔]"
     		fi
 	done
 	echo -e "\n\e[32mInstallation process complete.\e[0m"
 }
 ######################################################################################
+
+###################################################################
+###################################################################
+spinner() {
+    local pid=$1
+    local delay=0.1
+    local spinstr='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
+    echo -n "$2"
+    while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
+        local temp=${spinstr#?}
+        printf " [%c]  " "$spinstr"
+        local spinstr=$temp${spinstr%"$temp"}
+        sleep $delay
+        printf "\\b\\b\\b\\b\\b\\b"
+    done
+    printf " [Check]\n"
+}
+###################################################################
+###################################################################
 
 ###################################################################
 ###################################################################
@@ -59,7 +80,7 @@ check_internet() {
 }
 if check_internet; then
     GREEN "Internet connection detected. Proceeding with the installation."
-    sleep 2
+    sleep 1
 else
     RED "No internet connection detected."
     while true; do
@@ -87,13 +108,21 @@ else
     done
 fi
 ###################################################################
+clear
+sleep 0.1
 timedatectl set-ntp true
-git clone https://github.com/vinceliuice/Elegant-grub2-themes.git $HOME/auxiliary_scripts/grub
+CYAN "Installing Custom GRUB Theme\n"
+if git clone https://github.com/vinceliuice/Elegant-grub2-themes.git $HOME/auxiliary_scripts/grub > /dev/null 2>&1;then
+	GREEN "Done [✔]"
+fi
 sudo $HOME/auxiliary_scripts/grub/install.sh -t mojave -p blur
 #sudo cp -r $HOME/auxiliary_scripts/SecuArch/grubTheme/graphite /boot/grub/themes
 #sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/boot/grub/themes/graphite/theme.txt|' /etc/default/grub
 #sudo sed -i 's|Arch|SecuArch|' /etc/default/grub
-sudo grub-mkconfig -o /boot/grub/grub.cfg
+CYAN "\nReconfiguring GRUB"
+if grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1;then
+	GREEN "Success [✔]"
+fi
 cd $HOME/auxiliary_scripts
 clear
 sleep 0.1
@@ -101,22 +130,39 @@ figlet -f slant "BlackArch Strap"
 echo -e "\n\n"
 curl -O https://blackarch.org/strap.sh
 chmod +x strap.sh
-sudo ./strap.sh
+CYAN "Straping BlackArch into your system, this may take a while...\n"
+sudo ./strap.sh > /dev/null 2>&1 &
+pid=$!
+spinner $pid
+if wait $pid;then
+	GREEN "Done [✔]"
+fi
 sleep 0.1
 sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/grub-btrfsd --syslog --timeshift-auto|' /usr/lib/systemd/system/grub-btrfsd.service
 sudo systemctl enable grub-btrfsd
 clear
 sleep 0.1
 figlet -f slant "Yay Install"
-sudo pacman -S --needed --noconfirm git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm
+
+
+sudo pacman -S --needed --noconfirm git base-devel > /dev/null 2>&1
+git clone https://aur.archlinux.org/yay.git > /dev/null 2>&1
+cd yay
+CYAN "Installing Yay, this may take a while...\n"
+makepkg -si --noconfirm > /dev/null 2>&1 &
+pid=$!
+spinner $pid
+if wait $pid;then
+	GREEN "Done [✔]"
+fi
 yay
 sleep 0.1
 clear
 YELLOW "\nAre you using a VM? (y/n)"
-read VM
+read -p "Your answer: " VM 
 if [ "$VM" == "y" ];then
 	YELLOW "\nAre you using a VirtualBox VM? (y/n)"
-	read vbox
+	read -p "Your answer: " vbox 
 	if [ "$vbox" == "y" ];then 
 		yay -S --noconfirm virtualbox-guest-utils
 		systemctl enable vboxservice.service
