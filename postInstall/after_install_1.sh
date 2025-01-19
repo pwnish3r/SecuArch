@@ -88,9 +88,11 @@ else
 fi
 ###################################################################
 timedatectl set-ntp true
-sudo cp -r $HOME/auxiliary_scripts/SecuArch/grubTheme/graphite /boot/grub/themes
-sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/boot/grub/themes/graphite/theme.txt|' /etc/default/grub
-sudo sed -i 's|Arch|SecuArch|' /etc/default/grub
+git clone https://github.com/vinceliuice/Elegant-grub2-themes.git $HOME/auxiliary_scripts/grub
+sudo $HOME/auxiliary_scripts/grub/install.sh -t mojave -p blur
+#sudo cp -r $HOME/auxiliary_scripts/SecuArch/grubTheme/graphite /boot/grub/themes
+#sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/boot/grub/themes/graphite/theme.txt|' /etc/default/grub
+#sudo sed -i 's|Arch|SecuArch|' /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 cd $HOME/auxiliary_scripts
 clear
