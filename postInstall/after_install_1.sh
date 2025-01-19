@@ -115,7 +115,7 @@ CYAN "Installing Custom GRUB Theme\n"
 if git clone https://github.com/vinceliuice/Elegant-grub2-themes.git $HOME/auxiliary_scripts/grub > /dev/null 2>&1;then
 	GREEN "Done [✔]"
 fi
-sudo $HOME/auxiliary_scripts/grub/install.sh -t mojave -p blur
+sudo $HOME/auxiliary_scripts/grub/install.sh -t mojave -p blur -i right
 #sudo cp -r $HOME/auxiliary_scripts/SecuArch/grubTheme/graphite /boot/grub/themes
 #sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/boot/grub/themes/graphite/theme.txt|' /etc/default/grub
 #sudo sed -i 's|Arch|SecuArch|' /etc/default/grub
@@ -123,6 +123,7 @@ CYAN "\nReconfiguring GRUB"
 if grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1;then
 	GREEN "Success [✔]"
 fi
+
 cd $HOME/auxiliary_scripts
 clear
 sleep 0.1
@@ -138,6 +139,7 @@ if wait $pid;then
 	GREEN "Done [✔]"
 fi
 sleep 0.1
+
 sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/grub-btrfsd --syslog --timeshift-auto|' /usr/lib/systemd/system/grub-btrfsd.service
 sudo systemctl enable grub-btrfsd
 clear
