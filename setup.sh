@@ -209,7 +209,7 @@ clear
 sleep 0.1
 figlet -f slant "Pacstrap"
 if (( progress == 1 )); then
-	echo -e "\n\n\e[32mInstalling the base system...\e[0m"
+	GREEN "\n\nInstalling the base system...\n"
 	packages=(base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim plymouth figlet)
 	for pkg in "${packages[@]}"; do
 		pacstrap_package "$pkg"
