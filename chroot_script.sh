@@ -168,16 +168,15 @@ if git clone https://github.com/pwnish3r/SecuArch.git > /dev/null 2>&1;then
 	echo -e "\e[36mDone [✔]\e[36m"
 fi
 
-CYAN "\nMaking post install scripts executable..."
+echo -e "\n\e[36mMaking post install scripts executable...\e[0m"
 chmod +x SecuArch/postInstall/after_install_*.sh
 chmod +x SecuArch/*.sh
 echo -e "\e[32mActivating post install scripts autorun...\e[0m"
-CYAN "Activating post install scripts autorun...\n"
 echo "\$HOME/auxiliary_scripts/SecuArch/scriptScheduler.sh" >> ~/.bashrc
 cd ~/auxiliary_scripts
-CYAN "\nCloning the plymouth themes..."
+echo -e "\e[32mCloning the plymouth themes...\e[0m"
 if git clone https://github.com/adi1090x/plymouth-themes.git > /dev/null 2>&1;then
-	GREEN "Done [✔]"
+	echo -e "\e[36mDone [✔]\e[36m"
 fi
 EOF
 setPlymouth
