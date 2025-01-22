@@ -136,7 +136,7 @@ fi
 setPlymouth(){
 	clear
 	sleep 0.1
-	figlet -f slant "PLYMOUTH"
+	figlet -f slant "P L Y M O U T H"
 	cp -r /home/$username/auxiliary_scripts/plymouth-themes/pack_4/red_loader /usr/share/plymouth/themes/
 	sudo sed -i "s|Enter Password|Enter LUKS Passphrase|g" /usr/share/plymouth/themes/red_loader/red_loader.script
 	sudo cp /home/$username/auxiliary_scripts/SecuArch/media/ply_logo_1.png /usr/share/plymouth/themes/red_loader/
@@ -146,7 +146,10 @@ setPlymouth(){
 	echo "sa_sprite.SetImage(sa_image);" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
 	echo "sa_sprite.SetX(Window.GetX() + (Window.GetWidth() / 2 - sa_image.GetWidth() / 2));" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
 	echo "sa_sprite.SetY(-Window.GetHeight() + sa_image.GetHeight());" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
-	plymouth-set-default-theme -R red_loader
+	CYAN "\nSet the new plymouth theme..."
+	if plymouth-set-default-theme -R red_loader > /dev/null 2>&1;then
+		GREEN "Done [✔]"
+	fi
 	CYAN "\nCreating initial ramdisk with new parameters..."
    	if mkinitcpio -P > /dev/null 2>&1; then
     		GREEN "Success [✔]"
