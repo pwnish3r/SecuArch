@@ -1,9 +1,9 @@
 #!/bin/bash
 clear
 sleep 0.1
-figlet -f slant "Script 2"
+figlet -f slant "WINDOW MANAGER"
 sudo systemctl enable sddm
-echo -e "Now you can choose to install either \n\e[32m1.i3\e[0m\n\e[32m2.bspwm\e[0m."
+echo -e "Now you can choose to install either \n\e[32m1.i3\e[0m\n\e[32m2.bspwm\e[0m\n\e[32m3.Neither\e[0m."
 echo -e "\nYour choice(1 or 2): "
 read choice
 if [ "$choice" == "1" ]; then
