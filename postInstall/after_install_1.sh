@@ -132,7 +132,7 @@ echo -e "\n\n"
 curl -O https://blackarch.org/strap.sh
 chmod +x strap.sh
 CYAN "Straping BlackArch into your system, this may take a while...\n"
-sudo ./strap.sh > /dev/null 2>&1 < /dev/null &
+sudo stdbuf -oL -eL ./strap.sh > /dev/null 2>&1 &
 pid=$!
 spinner $pid
 if wait $pid;then
