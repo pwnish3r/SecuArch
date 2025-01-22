@@ -113,9 +113,9 @@ chmod +x *.sh
 ###################################################################
 figlet -f slant "Disk Formatting"
 if (( progress == 0 )); then
-	cryptsetup close luksroot || true > /dev/null 2>&1
-	umount /mnt || true > /dev/null 2>&1
-	umount /dev/mapper/luksroot || true > /dev/null 2>&1
+	cryptsetup close luksroot > /dev/null 2>&1 || true 
+	umount /mnt /dev/null 2>&1 || true > 
+	umount /dev/mapper/luksroot > /dev/null 2>&1 || true 
 	# 2. List available disks and prompt for selection
 	GREEN "\nListing available disks:\n"
 	sleep 1
