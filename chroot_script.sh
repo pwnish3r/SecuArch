@@ -163,9 +163,9 @@ su - "$username" <<EOF
 cd ~
 mkdir -p auxiliary_scripts
 cd auxiliary_scripts
-CYAN "\nCloning the repository..."
+echo -e "\n\e[36mCloning the repository...\e[0m"
 if git clone https://github.com/pwnish3r/SecuArch.git > /dev/null 2>&1;then
-	GREEN "Done [✔]"
+	echo -e "\e[36mDone [✔]\e[36m"
 fi
 
 CYAN "\nMaking post install scripts executable..."
