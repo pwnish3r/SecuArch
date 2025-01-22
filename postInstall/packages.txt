@@ -72,3 +72,4 @@ mpv
 vlc
 eog
 thunar
+zsh
