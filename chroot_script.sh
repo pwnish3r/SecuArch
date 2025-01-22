@@ -58,6 +58,8 @@ fi
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
 echo "KEYMAP=en" > /etc/vconsole.conf
+clear
+sleep 0.2
 CYAN "\n\nPlease enter hostname:"
 read hostn
 echo "$hostn" > /etc/hostname
