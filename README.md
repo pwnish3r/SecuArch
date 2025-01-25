@@ -33,13 +33,13 @@
 
 ## ✨ Overview
 
-**SecuArch** is a streamlined, **script-based** installation process for Arch Linux. It automatically sets up **BTRFS** subvolumes, **encrypted partitions** (optional), and pre-installs a curated collection of pentesting and defensive tools. My goal: provide a minimal yet powerful base for cybersecurity professionals, students, and enthusiasts.
+**SecuArch** is a streamlined, **script-based** installation process for Arch Linux. It automatically sets up **BTRFS** subvolumes, **encrypted partitions** (optional), and pre-installs a curated collection of pentesting and defensive tools. My goal: provide a minimal yet powerful base for cybersecurity professionals, students, and enthusiasts. 
 
 ### Why SecuArch?
 - **BTRFS** for snapshotting & rollback—great for testing out risky software or experiments.
 - **Pentesting Tools** out of the box, inspired by Kali/BlackArch, but with full Arch flexibility.
 - **Focus on Security**: optional LUKS encryption, hardened configs, user-friendly scripts.
-
+- **Make it your own**: As a cybersecurity enthusiast, you will have the perfect base to build your own environment and have maximum productivity.
 ---
 
 ## 🔒 Key Features
@@ -115,6 +115,8 @@
     but works perfectly fine even on a laptop from 2012 Bare Metal. 
     Either don't install anything and configure your own Desktop Environment or Window Manager 
     or choose the i3 configuration.
+    5. Some packages that my installation depends on may be updated and some dependencies 
+    change. I will try to test my install script as often as possible to avoid conflicts.
 
 Please report issues or open a pull request if you find a bug or have a workaround!
 
