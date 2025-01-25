@@ -145,7 +145,7 @@ figlet -f slant "Yay Install"
 sudo pacman -S --needed --noconfirm git base-devel > /dev/null 2>&1
 git clone https://aur.archlinux.org/yay.git > /dev/null 2>&1
 cd yay
-CYAN "Installing Yay, this may take a while...\n"
+CYAN "\nInstalling Yay, this may take a while...\n"
 makepkg -si --noconfirm > /dev/null 2>&1 &
 pid=$!
 spinner $pid
