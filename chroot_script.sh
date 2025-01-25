@@ -140,12 +140,12 @@ setPlymouth(){
 	clear
 	sleep 0.1
 	figlet -f slant "P L Y M O U T H"
-	
+	cd /home/$username/auxiliary_scripts/plymouth-themes/ && git clone https://github.com/PROxZIMA/proxzima-plymouth.git	
+	cp -r /home/$username/auxiliary_scripts/plymouth-themes/proxzima-plymouth/proxzima /usr/share/plymouth/themes/
+	sudo sed -i "s|Enter Password|Enter LUKS Passphrase|g" /usr/share/plymouth/themes/proxzima/proxzima.script
+	sudo sed -i "s|boot-|shut-|g" /usr/share/plymouth/themes/proxzima/proxzima.script
+	sudo sed -i "s|\% boot|% shut|g" /usr/share/plymouth/themes/proxzima/proxzima.script
 	'''
-	EDIT FOR PREDEFINED PLYMOUTH THEME
-	cp -r /home/$username/auxiliary_scripts/plymouth-themes/pack_4/red_loader /usr/share/plymouth/themes/
-	sudo sed -i "s|Enter Password|Enter LUKS Passphrase|g" /usr/share/plymouth/themes/red_loader/red_loader.script
-	sudo cp /home/$username/auxiliary_scripts/SecuArch/media/ply_logo_1.png /usr/share/plymouth/themes/red_loader/
 	echo "# display logo" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
 	echo "sa_image = Image(\"ply_logo_1.png\");" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
 	echo "sa_sprite = Sprite();" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
@@ -153,9 +153,6 @@ setPlymouth(){
 	echo "sa_sprite.SetX(Window.GetX() + (Window.GetWidth() / 2 - sa_image.GetWidth() / 2));" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
 	echo "sa_sprite.SetY(-Window.GetHeight() + sa_image.GetHeight());" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
 	'''
-	
-	cp -r /home/$username/auxiliary_scripts/SecuArch/plymouthTheme/proxzima-plymouth /home/$username/auxiliary_scripts/plymouth-themes
-	cp -r /home/$username/auxiliary_scripts/plymouth-themes/proxzima-plymouth/proxzima /usr/share/plymouth/themes/
 	CYAN "\nSet the new plymouth theme..."
 	if plymouth-set-default-theme -R proxzima > /dev/null 2>&1;then
 		GREEN "Done [✔]"
