@@ -1,5 +1,4 @@
 #!/bin/bash
-
 ######################################################################################
 installPackages(){
 	package_file="$HOME/auxiliary_scripts/SecuArch/postInstall/packages.txt"
@@ -163,10 +162,10 @@ yay
 sleep 0.1
 clear
 YELLOW "\nAre you using a VM? (y/n)"
-read -p "Your answer: " VM 
+read -p "Your answer: " VM
 if [ "$VM" == "y" ];then
 	YELLOW "\nAre you using a VirtualBox VM? (y/n)"
-	read -p "Your answer: " vbox 
+	read -p "Your answer: " vbox
 	if [ "$vbox" == "y" ];then 
 		yay -S --noconfirm virtualbox-guest-utils
 		systemctl enable vboxservice.service
@@ -175,7 +174,7 @@ fi
 clear
 sleep 0.1
 if [ "$VM" == "n" ];then
-	YELLOW "\n\n\nAre you using an AMD CPU? (y/n)"
+	YELLOW "\nAre you using an AMD CPU? (y/n)"
 	read CPU
 	if [ "$CPU" == "n" ];then
 		yay -S --noconfirm intel-ucode
@@ -204,15 +203,15 @@ echo "[Theme]
 Current=sddm-astronaut-theme" | sudo tee /etc/sddm.conf
 echo "[General]
 InputMethod=qtvirtualkeyboard" | sudo tee /etc/sddm.conf.d/virtualkbd.conf
-sudo cp /usr/share/sddm/themes/sddm-astronaut-theme/Themes/post-apocalyptic_hacker.conf /usr/share/sddm/themes/sddm-astronaut-theme/Themes/custom.conf
+sudo cp /usr/share/sddm/themes/sddm-astronaut-theme/Themes/astronaut.conf /usr/share/sddm/themes/sddm-astronaut-theme/Themes/custom.conf
 sudo sed -i "s|astronaut.conf|custom.conf|g" /usr/share/sddm/themes/sddm-astronaut-theme/metadata.desktop
 sudo sed -i "s|^FullBlur.*$|FullBlur=\"true\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/custom.conf
 sudo sed -i "s|^BlurMax.*$|BlurMax=\"64\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/custom.conf
 sudo sed -i "s|^Blur.*$|Blur=\"1.0\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/custom.conf
 sudo sed -i "s|^AllowUppercaseLettersInUsernames.*$|AllowUppercaseLettersInUsernames=\"true\"|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/custom.conf
 sudo cp ~/auxiliary_scripts/SecuArch/postInstall/1.png /usr/share/sddm/themes/sddm-astronaut-theme/Backgrounds/FSociety.png
-sudo sed -i "s|post-apocalyptic_hacker.png|FSociety.png|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/custom.conf
-sudo sed -i "s|Fragile Bombers Attack|pixelon|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/custom.conf
+sudo sed -i "s|astronaut.png|FSociety.png|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/custom.conf
+sudo sed -i "s|Open Sans|pixelon|g" /usr/share/sddm/themes/sddm-astronaut-theme/Themes/custom.conf
 sudo systemctl enable ufw
 sudo systemctl start ufw
 sudo ufw default allow incoming

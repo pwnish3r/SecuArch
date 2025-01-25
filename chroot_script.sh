@@ -139,7 +139,7 @@ fi
 setPlymouth(){
 	clear
 	sleep 0.1
-	figlet -f slant "P LY M O U T H"
+	figlet -f slant "P L Y M O U T H"
 	
 	cd /home/$username/auxiliary_scripts/plymouth-themes/ && git clone https://github.com/PROxZIMA/proxzima-plymouth.git	
 	cp -r /home/$username/auxiliary_scripts/plymouth-themes/proxzima-plymouth/proxzima /usr/share/plymouth/themes/
