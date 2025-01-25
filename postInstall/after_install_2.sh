@@ -30,6 +30,7 @@ fi
 chmod +x ~/auxiliary_scripts/SecuArch/postInstall/ohmyzsh.sh
 cp -r ~/auxiliary_scripts/SecuArch/postInstall/dotfiles/. ~/
 echo "cp ~/auxiliary_scripts/SecuArch/media/wallpaper.png ~/Pictures/wallpapers/wallpaper.png" >> ~/.zshrc
+echo "cp ~/auxiliary_scripts/SecuArch/media/SecuArchWallpaper.png ~/Pictures/wallpapers/wallpaper.png" >> ~/.zshrc
 echo "rm -r -f ~/auxiliary_scripts/SecuArch" >> ~/.zshrc
 echo "rm -f ~/auxiliary_scripts/strap.sh" >> ~/.zshrc
 echo "rm -r -f /auxiliary_scripts/yay" >> ~/.zshrc
