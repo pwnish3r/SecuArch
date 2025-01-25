@@ -132,15 +132,9 @@ figlet -f slant "BlackArch Strap"
 echo -e "\n\n"
 curl -O https://blackarch.org/strap.sh
 chmod +x strap.sh
-CYAN "Straping BlackArch into your system, this may take a while...\n"
-sudo stdbuf -oL -eL ./strap.sh > /dev/null 2>&1 &
-pid=$!
-spinner $pid
-if wait $pid;then
-	GREEN "Done [✔]"
-fi
+CYAN "\nStraping BlackArch into your system, this may take a while...\n"
+sudo ./strap.sh | pv -l > /dev/null
 sleep 0.1
-
 sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/grub-btrfsd --syslog --timeshift-auto|' /usr/lib/systemd/system/grub-btrfsd.service
 sudo systemctl enable grub-btrfsd
 clear

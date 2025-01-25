@@ -210,7 +210,7 @@ sleep 0.1
 figlet -f slant "Pacstrap"
 if (( progress == 1 )); then
 	GREEN "\n\nInstalling the base system...\n"
-	packages=(base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim plymouth figlet)
+	packages=(base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim plymouth figlet pv)
 	for pkg in "${packages[@]}"; do
 		pacstrap_package "$pkg"
 	done
