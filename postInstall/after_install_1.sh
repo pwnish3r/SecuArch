@@ -115,7 +115,7 @@ CYAN "Installing Custom GRUB Theme\n"
 if git clone https://github.com/vinceliuice/Elegant-grub2-themes.git $HOME/auxiliary_scripts/grub > /dev/null 2>&1;then
 	GREEN "Done [✔]"
 fi
-sudo $HOME/auxiliary_scripts/grub/install.sh -t mojave -p blur -i right -b
+sudo $HOME/auxiliary_scripts/grub/install.sh -b -t mojave -p blur
 #sudo cp -r $HOME/auxiliary_scripts/SecuArch/grubTheme/graphite /boot/grub/themes
 #sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/boot/grub/themes/graphite/theme.txt|' /etc/default/grub
 #sudo sed -i 's|Arch|SecuArch|' /etc/default/grub

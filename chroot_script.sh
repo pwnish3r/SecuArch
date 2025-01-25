@@ -77,6 +77,7 @@ sleep 0.1
 figlet -f slant "ROOT & USER"
 echo -e "\n\nEnter a password for \e[32mroot\e[0m (type carefully!):"
 passwd
+echo ""
 read -p "Enter a username for the new user: " username
 if id "$username" &>/dev/null; then
     echo "User $username already exists. Skipping user creation."
@@ -139,6 +140,9 @@ setPlymouth(){
 	clear
 	sleep 0.1
 	figlet -f slant "P L Y M O U T H"
+	
+	'''
+	EDIT FOR PREDEFINED PLYMOUTH THEME
 	cp -r /home/$username/auxiliary_scripts/plymouth-themes/pack_4/red_loader /usr/share/plymouth/themes/
 	sudo sed -i "s|Enter Password|Enter LUKS Passphrase|g" /usr/share/plymouth/themes/red_loader/red_loader.script
 	sudo cp /home/$username/auxiliary_scripts/SecuArch/media/ply_logo_1.png /usr/share/plymouth/themes/red_loader/
@@ -148,8 +152,12 @@ setPlymouth(){
 	echo "sa_sprite.SetImage(sa_image);" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
 	echo "sa_sprite.SetX(Window.GetX() + (Window.GetWidth() / 2 - sa_image.GetWidth() / 2));" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
 	echo "sa_sprite.SetY(-Window.GetHeight() + sa_image.GetHeight());" >>  /usr/share/plymouth/themes/red_loader/red_loader.script
+	'''
+	
+	cp -r /home/$username/auxiliary_scripts/SecuArch/plymouthTheme/proxzima-plymouth /home/$username/auxiliary_scripts/plymouth-themes
+	cp -r /home/$username/auxiliary_scripts/plymouth-themes/proxzima-plymouth/proxzima /usr/share/plymouth/themes/
 	CYAN "\nSet the new plymouth theme..."
-	if plymouth-set-default-theme -R red_loader > /dev/null 2>&1;then
+	if plymouth-set-default-theme -R proxzima > /dev/null 2>&1;then
 		GREEN "Done [✔]"
 	fi
 	CYAN "\nCreating initial ramdisk with new parameters..."
