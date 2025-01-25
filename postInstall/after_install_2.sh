@@ -1,9 +1,9 @@
 #!/bin/bash
 clear
 sleep 0.1
-figlet -f slant "Script 2"
+figlet -f slant "WINDOW MANAGER"
 sudo systemctl enable sddm
-echo -e "Now you can choose to install either \n\e[32m1.i3\e[0m\n\e[32m2.bspwm\e[0m."
+echo -e "Now you can choose to install either \n\e[32m1.i3\e[0m\n\e[32m2.bspwm\e[0m\n\e[32m3.Neither\e[0m."
 echo -e "\nYour choice(1 or 2): "
 read choice
 if [ "$choice" == "1" ]; then
@@ -27,16 +27,16 @@ elif [ "$choice" == "2" ]; then
     cp -r zsh ../
     sleep 1
 fi
-cp -r ~/auxiliary_scripts/SecuArch/postInstall/dotfiles/. ~/
-mkdir ~/Pictures/wallpapers
 chmod +x ~/auxiliary_scripts/SecuArch/postInstall/ohmyzsh.sh
-sh ~/auxiliary_scripts/SecuArch/postInstall/ohmyzsh.sh --unattended
-cp ~/auxiliary_scripts/SecuArch/media/wallpaper.png ~/Pictures/wallpapers/wallpaper.png
-clear
-sleep 0.1
-echo -e "Cleaning up..."
-rm -r -f ~/auxiliary_scripts/SecuArch
-rm -f ~/auxiliary_scripts/strap.sh
-rm -r -f /auxiliary_scripts/yay
-echo "sudo -k chsh -s \"$zsh\" \"$USER\"" >> ~/.bashrc
+cp -r ~/auxiliary_scripts/SecuArch/postInstall/dotfiles/. ~/
+echo "cp ~/auxiliary_scripts/SecuArch/media/wallpaper.png ~/Pictures/wallpapers/wallpaper.png" >> ~/.zshrc
+echo "cp ~/auxiliary_scripts/SecuArch/media/SecuArchWallpaper.png ~/Pictures/wallpapers/wallpaper.png" >> ~/.zshrc
+echo "rm -r -f ~/auxiliary_scripts/SecuArch" >> ~/.zshrc
+echo "rm -f ~/auxiliary_scripts/strap.sh" >> ~/.zshrc
+echo "rm -r -f /auxiliary_scripts/yay" >> ~/.zshrc
+echo "mkdir ~/Pictures/wallpapers" >> ~/.zshrc
+echo "sed -i \"s|^$HOME/auxiliary_scripts.*$||g\" ~/.bashrc" >> ~/.zshrc
+echo "echo \"Please Reboot\"" >> ~/.zshrc
+echo "head -n -7 ~/.zshrc > .zshrc_temp && mv ~/.zshrc_temp ~/.zshrc" >> ~/.zshrc
+sh ~/auxiliary_scripts/SecuArch/postInstall/ohmyzsh.sh
 echo -e "\e[32mInstall script 2/3 complete.The system will reboot now!\e[0m."
