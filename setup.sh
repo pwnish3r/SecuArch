@@ -92,9 +92,9 @@ pacstrap_package() {
     local package=$1
     echo "Installing package: $package"
     if pacstrap /mnt "$package" --needed --noconfirm > /dev/null 2>&1; then
-        GREEN "[✔] Successfully installed: $package\n"
+        GREEN "[!] Successfully installed: $package\n"
     else
-        RED "[✘] Failed to install: $package\n" >&2
+        RED "[X] Failed to install: $package\n" >&2
     fi
 }
 ###################################################################

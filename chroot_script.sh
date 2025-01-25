@@ -115,7 +115,7 @@ if [ "$ENCRYPTED" = "1" ]; then
     echo "GRUB_ENABLE_CRYPTODISK=y" >> /etc/default/grub
     CYAN "\nCreating initial ramdisk with new parameters..."
     if mkinitcpio -P > /dev/null 2>&1; then
-    	GREEN "Success [✔]"
+    	GREEN "Success [!]"
     fi
 fi
 
@@ -127,11 +127,11 @@ sleep 0.1
 figlet -f slant "GRUB"
 CYAN "\nInstalling GRUB"
 if grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB > /dev/null 2>&1;then
-	GREEN "Success [✔]"
+	GREEN "Success [!]"
 fi
 CYAN "\nConfiguring GRUB"
 if grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1;then
-	GREEN "Success [✔]"
+	GREEN "Success [!]"
 fi
 #############################################
 # PLYMOUTH THEME
@@ -149,11 +149,11 @@ setPlymouth(){
 	
 	CYAN "\nSet the new plymouth theme..."
 	if plymouth-set-default-theme -R proxzima > /dev/null 2>&1;then
-		GREEN "Done [✔]"
+		GREEN "Done [!]"
 	fi
 	CYAN "\nCreating initial ramdisk with new parameters..."
    	if mkinitcpio -P > /dev/null 2>&1; then
-    		GREEN "Success [✔]"
+    		GREEN "Success [!]"
     	fi
 }
 #############################################
@@ -169,7 +169,7 @@ mkdir -p auxiliary_scripts
 cd auxiliary_scripts
 echo -e "\n\e[36mCloning the repository...\e[0m"
 if git clone https://github.com/pwnish3r/SecuArch.git > /dev/null 2>&1;then
-	echo -e "\e[36mDone [✔]\e[36m"
+	echo -e "\e[36mDone [!]\e[36m"
 fi
 
 echo -e "\n\e[36mMaking post install scripts executable...\e[0m"
@@ -180,7 +180,7 @@ echo "\$HOME/auxiliary_scripts/SecuArch/scriptScheduler.sh" >> ~/.bashrc
 cd ~/auxiliary_scripts
 echo -e "\e[32mCloning the plymouth themes...\e[0m"
 if git clone https://github.com/adi1090x/plymouth-themes.git > /dev/null 2>&1;then
-	echo -e "\e[36mDone [✔]\e[36m"
+	echo -e "\e[36mDone [!]\e[36m"
 fi
 EOF
 setPlymouth

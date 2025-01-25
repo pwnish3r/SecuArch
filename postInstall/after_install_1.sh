@@ -9,7 +9,7 @@ installPackages(){
         		echo -e "Failed to install \e[31m$pkg\e[0m. Logging error..."
         		echo -e "$pkg" >> failed_packages.log
     		else
-    			GREEN "Successfully installed \"$pkg\" [✔]"
+    			GREEN "Successfully installed \"$pkg\" !\n"
     		fi
 	done
 	echo -e "\n\e[32mInstallation process complete.\e[0m"
@@ -110,7 +110,7 @@ fi
 clear
 sleep 0.1
 timedatectl set-ntp true
-CYAN "Installing Custom GRUB Theme\n"
+CYAN "\nInstalling Custom GRUB Theme\n"
 if git clone https://github.com/vinceliuice/Elegant-grub2-themes.git $HOME/auxiliary_scripts/grub > /dev/null 2>&1;then
 	GREEN "Done [✔]"
 fi
@@ -133,25 +133,18 @@ echo -e "\n\n"
 curl -O https://blackarch.org/strap.sh
 chmod +x strap.sh
 CYAN "\nStraping BlackArch into your system, this may take a while...\n"
-sudo ./strap.sh | pv -l > /dev/null
+sudo ./strap.sh 
 sleep 0.1
 sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/grub-btrfsd --syslog --timeshift-auto|' /usr/lib/systemd/system/grub-btrfsd.service
 sudo systemctl enable grub-btrfsd
 clear
 sleep 0.1
 figlet -f slant "Yay Install"
-
-
 sudo pacman -S --needed --noconfirm git base-devel > /dev/null 2>&1
 git clone https://aur.archlinux.org/yay.git > /dev/null 2>&1
 cd yay
 CYAN "\nInstalling Yay, this may take a while...\n"
-makepkg -si --noconfirm > /dev/null 2>&1 &
-pid=$!
-spinner $pid
-if wait $pid;then
-	GREEN "Done [✔]"
-fi
+makepkg -si --noconfirm | pv -l > /dev/null
 yay
 sleep 0.1
 clear
