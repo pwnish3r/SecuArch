@@ -134,6 +134,7 @@ Please report issues or open a pull request if you find a bug or have a workarou
     vulnerable VMs or Docker images for practice.
     5. Customization Wizard: Let users pick from 
     multiple security profiles (Red Team, Blue Team, Reverse Engineering, etc.) during installation.
+    6. A more versatile i3WM config out of the box, hacking oriented.
 
 ---
 
