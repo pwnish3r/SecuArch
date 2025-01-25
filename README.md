@@ -92,8 +92,8 @@
    
 3. **Run the installer**
    ```bash
-   chmod +x start.sh
-   ./start.sh
+   chmod +x setup.sh
+   ./setup.sh
    ```
 
 4. **After Install Scripts**
