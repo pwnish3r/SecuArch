@@ -1,4 +1,5 @@
 #!/bin/bash
+rm -rf plymouthTheme
 pacman -Syy
 pacman -S --noconfirm util-linux
 pacman -S --noconfirm figlet
