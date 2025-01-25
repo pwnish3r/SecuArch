@@ -35,8 +35,8 @@ echo "rm -r -f ~/auxiliary_scripts/SecuArch" >> ~/.zshrc
 echo "rm -f ~/auxiliary_scripts/strap.sh" >> ~/.zshrc
 echo "rm -r -f /auxiliary_scripts/yay" >> ~/.zshrc
 echo "mkdir ~/Pictures/wallpapers" >> ~/.zshrc
-echo "sed -i \"s|^$HOME/auxiliary_scripts.*$||g\" ~/.bashrc" ~/.zshrc
-echo "echo \"The System will reboot now\"" ~/.zshrc
-echo "head -n -7 ~/.zshrc > .zshrc_temp && mv ~/.zshrc_temp ~/.zshrc" ~/.zshrc  
+echo "sed -i \"s|^$HOME/auxiliary_scripts.*$||g\" ~/.bashrc" >> ~/.zshrc
+echo "echo \"Please Reboot\"" >> ~/.zshrc
+echo "head -n -7 ~/.zshrc > .zshrc_temp && mv ~/.zshrc_temp ~/.zshrc" >> ~/.zshrc
 sh ~/auxiliary_scripts/SecuArch/postInstall/ohmyzsh.sh
 echo -e "\e[32mInstall script 2/3 complete.The system will reboot now!\e[0m."
