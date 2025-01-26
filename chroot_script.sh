@@ -196,7 +196,7 @@ if git clone https://github.com/adi1090x/plymouth-themes.git > /dev/null 2>&1;th
 	echo -e "\e[36mDone [!]\e[36m"
 fi
 echo -e "\n\e[36mCloning GRUB Theme...\e[0m"
-if git clone https://github.com/vinceliuice/Elegant-grub2-themes.git $HOME/auxiliary_scripts/grub > /dev/null 2>&1;then
+if git clone https://github.com/vinceliuice/Elegant-grub2-themes.git ~/auxiliary_scripts/grub > /dev/null 2>&1;then
 	echo -e "\e[36mDone [!]\e[36m"
 fi
 EOF
