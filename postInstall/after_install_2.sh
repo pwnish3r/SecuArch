@@ -4,7 +4,7 @@ sleep 0.1
 figlet -f slant "WINDOW MANAGER"
 sudo systemctl enable sddm
 echo -e "Now you can choose to install either \n\e[32m1.i3\e[0m\n\e[32m2.bspwm\e[0m\n\e[32m3.Neither\e[0m."
-echo -e "\nYour choice(1 or 2): "
+echo -e "\nYour choice(1, 2 or 3): "
 read choice
 if [ "$choice" == "1" ]; then
     yay -S --noconfirm i3 rofi xclip clipmenu dunst feh picom xss-lock lxappearance arandr alacritty
@@ -48,6 +48,6 @@ systemctl --user enable service.service
 clear
 sleep 0.1
 
-echo "Reboot Manually after oh-my-zsh install.The system will also restart on the next boot to complete the install. Press Enter to proceed with the installation"
+echo "Reboot Manually after oh-my-zsh install.The system will also restart on the next boot to complete the setup. Press Enter to proceed with the installation"
 read enter
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
