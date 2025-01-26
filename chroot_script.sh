@@ -156,6 +156,19 @@ setPlymouth(){
     		GREEN "Success [!]"
     	fi
 }
+
+#############################################
+# GRUB THEME
+#############################################
+setGrubTheme(){
+	CYAN "Installing Custom GRUB Theme...\n"
+	/home/$username/auxiliary_scripts/grub/install.sh -b -t mojave -p blur
+	cp /home/$username/auxiliary_scripts/SecuArch/media/grub_wallpaper_blur_4k.jpg /boot/grub/themes/Elegant-mojave-blur-left-dark/background.jpg
+	CYAN "\nReconfiguring GRUB"
+	if grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1;then
+		GREEN "Success [!]"
+	fi
+}
 #############################################
 # 4. Enable networking and finalize
 #############################################
@@ -175,15 +188,20 @@ fi
 echo -e "\n\e[36mMaking post install scripts executable...\e[0m"
 chmod +x SecuArch/postInstall/after_install_*.sh
 chmod +x SecuArch/*.sh
-echo -e "\e[32mActivating post install scripts autorun...\e[0m"
+echo -e "\n\e[36mActivating post install scripts autorun...\e[0m"
 echo "\$HOME/auxiliary_scripts/SecuArch/scriptScheduler.sh" >> ~/.bashrc
 cd ~/auxiliary_scripts
-echo -e "\e[32mCloning the plymouth themes...\e[0m"
+echo -e "\n\e[36mCloning the plymouth themes...\e[0m"
 if git clone https://github.com/adi1090x/plymouth-themes.git > /dev/null 2>&1;then
+	echo -e "\e[36mDone [!]\e[36m"
+fi
+echo -e "\n\e[36mCloning GRUB Theme...\e[0m"
+if git clone https://github.com/vinceliuice/Elegant-grub2-themes.git $HOME/auxiliary_scripts/grub > /dev/null 2>&1;then
 	echo -e "\e[36mDone [!]\e[36m"
 fi
 EOF
 setPlymouth
+setGrubTheme
 clear
 sleep 1
 
