@@ -1,7 +1,7 @@
 #!/bin/bash
 ######################################################################################
 installPackages(){
-	package_file="$HOME/auxiliary_scripts/SecuArch/postInstall/testing.txt"
+	package_file="$HOME/auxiliary_scripts/SecuArch/postInstall/packages.txt"
 	mapfile -t packages < "$package_file"
 	for pkg in "${packages[@]}"; do
 		echo -e "Installing \e[32m$pkg\e[0m..."
@@ -136,7 +136,7 @@ echo -e "\n\n"
 curl -O https://blackarch.org/strap.sh > /dev/null 2>&1
 chmod +x strap.sh
 CYAN "\nStraping BlackArch into your system, this may take a while...\n"
-#sudo ./strap.sh | pv -l > /dev/null
+sudo ./strap.sh | pv -l > /dev/null
 sleep 0.1
 sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/grub-btrfsd --syslog --timeshift-auto|' /usr/lib/systemd/system/grub-btrfsd.service
 sudo systemctl enable grub-btrfsd
