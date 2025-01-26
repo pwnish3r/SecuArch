@@ -8,3 +8,4 @@ firefox
 thunar
 gnome
 python-i3ipc
+eza

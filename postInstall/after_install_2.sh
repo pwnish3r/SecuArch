@@ -38,14 +38,16 @@ cp ~/auxiliary_scripts/SecuArch/postInstall/service.service ~/.config/systemd/us
 cp -r ~/auxiliary_scripts/SecuArch/postInstall/dotfiles/. ~/
 chmod +x ~/autotiling
 sudo mv ~/autotiling /usr/bin/
+sudo mv -r ~/plugins /usr/share/zsh/
 rm -r ~/.oh-my-zsh
 sed -i "s|^ExecStart=.*|ExecStart=$HOME/auxiliary_scripts/SecuArch/postInstall/service.sh|g" ~/.config/systemd/user/service.service
+chmod +x ~/auxiliary_scripts/SecuArch/postInstall/service.sh
 systemctl --user enable service.service
 ##############################################################################################
 
 clear
 sleep 0.1
 
-echo "Reboot Manually after oh-my-zsh install. Press Enter to proceed with the installation"
+echo "Reboot Manually after oh-my-zsh install.The system will also restart on the next boot to complete the install. Press Enter to proceed with the installation"
 read enter
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
