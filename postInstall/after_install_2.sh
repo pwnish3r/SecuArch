@@ -27,17 +27,21 @@ elif [ "$choice" == "2" ]; then
     cp -r zsh ../
     sleep 1
 fi
+
+##############################################################################################
+cp ~/auxiliary_scripts/SecuArch/media/wallpaper.png ~/Pictures/wallpapers/wallpaper.png
+cp ~/auxiliary_scripts/SecuArch/media/SecuArchWallpaper.png ~/Pictures/wallpapers/SecuArchWallpaper.png
+mkdir ~/.config/systemd && mkdir ~/.config/systemd/user/
+cp ~/auxiliary_scripts/SecuArch/postInstall/service.service ~/.config/systemd/user/
 cp -r ~/auxiliary_scripts/SecuArch/postInstall/dotfiles/. ~/
 sudo mv ~/i3-auto-layout /usr/bin/
 rm -r ~/.oh-my-zsh
-mv ~/.zshrc-dot ~/.zshrc
-echo "cp ~/auxiliary_scripts/SecuArch/media/wallpaper.png ~/Pictures/wallpapers/wallpaper.png" >> ~/.zshrc
-echo "cp ~/auxiliary_scripts/SecuArch/media/SecuArchWallpaper.png ~/Pictures/wallpapers/SecuArchWallpaper.png" >> ~/.zshrc
-#echo "rm -r -f ~/auxiliary_scripts/SecuArch" >> ~/.zshrc
-#echo "rm -f ~/auxiliary_scripts/strap.sh" >> ~/.zshrc
-#echo "rm -r -f /auxiliary_scripts/yay" >> ~/.zshrc
-echo "sed -i \"s|^$HOME/auxiliary_scripts.*$||g\" ~/.bashrc" >> ~/.zshrc
-echo "echo \"Please Reboot\"" >> ~/.zshrc
-echo "head -n -7 ~/.zshrc > .zshrc_temp && mv ~/.zshrc_temp ~/.zshrc" >> ~/.zshrc
+systemctl --user enable service.service
+##############################################################################################
+
+clear
+sleep 0.1
+
+echo "Reboot Manually after oh-my-zsh install. Press Enter to proceed with the installation"
+read enter
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-echo -e "\e[32mInstall script 2/3 complete.The system will reboot now!\e[0m."
