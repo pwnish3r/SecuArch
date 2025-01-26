@@ -144,7 +144,7 @@ sudo pacman -S --needed --noconfirm git base-devel > /dev/null 2>&1
 git clone https://aur.archlinux.org/yay.git > /dev/null 2>&1
 cd yay
 CYAN "\nInstalling Yay, this may take a while...\n"
-makepkg -si --noconfirm | pv -l > /dev/null
+makepkg -si --noconfirm
 yay
 sleep 0.1
 clear
