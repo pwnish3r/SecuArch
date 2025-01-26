@@ -133,7 +133,7 @@ echo -e "\n\n"
 curl -O https://blackarch.org/strap.sh
 chmod +x strap.sh
 CYAN "\nStraping BlackArch into your system, this may take a while...\n"
-sudo ./strap.sh 
+sudo ./strap.sh | pv -l > /dev/null
 sleep 0.1
 sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/grub-btrfsd --syslog --timeshift-auto|' /usr/lib/systemd/system/grub-btrfsd.service
 sudo systemctl enable grub-btrfsd
