@@ -60,7 +60,6 @@ suricata
 alacritty
 firefox
 cantarell-fonts
-plymouth
 plymouth-x11
 gedit
 rkhunter

@@ -29,6 +29,7 @@ elif [ "$choice" == "2" ]; then
 fi
 
 ##############################################################################################
+sudo sed -i "s|^Session=.*$|Session=i3.desktop|g" /etc/sddm.conf
 cp ~/auxiliary_scripts/SecuArch/media/wallpaper.png ~/Pictures/wallpapers/wallpaper.png
 cp ~/auxiliary_scripts/SecuArch/media/SecuArchWallpaper.png ~/Pictures/wallpapers/SecuArchWallpaper.png
 mkdir ~/.config/systemd && mkdir ~/.config/systemd/user/
