@@ -191,6 +191,7 @@ bar {
 
 #######################################################################################################################
 bindsym $mod+t exec --no-startup-id thunar
+exec_always --no-startup-id i3-auto-layout
 exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/SecuArchWallpaper.png
 bindsym $mod+Ctrl+Left resize shrink width 10 px or 10 ppt
 bindsym $mod+Ctrl+Right resize grow width 10 px or 10 ppt

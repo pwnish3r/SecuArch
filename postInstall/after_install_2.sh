@@ -28,6 +28,7 @@ elif [ "$choice" == "2" ]; then
     sleep 1
 fi
 cp -r ~/auxiliary_scripts/SecuArch/postInstall/dotfiles/. ~/
+sudo mv ~/i3-auto-layout /usr/bin/
 rm -r ~/.oh-my-zsh
 mv ~/.zshrc-dot ~/.zshrc
 echo "cp ~/auxiliary_scripts/SecuArch/media/wallpaper.png ~/Pictures/wallpapers/wallpaper.png" >> ~/.zshrc
