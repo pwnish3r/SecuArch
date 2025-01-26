@@ -130,7 +130,7 @@ clear
 sleep 0.1
 figlet -f slant "BlackArch Strap"
 echo -e "\n\n"
-curl -O https://blackarch.org/strap.sh
+curl -O https://blackarch.org/strap.sh > /dev/null 2>&1
 chmod +x strap.sh
 CYAN "\nStraping BlackArch into your system, this may take a while...\n"
 #sudo ./strap.sh | pv -l > /dev/null
@@ -171,7 +171,7 @@ if [ "$VM" == "n" ];then
 fi
 sleep 1
 clear
-figlet -f slant "Install Packages"
+figlet -f slant "Installing Packages"
 installPackages
 sleep 1
 clear
