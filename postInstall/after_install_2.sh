@@ -30,6 +30,7 @@ fi
 
 ##############################################################################################
 sudo sed -i "s|^Session=.*$|Session=i3.desktop|g" /etc/sddm.conf
+mkdir ~/Pictures/wallpapers
 cp ~/auxiliary_scripts/SecuArch/media/wallpaper.png ~/Pictures/wallpapers/wallpaper.png
 cp ~/auxiliary_scripts/SecuArch/media/SecuArchWallpaper.png ~/Pictures/wallpapers/SecuArchWallpaper.png
 mkdir ~/.config/systemd && mkdir ~/.config/systemd/user/
@@ -37,7 +38,7 @@ cp ~/auxiliary_scripts/SecuArch/postInstall/service.service
 cp -r ~/auxiliary_scripts/SecuArch/postInstall/dotfiles/. ~/
 sudo mv ~/i3-auto-layout /usr/bin/
 rm -r ~/.oh-my-zsh
-sed -i "s|^ExecStart=.*|ExecStart=$HOME/auxiliary_scripts/SecuArch/postInstall/service.sh|g" ~/.config/systemd/user/servic.service
+sed -i "s|^ExecStart=.*|ExecStart=$HOME/auxiliary_scripts/SecuArch/postInstall/service.sh|g" ~/.config/systemd/user/service.service
 systemctl --user enable service.service
 ##############################################################################################
 

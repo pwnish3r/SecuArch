@@ -110,7 +110,9 @@ fi
 clear
 sleep 0.1
 timedatectl set-ntp true
-CYAN "\nInstalling Custom GRUB Theme\n"
+clear
+sleep 0.1
+CYAN "Installing Custom GRUB Theme\n"
 if git clone https://github.com/vinceliuice/Elegant-grub2-themes.git $HOME/auxiliary_scripts/grub > /dev/null 2>&1;then
 	GREEN "Done [✔]"
 fi
