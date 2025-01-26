@@ -38,7 +38,7 @@ cp ~/auxiliary_scripts/SecuArch/postInstall/service.service ~/.config/systemd/us
 cp -r ~/auxiliary_scripts/SecuArch/postInstall/dotfiles/. ~/
 chmod +x ~/autotiling
 sudo mv ~/autotiling /usr/bin/
-sudo mv -r ~/plugins /usr/share/zsh/
+sudo mv ~/plugins /usr/share/zsh/
 rm -r ~/.oh-my-zsh
 sed -i "s|^ExecStart=.*|ExecStart=$HOME/auxiliary_scripts/SecuArch/postInstall/service.sh|g" ~/.config/systemd/user/service.service
 chmod +x ~/auxiliary_scripts/SecuArch/postInstall/service.sh
