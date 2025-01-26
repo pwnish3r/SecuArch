@@ -72,3 +72,4 @@ vlc
 eog
 thunar
 zsh
+python-i3ipc

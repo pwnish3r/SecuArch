@@ -192,7 +192,7 @@ sleep 1
 #############################################
 figlet -f slant "Base Setup Complete"
 echo -e "\nBase System install complete. Do you want to reboot now? (\e[32myes\e[0m/\e[31mno\e[0m)"
-read reboot_now
+read -p "Your answer: " reboot_now
 if [ "$reboot_now" == "yes" ]; then
     touch /root/reboot.flag
     exit
