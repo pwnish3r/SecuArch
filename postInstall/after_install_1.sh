@@ -112,7 +112,7 @@ sleep 0.1
 timedatectl set-ntp true
 clear
 sleep 0.1
-
+sudo ls > /dev/null 2>&1
 #CYAN "Installing Custom GRUB Theme\n"
 #if git clone https://github.com/vinceliuice/Elegant-grub2-themes.git $HOME/auxiliary_scripts/grub > /dev/null 2>&1;then
 #	GREEN "Done [✔]"
@@ -123,10 +123,10 @@ sleep 0.1
 #sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/boot/grub/themes/graphite/theme.txt|' /etc/default/grub
 #sudo sed -i 's|Arch|SecuArch|' /etc/default/grub
 
-CYAN "\nReconfiguring GRUB"
-if grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1;then
-	GREEN "Success [!]"
-fi
+#CYAN "\nReconfiguring GRUB"
+#if grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1;then
+#	GREEN "Success [!]"
+#fi
 
 cd $HOME/auxiliary_scripts
 clear
