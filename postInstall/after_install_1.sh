@@ -115,7 +115,7 @@ if git clone https://github.com/vinceliuice/Elegant-grub2-themes.git $HOME/auxil
 	GREEN "Done [✔]"
 fi
 sudo $HOME/auxiliary_scripts/grub/install.sh -b -t mojave -p blur
-
+sudo cp $HOME/auxiliary_scripts/SecuArch/media/grub_wallpaper_blur_4k.jpg /boot/grub/themes/Elegant-mojave-blur-left-dark/background.jpg
 #sudo cp -r $HOME/auxiliary_scripts/SecuArch/grubTheme/graphite /boot/grub/themes
 #sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/boot/grub/themes/graphite/theme.txt|' /etc/default/grub
 #sudo sed -i 's|Arch|SecuArch|' /etc/default/grub
