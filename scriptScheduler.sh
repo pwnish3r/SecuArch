@@ -1,13 +1,12 @@
 #!/bin/bash
 
 # Directory where scripts are stored
+valid='bash'
 current_shell=$(ps -p$$ -ocmd=)
-if [ "$current_shell" == "/usr/bin/bash" ];then
+if [[ "$current_shell" =~ $valid ]]; then
 	SCRIPT_DIR="$HOME/auxiliary_scripts/SecuArch/postInstall"
-
 	# File that tracks the current script to execute
 	CURRENT_SCRIPT_FILE="$SCRIPT_DIR/current_script"
-
 	# Initialize the tracking file if it doesn't exist
 	if [ ! -f "$CURRENT_SCRIPT_FILE" ]; then
 	    echo -e "\e[32mNo current script to run. Initializing with the first script...\e[0m"
@@ -47,7 +46,7 @@ if [ "$current_shell" == "/usr/bin/bash" ];then
 	    exit 0
 	fi
 fi
-
-if [ "$current_shell" == "zsh" ];then
-	
+valid='zsh'
+if [[ "$current_shell" =~ $valid ]]; then
+	echo "zsh"
 fi
