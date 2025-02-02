@@ -22,9 +22,6 @@ elif [ "$choice" == "2" ]; then
     git clone https://github.com/pwnish3r/dotfiles-bspwm.git
     cd dotfiles-bspwm
     cp -r bspwm ../
-    cp -r nvim ../
-    cp -r tmux ../
-    cp -r zsh ../
     sleep 1
 fi
 
@@ -36,6 +33,7 @@ cp ~/auxiliary_scripts/SecuArch/media/SecuArchWallpaper.png ~/Pictures/wallpaper
 mkdir ~/.config/systemd && mkdir ~/.config/systemd/user/
 cp ~/auxiliary_scripts/SecuArch/postInstall/service.service ~/.config/systemd/user/
 cp -r ~/auxiliary_scripts/SecuArch/postInstall/dotfiles/. ~/
+git clone -b v2.0 https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
 chmod +x ~/autotiling
 sudo mv ~/autotiling /usr/bin/
 sudo mv ~/plugins /usr/share/zsh/
