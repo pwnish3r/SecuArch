@@ -9,3 +9,4 @@ thunar
 gnome
 python-i3ipc
 eza
+neovim
