@@ -75,3 +75,4 @@ zsh
 python-i3ipc
 eza
 bat
+metasploit
