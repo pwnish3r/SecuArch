@@ -31,7 +31,7 @@
 
 ---
 
-## ✨ Overview
+## Overview
 
 **SecuArch** is a streamlined, **script-based** installation process for Arch Linux. It automatically sets up **BTRFS** subvolumes, **encrypted partitions** (optional), and pre-installs a curated collection of pentesting and defensive tools. My goal: provide a minimal yet powerful base for cybersecurity professionals, students, and enthusiasts. 
 
@@ -42,7 +42,7 @@
 - **Make it your own**: As a cybersecurity enthusiast, you will have the perfect base to build your own environment and have maximum productivity.
 ---
 
-## 🔒 Key Features
+## Key Features
 
 - **Automated Partitioning & BTRFS**: Create separate subvolumes for `/root`, `/home`.
 - **Optional LUKS Encryption**: Secure your data at rest with full-disk encryption.
@@ -53,7 +53,7 @@
 
 ---
 
-## ✅ Prerequisites (Before Install)
+## Prerequisites (Before Install)
 
 1. **Bootable Arch ISO**: Download from [Arch Linux official site](https://archlinux.org/download/).
 2. **Internet Connection**: The script will update mirrors and install packages online.
@@ -64,7 +64,7 @@
 
 ---
 
-## ⚙️ Installation Process
+## Installation Process
 **BARE METAL**
 1. **Boot from Arch ISO**  
    Insert your USB and boot the live environment.
@@ -103,7 +103,7 @@
 
 ---
 
-## 🏗️ Known Issues
+## Known Issues
 
     1. Nvidia/AMD Drivers: Some laptops with hybrid GPU might 
     need manual driver setup post-install.
@@ -122,7 +122,7 @@ Please report issues or open a pull request if you find a bug or have a workarou
 
 ---
 
-## 🚀 Roadmap & Future Improvements
+## Roadmap & Future Improvements
 
     1. Additional Subvolume Layout: Offer advanced 
     partition schemes for containers, logs, etc.
@@ -138,7 +138,7 @@ Please report issues or open a pull request if you find a bug or have a workarou
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions make this project better! To contribute:
 
