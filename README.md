@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="media/SecuArchLogo.png" alt="Project Logo" width="350">
+  <img src="media/logo2.png" alt="Project Logo" width="350">
 </p>
 
 <!-- PROJECT TITLE & BADGES -->
