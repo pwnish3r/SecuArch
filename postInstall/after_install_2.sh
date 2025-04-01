@@ -3,8 +3,16 @@ clear
 sleep 0.1
 figlet -f slant "WINDOW MANAGER"
 sudo systemctl enable sddm
-echo -e "Hyprland & i3 will now install on your machine with preconfigured dotfiles.For usage, check my github repository under SecuArch/help"
-echo -e "Press any key to contiue..."
+clear
+##########################################################################################
+CYAN() {
+    local CYAN="\e[36m"
+    local RESET="\e[0m"
+    echo -e "${CYAN}$1${RESET}"
+}
+##########################################################################################
+CYAN "Hyprland & i3 will now install on your machine with preconfigured dotfiles.For usage, check my github repository under SecuArch/help"
+CYAN "Press any key to contiue..."
 read key
 ############################# i3 #################################################################
 yay -S --noconfirm i3 rofi xclip clipmenu dunst feh picom xss-lock lxappearance arandr alacritty
