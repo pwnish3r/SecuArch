@@ -1,13 +1,27 @@
 #!/bin/bash
 
+SecuArchDir=~/auxiliary_scripts/SecuArch
+
+
+hyprlock() {
+	mkdir ~/.fonts
+	cp $SecuArchDir/postInstall/hyprlock/Style_9/Fonts/. ~/.fonts/
+	rm ~/.config/hypr/hyprlock-2k.conf
+	rm ~/.config/hypr/hyprlock.conf
+	cp $SecuArchDir/postInstall/hyprlock/Style_9/hyprlock.conf ~/.config/hypr/
+	cp ~/.config/hypr/hyprlock.conf ~/.config/hypr/hyprlock-2k.conf
+	cp $SecuArchDir/postInstall/hyprlock/Style_9/hyprlock.png ~/.config/hypr/
+	cp $SecuArchDir/postInstall/hyprlock/Style_9/profile.png ~/.config/hypr/
+}
+
+
 sed -i \"s|^$HOME/auxiliary_scripts.*$||g\" ~/.bashrc
 rm -rf ~/Pictures/wallpapers
 mkdir ~/Pictures/wallpapers
-cp ~/auxiliary_scripts/SecuArch/media/SecuArchBlack.jpg
-cp ~/auxiliary_scripts/SecuArch/media/SecuArchRed.jpg
+cp $SecuArchDir/media/SecuArchBlack.png
+cp $SecuArchDir/media/SecuArchRed.png
 rm -f ~/.config/systemd/user/service.service
-rm -f ~/auxiliary_scripts/SecuArch/postInstall/service.sh
-rm -rf ~/auxiliary_scripts/SecuArch
+rm -rf $SecuArchDir
 rm -f ~/auxiliary_scripts/strap.sh
 rm -rf ~/auxiliary_scripts/yay
 systemctl --user daemon-reload

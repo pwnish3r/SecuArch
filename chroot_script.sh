@@ -162,8 +162,18 @@ setPlymouth(){
 #############################################
 setGrubTheme(){
 	CYAN "Installing Custom GRUB Theme...\n"
-	/home/$username/auxiliary_scripts/grub/install.sh -b -t mojave -p blur
-	cp /home/$username/auxiliary_scripts/SecuArch/media/grub_wallpaper_blur_4k.jpg /boot/grub/themes/Elegant-mojave-blur-left-dark/background.jpg
+	CYAN "\n Select 1,2 or 3 depending on your screen resolution: \n1. 1080p \n2. 2k \n3. 4k"
+	read choice
+	if [ "$choice" == "1" ]; then
+		screen="1080p"
+	fi
+	if [ "$choice" == "2" ]; then
+		screen="2k"
+	fi
+	if [ "$choice" == "3" ]; then
+		screen="4k"
+	fi
+	/home/$username/auxiliary_scripts/SecuArch/postInstall/grubTheme/grub2/install.sh -b -s $screen
 	CYAN "\nReconfiguring GRUB"
 	if grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1;then
 		GREEN "Success [!]"
@@ -184,7 +194,6 @@ echo -e "\n\e[36mCloning the repository...\e[0m"
 if git clone https://github.com/pwnish3r/SecuArch.git > /dev/null 2>&1;then
 	echo -e "\e[36mDone [!]\e[36m"
 fi
-
 echo -e "\n\e[36mMaking post install scripts executable...\e[0m"
 chmod +x SecuArch/postInstall/after_install_*.sh
 chmod +x SecuArch/*.sh
@@ -193,10 +202,6 @@ echo "\$HOME/auxiliary_scripts/SecuArch/scriptScheduler.sh" >> ~/.bashrc
 cd ~/auxiliary_scripts
 echo -e "\n\e[36mCloning the plymouth themes...\e[0m"
 if git clone https://github.com/adi1090x/plymouth-themes.git > /dev/null 2>&1;then
-	echo -e "\e[36mDone [!]\e[36m"
-fi
-echo -e "\n\e[36mCloning GRUB Theme...\e[0m"
-if git clone https://github.com/vinceliuice/Elegant-grub2-themes.git ~/auxiliary_scripts/grub > /dev/null 2>&1;then
 	echo -e "\e[36mDone [!]\e[36m"
 fi
 EOF
