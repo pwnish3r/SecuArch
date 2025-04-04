@@ -172,7 +172,7 @@ clear
 sleep 0.1
 if [ "$VM" == "n" ];then
 	YELLOW "\nAre you using an AMD CPU? (y/n)"
-	read CPU
+	read -p "Your answer: " CPU
 	if [ "$CPU" == "n" ];then
 		yay -S --noconfirm intel-ucode
 	else
