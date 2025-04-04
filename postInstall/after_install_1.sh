@@ -135,14 +135,13 @@ figlet -f slant "BlackArch Strap"
 sudo sed -i '/^\[multilib\]/,/^Include/s/^#//' /etc/pacman.conf
 sudo pacman -Syu
 echo -e "\n\n"
-curl -O https://blackarch.org/strap.sh > /dev/null 2>&1
+curl -O https://blackarch.org/strap.sh
 chmod +x strap.sh
 CYAN "\nStraping BlackArch into your system, this may take a while...\n"
 sudo ./strap.sh
 sleep 0.1
 sudo sed -i '/^\[multilib\]/,/^Include/s/^#//' /etc/pacman.conf
 sudo pacman -Syu
-sudo pacman -S blackarch --ignore ophcrack,swaks
 RED "Halting for debugging. Press enter to continue"
 read enter
 sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/grub-btrfsd --syslog --timeshift-auto|' /usr/lib/systemd/system/grub-btrfsd.service
