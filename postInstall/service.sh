@@ -18,8 +18,8 @@ hyprlock() {
 sed -i \"s|^$HOME/auxiliary_scripts.*$||g\" ~/.bashrc
 rm -rf ~/Pictures/wallpapers
 mkdir ~/Pictures/wallpapers
-cp $SecuArchDir/media/SecuArchBlack.png
-cp $SecuArchDir/media/SecuArchRed.png
+cp $SecuArchDir/media/SecuArchBlack.png ~/Pictures/wallpapers/
+cp $SecuArchDir/media/SecuArchRed.png ~/Pictures/wallpapers/
 hyprlock
 rm -f ~/.config/systemd/user/service.service
 rm -rf $SecuArchDir
