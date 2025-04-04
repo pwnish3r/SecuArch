@@ -37,7 +37,7 @@ chmod +x ~/auxiliary_scripts/SecuArch/postInstall/service.sh
 systemctl --user enable service.service
 clear
 sleep 0.1
-sh <(curl -L https://raw.githubusercontent.com/JaKooLit/Arch-Hyprland/main/auto-install.sh)
+#sh <(curl -L https://raw.githubusercontent.com/JaKooLit/Arch-Hyprland/main/auto-install.sh)
 ##############################################################################################
 #echo "Reboot Manually after oh-my-zsh install.The system will also restart on the next boot to complete the setup. Press Enter to proceed with the installation"
 #read enter

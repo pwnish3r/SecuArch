@@ -20,7 +20,7 @@ rm -rf ~/Pictures/wallpapers
 mkdir ~/Pictures/wallpapers
 cp $SecuArchDir/media/SecuArchBlack.png ~/Pictures/wallpapers/
 cp $SecuArchDir/media/SecuArchRed.png ~/Pictures/wallpapers/
-hyprlock
+#hyprlock
 rm -f ~/.config/systemd/user/service.service
 rm -rf $SecuArchDir
 rm -f ~/auxiliary_scripts/strap.sh

@@ -144,7 +144,7 @@ setPlymouth(){
 	cd /home/$username/auxiliary_scripts/SecuArch/postInstall/plymouthTheme
 	cp -r logo-mac-style /usr/share/plymouth/themes/
 	CYAN "\nSet the new plymouth theme..."
-	if plymouth-set-default-theme -R logo-mac-style > /dev/null 2>&1;then
+	if plymouth-set-default-theme -R bgrt > /dev/null 2>&1;then
 		GREEN "Done [!]"
 	fi
 	CYAN "\nCreating initial ramdisk with new parameters..."
