@@ -159,8 +159,8 @@ setPlymouth(){
 setGrubTheme(){
     clear
 	CYAN "Installing Custom GRUB Theme...\n"
-	CYAN "\n Select 1,2 or 3 depending on your screen resolution: \n1. 1080p \n2. 2k \n3. 4k"
-	read choice
+	CYAN "\n Select 1, 2 or 3 depending on your screen resolution: \n1. 1080p \n2. 2k \n3. 4k"
+	read -p "Your choice: " choice
 	if [ "$choice" == "1" ]; then
 		screen="1080p"
 	fi
