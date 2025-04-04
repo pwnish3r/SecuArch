@@ -65,6 +65,9 @@
 ---
 
 ## Installation Process
+> [!CAUTION]
+> The script will ask for you root password several times!
+
 **BARE METAL**
 1. **Boot from Arch ISO**  
    Insert your USB and boot the live environment.
@@ -76,7 +79,11 @@
 
    - Enable EFI
 
-   - Make sure you have at least 40GB free. If you want a more lightweight distro, eliminate some of the packages in the _packages.txt_ file.
+   - Make sure you have at least 35GB free. If you want a more lightweight distro, eliminate some of the packages in the _packages.txt_ file.
+     
+   - Enable 3D Acceleration for you virtual machine
+  
+   - Do not allocate a lot of video memory (more than 1GB), the VM may halt after GRUB selection
 
 ---
 
@@ -97,9 +104,18 @@
    ```
 
 4. **After Install Scripts**
+   The After Install scripts make sure everything is installed and enabled on the system. The first script takes care of the packages and straps BlackArch repo on your system, changes GRUB and SDDM theme. The second script takes care of the actual environment, by installing a Tiling Window Manager.
+   > In SDDM login screen, choose i3 if the hyprland environment seems slow to you.
+   
 
-   The After Install scripts make sure everything is installed and enabled on the system. The first script takes care of the packages and straps BlackArch repo on your system, changes GRUB and SDDM theme. The second script takes care of the actual environment, by choosing a Tiling Window Manager.
-   > I recommend i3WM for VMs where resources are limited or on systems running low end hardware.
+> [!CAUTION]
+> Choose the following options when prompted when installing the dotfiles for hyprland: input_group gtk_themes Bluetooth thunar ags xdph zsh dots
+
+> [!CAUTION]
+> Do not download the wallpapers, my script will delete all of them
+
+> [!CAUTION]
+> Choose to reboot when prompted
 
 ---
 
@@ -111,12 +127,10 @@
     additional steps or kernel signing might be needed.
     3. Wi-Fi Issues: Network Manager is included, 
     but certain Wi-Fi chipsets may require extra firmware.
-    4. BSPWM: The ricer installer included doesn't really work in a VM, 
-    but works perfectly fine even on a laptop from 2012 Bare Metal. 
-    Either don't install anything and configure your own Desktop Environment or Window Manager 
-    or choose the i3 configuration.
-    5. Some packages that my installation depends on may be updated and some dependencies 
+    4. Some packages that my installation depends on may be updated and some dependencies 
     change. I will try to test my install script as often as possible to avoid conflicts.
+    5. Sometimes the installation of packages just fails, if you see a lot of red errors after
+    the first reboot, start from the beginning.
 
 Please report issues or open a pull request if you find a bug or have a workaround!
 
