@@ -142,7 +142,7 @@ sudo ./strap.sh
 sleep 0.1
 sudo sed -i '/^\[multilib\]/,/^Include/s/^#//' /etc/pacman.conf
 sudo pacman -Syu
-pacman -S blackarch --ignore ophcrack,swaks
+sudo pacman -S blackarch --ignore ophcrack,swaks
 RED "Halting for debugging. Press enter to continue"
 read enter
 sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/grub-btrfsd --syslog --timeshift-auto|' /usr/lib/systemd/system/grub-btrfsd.service
