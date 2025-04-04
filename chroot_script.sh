@@ -157,6 +157,7 @@ setPlymouth(){
 # GRUB THEME
 #############################################
 setGrubTheme(){
+    clear
 	CYAN "Installing Custom GRUB Theme...\n"
 	CYAN "\n Select 1,2 or 3 depending on your screen resolution: \n1. 1080p \n2. 2k \n3. 4k"
 	read choice
@@ -169,7 +170,7 @@ setGrubTheme(){
 	if [ "$choice" == "3" ]; then
 		screen="4k"
 	fi
-	/home/$username/auxiliary_scripts/SecuArch/postInstall/grubTheme/grub2/install.sh -b -s $screen
+	#/home/$username/auxiliary_scripts/SecuArch/postInstall/grubTheme/grub2/install.sh -b -s $screen
 	CYAN "\nReconfiguring GRUB"
 	if grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1;then
 		GREEN "Success [!]"
