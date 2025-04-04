@@ -37,6 +37,12 @@ chmod +x ~/auxiliary_scripts/SecuArch/postInstall/service.sh
 systemctl --user enable service.service
 clear
 sleep 0.1
+chmox +x zsh.sh
+zsh.sh
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
+${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+sed -i "s|^ZSH_THEME|ZSH_THEME=powerlevel10k/powerlevel10k|g" ~/.zshrc
+reboot
 #sh <(curl -L https://raw.githubusercontent.com/JaKooLit/Arch-Hyprland/main/auto-install.sh)
 ##############################################################################################
 #echo "Reboot Manually after oh-my-zsh install.The system will also restart on the next boot to complete the setup. Press Enter to proceed with the installation"

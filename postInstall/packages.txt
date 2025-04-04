@@ -76,6 +76,7 @@ eza
 bat
 metasploit
 kitty
+plasma
 plasma-desktop
 plasma-pa
 plasma-nm
@@ -96,7 +97,6 @@ breeze-gtk
 cups
 print-manager
 konsole
-dolphin
 ffmpegthumbs
 kate
 okular
