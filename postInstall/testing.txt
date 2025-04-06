@@ -1,0 +1,12 @@
+timeshift-autosnap
+dosfstools
+ntfs-3g
+sddm
+qt6-svg
+qt6-multimedia
+firefox
+thunar
+gnome
+python-i3ipc
+eza
+neovim

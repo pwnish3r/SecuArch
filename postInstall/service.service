@@ -1,0 +1,12 @@
+[Unit]
+Description=Run Once User Service
+After=default.target
+
+[Service]
+Type=oneshot
+ExecStart=~/auxiliary_scripts/SecuArch/postInstall/service.sh
+RemainAfterExit=true
+
+[Install]
+WantedBy=default.target
+
