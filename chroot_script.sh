@@ -170,6 +170,7 @@ setGrubTheme(){
 	if [ "$choice" == "3" ]; then
 		screen="4k"
 	fi
+    chmpd +x /home/$username/auxiliary_scripts/SecuArch/postInstall/grubTheme/grub2/install.sh
 	/home/$username/auxiliary_scripts/SecuArch/postInstall/grubTheme/grub2/install.sh -b -s $screen
 	CYAN "\nReconfiguring GRUB"
 	if grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1;then
