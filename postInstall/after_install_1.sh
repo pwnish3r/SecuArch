@@ -145,7 +145,7 @@ sudo pacman -Syu
 cd $HOME/auxiliary_scripts/SecuArch/postInstall
 chmod +x choose_categories.sh
 sudo pacman -Sg | grep blackarch | cut -d'-' -f2- > categories.txt
-./choose_categoires.sh
+./choose_categories.sh
 read enter
 sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/grub-btrfsd --syslog --timeshift-auto|' /usr/lib/systemd/system/grub-btrfsd.service
 sudo systemctl enable grub-btrfsd
