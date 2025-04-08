@@ -146,12 +146,14 @@ cd $HOME/auxiliary_scripts/SecuArch/postInstall
 chmod +x choose_categories.sh
 sudo pacman -Sg | grep blackarch | cut -d'-' -f2- > categories.txt
 ./choose_categoires.sh
+read enter
 sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/grub-btrfsd --syslog --timeshift-auto|' /usr/lib/systemd/system/grub-btrfsd.service
 sudo systemctl enable grub-btrfsd
 clear
 sleep 0.1
 figlet -f slant "Yay Install"
 sudo pacman -S --needed --noconfirm git base-devel > /dev/null 2>&1
+cd ~/auxiliary_scripts
 git clone https://aur.archlinux.org/yay.git > /dev/null 2>&1
 cd yay
 CYAN "\nInstalling Yay, this may take a while...\n"
