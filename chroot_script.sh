@@ -171,7 +171,7 @@ setGrubTheme(){
 		screen="4k"
 	fi
     chmod +x /home/$username/auxiliary_scripts/SecuArch/postInstall/grubTheme/grub2/install.sh
-	/home/$username/auxiliary_scripts/SecuArch/postInstall/grubTheme/grub2/install.sh -b -s $screen
+	#/home/$username/auxiliary_scripts/SecuArch/postInstall/grubTheme/grub2/install.sh -b -s $screen
 	CYAN "\nReconfiguring GRUB"
 	if grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1;then
 		GREEN "Success [!]"
@@ -210,26 +210,9 @@ echo -e "\n\e[36mCloning the plymouth themes...\e[0m"
 if git clone https://github.com/adi1090x/plymouth-themes.git > /dev/null 2>&1;then
 	echo -e "\e[36mDone [!]\e[36m"
 fi
-clear
-echo -e "\e[36mInstalling Custom GRUB Theme...\n"
-echo -e "\n Select 1, 2 or 3 depending on your screen resolution: \n1. 1080p \n2. 2k \n3. 4k"
-read -p "Your choice: " choice
-if [ "$choice" == "1" ]; then
-	screen="1080p"
-fi
-if [ "$choice" == "2" ]; then
-	screen="2k"
-fi
-if [ "$choice" == "3" ]; then
-	screen="4k"
-fi
-chmod +x ~/auxiliary_scripts/SecuArch/postInstall/grubTheme/grub2/install.sh
-~/auxiliary_scripts/SecuArch/postInstall/grubTheme/grub2/install.sh -b -s $screen
-echo -e "\nReconfiguring GRUB\e[0m"
-if grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1;then
-	echo -e "\e[32mSuccess [!]\e[0m"
-fi
+
 EOF
+setGrubTheme
 setPlymouth
 clear
 sleep 1
