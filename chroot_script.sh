@@ -144,7 +144,7 @@ setPlymouth(){
 	cd /home/$username/auxiliary_scripts/SecuArch/postInstall/plymouthTheme
 	cp -r logo-mac-style /usr/share/plymouth/themes/
     cd ../
-    cp -r SecuArchPlymouth /usr/share/plymouth/themes/
+    cp -r SecuArch /usr/share/plymouth/themes/
 	CYAN "\nSetting the new plymouth theme..."
 	if plymouth-set-default-theme -R SecuArch > /dev/null 2>&1;then
 		GREEN "Done [!]"
