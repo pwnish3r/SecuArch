@@ -143,8 +143,10 @@ setPlymouth(){
 	
 	cd /home/$username/auxiliary_scripts/SecuArch/postInstall/plymouthTheme
 	cp -r logo-mac-style /usr/share/plymouth/themes/
+    cd ../
+    cp -r SecuArchPlymouth /usr/share/plymouth/themes/
 	CYAN "\nSetting the new plymouth theme..."
-	if plymouth-set-default-theme -R logo-mac-style > /dev/null 2>&1;then
+	if plymouth-set-default-theme -R SecuArch > /dev/null 2>&1;then
 		GREEN "Done [!]"
 	fi
 	CYAN "\nCreating initial ramdisk with new parameters..."
@@ -199,6 +201,7 @@ cp -r assets/grubTheme SecuArch/postInstall/
 cp -r assets/hyprlock SecuArch/postInstall/
 cp -r assets/plymouthTheme SecuArch/postInstall/
 cp -r assets/sddmTheme SecuArch/postInstall/
+cp -r assets/SecuArchPlymouth SecuArch/postInstall/
 rm -rf assets
 echo -e "\n\e[36mMaking post install scripts executable...\e[0m"
 chmod +x SecuArch/postInstall/after_install_*.sh
