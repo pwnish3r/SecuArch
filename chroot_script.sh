@@ -171,6 +171,7 @@ setGrubTheme(){
 	if [ "$choice" == "3" ]; then
 		screen="4k"
 	fi
+    # Will adapt the grubTheme to these resolution in the future updates
     THEME_DIR="/usr/share/grub/themes"
     THEME_NAME=matrices
     mkdir -p "${THEME_DIR}/${THEME_NAME}"
