@@ -172,9 +172,13 @@ setGrubTheme(){
 	if [ "$choice" == "3" ]; then
 		screen="4k"
 	fi
-    chmod +x /home/$username/auxiliary_scripts/SecuArch/postInstall/grubTheme/grub2/install.sh
-	#/home/$username/auxiliary_scripts/SecuArch/postInstall/grubTheme/grub2/install.sh -b -s $screen
-	CYAN "\nReconfiguring GRUB"
+    THEME_DIR="/usr/share/grub/themes"
+    THEME_NAME=matrices
+    cd ~/auxiliary_scripts/SecuArch/postInstall/grubTheme/
+    cp -a ${THEME_NAME}/* ${THEME_DIR}/${THEME_NAME}
+    grep "GRUB_THEME=" /etc/default/grub 2>&1 >/dev/null && sed -i '/GRUB_THEME=/d' /etc/default/grub
+    echo "GRUB_THEME=\"${THEME_DIR}/${THEME_NAME}/theme.txt\"" >> /etc/default/grub
+    CYAN "\nReconfiguring GRUB"
 	if grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1;then
 		GREEN "Success [!]"
 	fi
