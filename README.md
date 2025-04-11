@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="media/logo2.png" alt="Project Logo" width="500">
+  <img src="media/Logo_noBackground.png" alt="Project Logo" width="500">
 </p>
 
 <!-- PROJECT TITLE & BADGES -->
