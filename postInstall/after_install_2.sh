@@ -11,7 +11,7 @@ CYAN() {
     echo -e "${CYAN}$1${RESET}"
 }
 ##########################################################################################
-CYAN "Hyprland & i3 will now install on your machine with preconfigured dotfiles.For usage, check my github repository under SecuArch/help"
+CYAN "\ni3WM will now install on your machine with preconfigured dotfiles.For usage, check my github repository under SecuArch/help"
 CYAN "Press any key to contiue..."
 read key
 clear
@@ -39,7 +39,7 @@ fc-cache -fv
 systemctl --user enable service.service
 clear
 sleep 0.1
-echo "Reboot Manually after oh-my-zsh install.The system will also restart on the next boot to complete the setup. Press Enter to proceed with the installation"
+echo "Reboot Manually after oh-my-zsh install with the 'reboot' command.The system will also restart on the next boot to complete the setup. Press Enter to proceed with the installation"
 read enter
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
