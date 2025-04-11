@@ -174,7 +174,7 @@ setGrubTheme(){
 	fi
     THEME_DIR="/usr/share/grub/themes"
     THEME_NAME=matrices
-    cd ~/auxiliary_scripts/SecuArch/postInstall/grubTheme/
+    cd /home/$username/auxiliary_scripts/SecuArch/postInstall/grubTheme/
     cp -a ${THEME_NAME}/* ${THEME_DIR}/${THEME_NAME}
     grep "GRUB_THEME=" /etc/default/grub 2>&1 >/dev/null && sed -i '/GRUB_THEME=/d' /etc/default/grub
     echo "GRUB_THEME=\"${THEME_DIR}/${THEME_NAME}/theme.txt\"" >> /etc/default/grub
@@ -205,7 +205,6 @@ cp -r assets/grubTheme SecuArch/postInstall/
 cp -r assets/hyprlock SecuArch/postInstall/
 cp -r assets/plymouthTheme SecuArch/postInstall/
 cp -r assets/sddmTheme SecuArch/postInstall/
-cp -r assets/SecuArchPlymouth SecuArch/postInstall/
 rm -rf assets
 echo -e "\n\e[36mMaking post install scripts executable...\e[0m"
 chmod +x SecuArch/postInstall/after_install_*.sh
