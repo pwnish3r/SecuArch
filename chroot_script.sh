@@ -143,7 +143,6 @@ setPlymouth(){
 	
 	cd /home/$username/auxiliary_scripts/SecuArch/postInstall/plymouthTheme
 	cp -r logo-mac-style /usr/share/plymouth/themes/
-    cd ../
     cp -r angular /usr/share/plymouth/themes/
 	CYAN "\nSetting the new plymouth theme..."
 	if plymouth-set-default-theme -R angular > /dev/null 2>&1;then
