@@ -23,7 +23,7 @@ CHOICES=$(dialog --clear --stdout \
 clear
 
 if [[ -z "$CHOICES" ]]; then
-  echo "No categories selected. Exiting."
+  echo -e "No categories selected. Exiting.\nPress Enter to continue with the installation!"
   exit 0
 fi
 
@@ -34,4 +34,4 @@ for category in $CHOICES; do
   sudo pacman -S --needed "blackarch-$category"
 done
 
-echo "[!] Done installing selected categories."
+echo -e "[!] Done installing selected categories.\nPress Enter to continue with the installation!"

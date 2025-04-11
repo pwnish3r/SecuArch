@@ -200,10 +200,10 @@ sudo systemctl enable apparmor
 sudo systemctl enable auditd
 sudo systemctl enable docker
 sudo systemctl start docker
-sudo git clone -b master --depth 1 https://github.com/keyitdev/sddm-astronaut-theme.git /usr/share/sddm/themes/sddm-astronaut-theme
+#sudo git clone -b master --depth 1 https://github.com/keyitdev/sddm-astronaut-theme.git /usr/share/sddm/themes/sddm-astronaut-theme
 cd ~/auxiliary_scripts/SecuArch/postInstall/sddmTheme
 sudo mkdir /usr/share/sddm/themes/sddm-astronaut-theme
-sudo cp -r sddm-astronaut-theme-master/ /usr/share/sddm/themes/sddm-astronaut-theme
+sudo cp -r sddm-astronaut-theme-master/* /usr/share/sddm/themes/sddm-astronaut-theme/
 sudo cp -r /usr/share/sddm/themes/sddm-astronaut-theme/Fonts/* /usr/share/fonts/
 echo "[Theme]
 Current=sddm-astronaut-theme" | sudo tee /etc/sddm.conf
