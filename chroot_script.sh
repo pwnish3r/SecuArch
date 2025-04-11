@@ -174,6 +174,7 @@ setGrubTheme(){
 	fi
     THEME_DIR="/usr/share/grub/themes"
     THEME_NAME=matrices
+    mkdir -p "${THEME_DIR}/${THEME_NAME}"
     cd /home/$username/auxiliary_scripts/SecuArch/postInstall/grubTheme/
     cp -a ${THEME_NAME}/* ${THEME_DIR}/${THEME_NAME}
     grep "GRUB_THEME=" /etc/default/grub 2>&1 >/dev/null && sed -i '/GRUB_THEME=/d' /etc/default/grub
