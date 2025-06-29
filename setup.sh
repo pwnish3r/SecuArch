@@ -1,6 +1,7 @@
 #!/bin/bash
 rm -rf .git
 pacman -Syy
+pacman-key --populate archlinux
 pacman -S --noconfirm util-linux
 pacman -S --noconfirm figlet
 pacman -Sy --noconfirm cryptsetup grub
