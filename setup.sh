@@ -1,6 +1,7 @@
 #!/bin/bash
 rm -rf .git
 pacman -Syy
+pacman-key --init
 pacman-key --populate archlinux
 pacman -S --noconfirm util-linux
 pacman -S --noconfirm figlet
