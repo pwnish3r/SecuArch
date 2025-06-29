@@ -207,7 +207,6 @@ cp -r assets/grubTheme SecuArch/postInstall/
 cp -r assets/hyprlock SecuArch/postInstall/
 cp -r assets/plymouthTheme SecuArch/postInstall/
 cp -r assets/sddmTheme SecuArch/postInstall/
-cp -r assets/rofi SecuArch/postInstall/
 rm -rf assets
 echo -e "\n\e[36mMaking post install scripts executable...\e[0m"
 chmod +x SecuArch/postInstall/after_install_*.sh

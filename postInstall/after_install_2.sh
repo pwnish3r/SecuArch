@@ -23,9 +23,11 @@ cp -r .config $HOME/
 cd ../
 chmod +x autotiling
 sudo mv autotiling /usr/bin/
-cd ~/auxiliary_scripts/SecuArch/postInstall/rofi
+cd $HOME
+git clone --depth=1 https://github.com/adi1090x/rofi.git
+cd rofi
 chmod +x setup.sh
-./setup.sh
+bash setup.sh
 sed -i "s|^theme.*$|theme='style-10'|g" ~/.config/rofi/launchers/type-6/launcher.sh
 sleep 1
 ################################## Hyprland | zsh #######################################################
