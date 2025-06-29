@@ -23,6 +23,10 @@ cp -r .config $HOME/
 cd ../
 chmod +x autotiling
 sudo mv autotiling /usr/bin/
+cd ~/auxiliary_scripts/SecuArch/postInstall/rofi
+chmod +x setup.sh
+./setup.sh
+sed -i "s|^theme|theme='style-10'|g" ~/.config/rofi/launchers/type-6/launcher.sh
 sleep 1
 ################################## Hyprland | zsh #######################################################
 sudo sed -i "s|^Session=.*$|Session=i3.desktop|g" /etc/sddm.conf
