@@ -13,6 +13,9 @@ trap 'echo -e "\e[31mAn error occurred. Cleaning up...\e[0m"; umount -R /mnt || 
 
 ###################################################################
 ###################################################################
+Green="\e[92m"
+Stop="\e[0m"
+
 RED() {
     local RED="\e[31m"
     local RESET="\e[0m"
@@ -104,7 +107,9 @@ pacstrap_package() {
 ###################################################################
 
 clear
-figlet -f slant "SecuArch Install"
+printf "${Green}"
+figlet "Welcome To The SecuArch Install Script"
+printf "${Stop}"
 GREEN "This script will guide you through the SecuArch installation process.\nFollow the steps carefully and ensure you have an internet connection."
 sleep 3
 clear
@@ -114,7 +119,9 @@ chmod +x *.sh
 ###################################################################
 # 1. Disk formatting
 ###################################################################
-figlet -f slant "Disk Formatting"
+printf "${Green}"
+figlet "Disk Formatting"
+printf "${Stop}"
 if (( progress == 0 )); then
 	cryptsetup close luksroot > /dev/null 2>&1 || true 
 	umount /mnt > /dev/null 2>&1 || true
@@ -164,7 +171,9 @@ if (( progress == 0 )); then
 	mkfs.fat -F 32 /dev/${partition1}
 	clear
 	sleep 0.1
-	figlet -f slant "Encryption"
+	printf "${Green}"
+	figlet "Encryption"
+	printf "${Stop}"
 	echo -e "\n\n"
 	YELLOW "Would you like to enable LUKS2 encryption for your root partition? (y/n)"
 	read -p "Choice: " encryption_choice
@@ -191,7 +200,9 @@ if [ -z "${partition1}" ]; then
 	fetch_partitions
 fi
 clear
-figlet -f slant "Partition Mounting"
+printf "${Green}"
+figlet "Partition Mounting"
+printf "${Stop}"
 GREEN "\nMounting the partitions..."
 mount "$rootdev" /mnt
 btrfs subvolume create /mnt/@ || true
@@ -210,7 +221,9 @@ mount /dev/${partition1} /mnt/efi || true
 ###################################################################
 clear
 sleep 0.1
-figlet -f slant "Pacstrap"
+printf "${Green}"
+figlet "Pacstrap"
+printf "${Stop}"
 if (( progress == 1 )); then
 	GREEN "\n\nInstalling the base system...\n"
 	packages=(base base-devel linux linux-headers linux-firmware git btrfs-progs grub efibootmgr grub-btrfs inotify-tools timeshift nano networkmanager pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber reflector zsh openssh man-db man-pages texinfo sudo vim plymouth figlet pv)

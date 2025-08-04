@@ -9,6 +9,8 @@ clear
 
 ###################################################################
 ###################################################################
+Green="\e[92m"
+Stop="\e[0m"
 RED() {
     local RED="\e[31m"
     local RESET="\e[0m"
@@ -43,7 +45,9 @@ CYAN() {
 #############################################
 clear
 sleep 0.1
-figlet -f slant "BASIC SYSTEM SETUP"
+printf "${Green}"
+figlet "BASIC SYSTEM SETUP"
+printf "${Stop}"
 echo "Please select your timezone:"
 timezone=$(tzselect)
 GREEN "You selected: $timezone"
@@ -74,7 +78,9 @@ EOF
 #############################################
 clear
 sleep 0.1
-figlet -f slant "ROOT & USER"
+printf "${Green}"
+figlet "ROOT & USER"
+printf "${Stop}"
 echo -e "\n\nEnter a password for \e[32mroot\e[0m (type carefully!):"
 passwd
 echo ""
@@ -124,7 +130,9 @@ fi
 #############################################
 clear
 sleep 0.1
-figlet -f slant "GRUB"
+printf "${Green}"
+figlet "GRUB"
+printf "${Stop}"
 CYAN "\nInstalling GRUB"
 if grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB > /dev/null 2>&1;then
 	GREEN "Success [!]"
@@ -139,8 +147,9 @@ fi
 setPlymouth(){
 	clear
 	sleep 0.1
-	figlet -f slant "P L Y M O U T H"
-	
+    printf "${Green}"
+	figlet "PLYMOUTH"
+	printf "${Stop}"
 	cd /home/$username/auxiliary_scripts/SecuArch/postInstall/plymouthTheme
 	cp -r logo-mac-style /usr/share/plymouth/themes/
     cp -r angular /usr/share/plymouth/themes/
@@ -163,13 +172,13 @@ setGrubTheme(){
 	CYAN "\n Select 1, 2 or 3 depending on your screen resolution: \n1. 1080p \n2. 2k \n3. 4k"
 	read -p "Your choice: " choice
 	if [ "$choice" == "1" ]; then
-		screen="1080p"
+		echo "GRUB_GFXMODE=1920x1080" >> /etc/default/grub
 	fi
 	if [ "$choice" == "2" ]; then
-		screen="2k"
+		echo "GRUB_GFXMODE=2560x1440" >> /etc/default/grub
 	fi
 	if [ "$choice" == "3" ]; then
-		screen="4k"
+		echo "GRUB_GFXMODE=3840x2160" >> /etc/default/grub
 	fi
     # Will adapt the grubTheme to these resolution in the future updates
     THEME_DIR="/usr/share/grub/themes"
@@ -179,7 +188,6 @@ setGrubTheme(){
     cp -a ${THEME_NAME}/* ${THEME_DIR}/${THEME_NAME}
     grep "GRUB_THEME=" /etc/default/grub 2>&1 >/dev/null && sed -i '/GRUB_THEME=/d' /etc/default/grub
     echo "GRUB_THEME=\"${THEME_DIR}/${THEME_NAME}/theme.txt\"" >> /etc/default/grub
-    echo "GRUB_GFXMODE=1920x1080" >> /etc/default/grub
     CYAN "\nReconfiguring GRUB"
 	if grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1;then
 		GREEN "Success [!]"
@@ -191,7 +199,9 @@ setGrubTheme(){
 systemctl enable NetworkManager
 clear
 sleep 0.1
-figlet -f slant "Preparing Post Install"
+printf "${Green}"
+figlet "Preparing Post Install"
+printf "${Stop}"
 su - "$username" <<EOF
 cd ~
 mkdir -p auxiliary_scripts
@@ -228,7 +238,9 @@ sleep 1
 #############################################
 # 5. Reboot Prompt
 #############################################
-figlet -f slant "Base Setup Complete"
+printf "${Green}"
+figlet "Base Setup Complete"
+printf "${Stop}"
 echo -e "\nBase System install complete. Do you want to reboot now? (\e[32myes\e[0m/\e[31mno\e[0m)"
 read -p "Your answer: " reboot_now
 if [ "$reboot_now" == "yes" ]; then
