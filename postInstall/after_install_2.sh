@@ -1,7 +1,9 @@
 #!/bin/bash
 clear
 sleep 0.1
-figlet -f slant "WINDOW MANAGER"
+printf "${Green}"
+figlet "WINDOW MANAGER"
+printf "${Stop}"
 sudo systemctl enable sddm
 clear
 ##########################################################################################

@@ -37,6 +37,8 @@ spinner() {
 
 ###################################################################
 ###################################################################
+Green="\e[92m"
+Stop="\e[0m"
 RED() {
     local RED="\e[31m"
     local RESET="\e[0m"
@@ -68,7 +70,10 @@ CYAN() {
 ################ INTERNET CONNECTIVITY ###########################
 clear
 sleep 0.1
-figlet -f slant "Internet"
+printf "${Green}"
+figlet "Internet"
+printf "${Stop}"
+Stop="\e[0m"
 echo -e "\n\nChecking for an internet connection..."
 check_internet() {
     if ping -q -c 1 -W 1 8.8.8.8 >/dev/null 2>&1; then
@@ -131,7 +136,9 @@ sudo ls > /dev/null 2>&1
 cd $HOME/auxiliary_scripts
 clear
 sleep 0.1
-figlet -f slant "BlackArch Strap"
+printf "${Green}"
+figlet "BlackArch Strap"
+printf "${Stop}"
 sudo sed -i '/^\[multilib\]/,/^Include/s/^#//' /etc/pacman.conf
 sudo pacman -Syu
 echo -e "\n\n"
@@ -151,7 +158,9 @@ sudo sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/grub-btrfsd --syslog --timeshift
 sudo systemctl enable grub-btrfsd
 clear
 sleep 0.1
-figlet -f slant "Yay Install"
+printf "${Green}"
+figlet "Yay Install"
+printf "${Stop}"
 sudo pacman -S --needed --noconfirm git base-devel > /dev/null 2>&1
 cd ~/auxiliary_scripts
 git clone https://aur.archlinux.org/yay.git > /dev/null 2>&1
@@ -187,11 +196,15 @@ if [ "$VM" == "n" ];then
 fi
 sleep 1
 clear
-figlet -f slant "Installing Packages"
+printf "${Green}"
+figlet "Installing Packages"
+printf "${Stop}"
 installPackages
 sleep 1
 clear
-figlet -f slant "Enable Services"
+printf "${Green}"
+figlet "Enable Services"
+printf "${Stop}"
 sudo systemctl enable libvirtd.service
 sudo systemctl start libvirtd.service
 sudo sed -i "s|^#unix_sock_group.*$|unix_sock_group= \"libvirt\"|g" /etc/libvirt/libvirtd.conf

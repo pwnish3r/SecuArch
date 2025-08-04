@@ -115,7 +115,7 @@ if [ "$ENCRYPTED" = "1" ]; then
     figlet -f slant "LUKS2 Config"
     GREEN "\nConfiguring system for LUKS2 encryption..."
     PART_UUID=$(blkid -s UUID -o value "$ROOT_PARTITION")
-    sed -i "s|^GRUB_CMDLINE_LINUX=.*|GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=$PART_UUID:luksroot root=/dev/mapper/luksroot plymouth.enable=1 quiet splash\"|" /etc/default/grub
+    sed -i "s|^GRUB_CMDLINE_LINUX=.*|GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=$PART_UUID:luksroot root=/dev/mapper/luksroot plymouth.enable=1 quiet splash loglevel=3 rd.udev.log_level=3\"|" /etc/default/grub
     sed -i 's/^HOOKS=.*/HOOKS=(base udev autodetect modconf block plymouth encrypt filesystems keyboard fsck)/' /etc/mkinitcpio.conf
     sed -i 's/^MODULES=.*/MODULES=(btrfs)/' /etc/mkinitcpio.conf
     echo "GRUB_ENABLE_CRYPTODISK=y" >> /etc/default/grub
@@ -152,9 +152,9 @@ setPlymouth(){
 	printf "${Stop}"
 	cd /home/$username/auxiliary_scripts/SecuArch/postInstall/plymouthTheme
 	cp -r logo-mac-style /usr/share/plymouth/themes/
-    cp -r angular /usr/share/plymouth/themes/
+    #cp -r angular /usr/share/plymouth/themes/
 	CYAN "\nSetting the new plymouth theme..."
-	if plymouth-set-default-theme -R angular > /dev/null 2>&1;then
+	if plymouth-set-default-theme -R logo-mac-style > /dev/null 2>&1;then
 		GREEN "Done [!]"
 	fi
 	CYAN "\nCreating initial ramdisk with new parameters..."
