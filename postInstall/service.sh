@@ -33,4 +33,3 @@ rm -rf $SecuArchDir
 rm -f ~/auxiliary_scripts/strap.sh
 rm -rf ~/auxiliary_scripts/yay
 systemctl --user daemon-reload
-reboot
