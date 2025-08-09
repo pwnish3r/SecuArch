@@ -169,25 +169,8 @@ setPlymouth(){
 setGrubTheme(){
     clear
 	CYAN "Installing Custom GRUB Theme...\n"
-	CYAN "\n Select 1, 2 or 3 depending on your screen resolution: \n1. 1080p \n2. 2k \n3. 4k"
-	read -p "Your choice: " choice
-	if [ "$choice" == "1" ]; then
-		echo "GRUB_GFXMODE=1920x1080" >> /etc/default/grub
-	fi
-	if [ "$choice" == "2" ]; then
-		echo "GRUB_GFXMODE=2560x1440" >> /etc/default/grub
-	fi
-	if [ "$choice" == "3" ]; then
-		echo "GRUB_GFXMODE=3840x2160" >> /etc/default/grub
-	fi
-    # Will adapt the grubTheme to these resolution in the future updates
-    THEME_DIR="/usr/share/grub/themes"
-    THEME_NAME=N3on
-    mkdir -p "${THEME_DIR}/${THEME_NAME}"
-    cd /home/$username/auxiliary_scripts/SecuArch/postInstall/grubTheme/
-    cp -a ${THEME_NAME}/* ${THEME_DIR}/${THEME_NAME}
-    grep "GRUB_THEME=" /etc/default/grub 2>&1 >/dev/null && sed -i '/GRUB_THEME=/d' /etc/default/grub
-    echo "GRUB_THEME=\"${THEME_DIR}/${THEME_NAME}/theme.txt\"" >> /etc/default/grub
+	cd /home/$username/auxiliary_scripts/SecuArch/postInstall/grubTheme/CyberGRBU-2077-base
+    ./install.sh -L secuarch
     CYAN "\nReconfiguring GRUB"
 	if grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1;then
 		GREEN "Success [!]"
