@@ -112,7 +112,9 @@ fi
 if [ "$ENCRYPTED" = "1" ]; then
     clear
     sleep 0.1
-    figlet -f slant "LUKS2 Config"
+    printf "${Green}"
+    figlet "LUKS2 Config"
+    printf "${Stop}"
     GREEN "\nConfiguring system for LUKS2 encryption..."
     PART_UUID=$(blkid -s UUID -o value "$ROOT_PARTITION")
     sed -i "s|^GRUB_CMDLINE_LINUX=.*|GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=$PART_UUID:luksroot root=/dev/mapper/luksroot plymouth.enable=1 quiet splash loglevel=3 rd.udev.log_level=3\"|" /etc/default/grub
@@ -153,12 +155,11 @@ setPlymouth(){
 	cd /home/$username/auxiliary_scripts/SecuArch/postInstall/plymouthTheme
 	cp -r logo-mac-style /usr/share/plymouth/themes/
     cd /home/$username/auxiliary_scripts/SecuArch/postInstall/plymouthTheme/tva-shield-monochromatic
-    chmod +x installer
-    ./installer
-	#CYAN "\nSetting the new plymouth theme..."
-	#if plymouth-set-default-theme -R hydra > /dev/null 2>&1;then
-	#	GREEN "Done [!]"
-	#fi
+    cp -r TVA-shield-mono /usr/share/plymouth/themes/
+	CYAN "\nSetting the new plymouth theme..."
+	if plymouth-set-default-theme -R TVA-shield-mono > /dev/null 2>&1;then
+		GREEN "Done [!]"
+	fi
 	CYAN "\nCreating initial ramdisk with new parameters..."
    	if mkinitcpio -P > /dev/null 2>&1; then
     		GREEN "Success [!]"
