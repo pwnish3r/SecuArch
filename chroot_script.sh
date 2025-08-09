@@ -152,7 +152,6 @@ setPlymouth(){
 	printf "${Stop}"
 	cd /home/$username/auxiliary_scripts/SecuArch/postInstall/plymouthTheme
 	cp -r logo-mac-style /usr/share/plymouth/themes/
-    cp -r hydra /usr/share/plymouth/themes/
     cd /home/$username/auxiliary_scripts/SecuArch/postInstall/plymouthTheme/tva-shield-monochromatic
     chmod +x installer
     ./installer
