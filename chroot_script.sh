@@ -154,7 +154,7 @@ setPlymouth(){
 	cp -r logo-mac-style /usr/share/plymouth/themes/
     cp -r Hydra /usr/share/plymouth/themes/
 	CYAN "\nSetting the new plymouth theme..."
-	if plymouth-set-default-theme -R Hydra > /dev/null 2>&1;then
+	if plymouth-set-default-theme -R hydra > /dev/null 2>&1;then
 		GREEN "Done [!]"
 	fi
 	CYAN "\nCreating initial ramdisk with new parameters..."
