@@ -51,9 +51,7 @@ dnsmasq
 vde2
 bridge-utils
 dmidecode
-ebtables
 iptables
-iptables-nft
 ipset
 libguestfs
 suricata
