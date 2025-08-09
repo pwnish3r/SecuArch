@@ -170,6 +170,7 @@ setGrubTheme(){
     clear
 	CYAN "Installing Custom GRUB Theme...\n"
 	cd /home/$username/auxiliary_scripts/SecuArch/postInstall/grubTheme/CyberGRUB-2077-base
+    chmod+x install.sh
     ./install.sh -L secuarch
     CYAN "\nReconfiguring GRUB"
 	if grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1;then
