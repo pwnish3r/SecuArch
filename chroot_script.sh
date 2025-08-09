@@ -152,7 +152,7 @@ setPlymouth(){
 	printf "${Stop}"
 	cd /home/$username/auxiliary_scripts/SecuArch/postInstall/plymouthTheme
 	cp -r logo-mac-style /usr/share/plymouth/themes/
-    cp -r Hydra /usr/share/plymouth/themes/
+    cp -r hydra /usr/share/plymouth/themes/
 	CYAN "\nSetting the new plymouth theme..."
 	if plymouth-set-default-theme -R hydra > /dev/null 2>&1;then
 		GREEN "Done [!]"
