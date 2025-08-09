@@ -154,10 +154,9 @@ setPlymouth(){
 	printf "${Stop}"
 	cd /home/$username/auxiliary_scripts/SecuArch/postInstall/plymouthTheme
 	cp -r logo-mac-style /usr/share/plymouth/themes/
-    cd /home/$username/auxiliary_scripts/SecuArch/postInstall/plymouthTheme/tva-shield-monochromatic
-    cp -r TVA-shield-mono /usr/share/plymouth/themes/
-	CYAN "\nSetting the new plymouth theme..."
-	if plymouth-set-default-theme -R TVA-shield-mono > /dev/null 2>&1;then
+    cp -r hexagon_dots_alt /usr/share/plymouth/themes/
+    CYAN "\nSetting the new plymouth theme..."
+	if plymouth-set-default-theme -R hexagon_dots_alt > /dev/null 2>&1;then
 		GREEN "Done [!]"
 	fi
 	CYAN "\nCreating initial ramdisk with new parameters..."
