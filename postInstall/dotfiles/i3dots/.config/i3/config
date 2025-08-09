@@ -186,10 +186,30 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+    position top
+    mode dock
+    tray_output primary
+    tray_padding 4
+    font pango:MesloLGS NF 12
+    separator_symbol " "
+    strip_workspace_numbers yes
+    status_command i3blocks
+    colors {
+      background #2e3440
+      statusline #d8dee9
+      separator #8FBCBB
+
+      focused_workspace  #2e3440 #2e3440 #81A1C1
+      active_workspace   #2e3440 #2e3440 #8FBCBB
+      inactive_workspace #2e3440 #2e3440 #4c566a
+      urgent_workspace   #2e3440 #2e3440 #BF616A
+      binding_mode       #2e3440 #2e3440 #BF616A
+    }
 }
 
+
 #######################################################################################################################
+for_window [class="^.*"] border pixel 1
 bindsym $mod+t exec --no-startup-id thunar
 exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/SecuArchRed.png
 exec_always --no-startup-id autotiling
